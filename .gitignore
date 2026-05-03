@@ -1,0 +1,15 @@
+# Dependency directories
+node_modules/
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env*
+!.env.example
