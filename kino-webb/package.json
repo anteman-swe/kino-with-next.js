@@ -6,9 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "db:migrate": "prisma migrate dev --name init",
+    "seed": "echo 'Seedar databasen...' && node --env-file=.env.local --import tsx prisma/seed.ts",
+    "postinstall": "echo 'Genererar ny prisma-klient...' && prisma generate"
   },
   "dependencies": {
+    "@prisma/client": "^7.8.0",
     "next": "16.2.4",
     "react": "19.2.4",
     "react-dom": "19.2.4",
@@ -18,8 +22,11 @@
     "@types/node": "^20.19.39",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
+    "dotenv": "^17.4.2",
     "eslint": "^9.39.4",
     "eslint-config-next": "16.2.4",
+    "prisma": "^7.8.0",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   }
 }
