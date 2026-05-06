@@ -1,5 +1,0 @@
-{
-    "scripts": {
-        "dev": "pnpm -C kino-webb dev"
-    }
-}
