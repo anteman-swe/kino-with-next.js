@@ -1,0 +1,15 @@
+/* mixins.scss */
+
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+@mixin transition-standard {
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+@mixin small-screen {
+    @media screen and (max-width: 510px) {
+        @content;
+    }
+}
