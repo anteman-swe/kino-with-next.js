@@ -12,6 +12,7 @@
     "postinstall": "echo 'Genererar ny prisma-klient...' && prisma generate"
   },
   "dependencies": {
+    "@base-ui/react": "^1.4.1",
     "@prisma/client": "^7.8.0",
     "next": "16.2.4",
     "react": "19.2.4",
