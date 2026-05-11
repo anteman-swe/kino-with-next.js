@@ -3,3 +3,83 @@
   color: $dark-text;
   margin: auto;
 }
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  background-color: $dark-footer;
+  color: $dark-text;
+  font-size: 1.1rem;
+  font-family: sans-serif;
+  padding: 2rem;
+}
+
+.footerContent {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: flex-start;
+  gap: 0.1rem;
+}
+
+.footerSection {
+  flex: 1 1 120px;
+  padding: 0.1rem 3rem 0rem;
+  margin: 0rem;
+}
+
+.footerLinks,
+.footerTerms,
+.footerInfo {
+  font-size: 0.8rem;
+  color: $dark-text;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  a {
+    color: inherit;
+    text-decoration: underline;
+  }
+}
+
+.footerIcons {
+  display: flex;
+  color: $dark-text;
+  gap: 2rem;
+  font-size: 2.5rem;
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+.footerExtra {
+  flex: 0 0 100%;
+  width: 100%;
+  padding: 1rem 2rem 2rem;
+  text-align: center;
+}
+
+.newsletter {
+  display: block;
+}
+
+.newsletterInput {
+  padding: 0.5rem;
+  width: 8rem;
+  max-width: 100%;
+  border: none;
+  border-radius: 8px;
+}
+
+.newsletterSubmit {
+  background-color: $dark-button;
+  color: $dark-text;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
