@@ -1,18 +1,20 @@
 
 import styles from "./page.module.scss";
 import Start from "./components/start";
+import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
 
 export default function Home() {
   return (
-    <div>
-      <Header />
+    <div className={styles.page}>
+       <Header />
       <main>
-        <div>
-          <h1 className={styles.headline}>Kino - superprojektet  med Next.js (Page.tsx)</h1>
-          <Start />
-        </div>
+        <h1 className={styles.headline}>
+          Kino - superprojekt
+        </h1>
       </main>
+      <Start />
+      <Footer />
     </div>
-  );
+  );  
 }
