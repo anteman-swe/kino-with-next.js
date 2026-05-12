@@ -1,0 +1,27 @@
+
+.header {
+  background-color: $dark-bg;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 140px;
+
+  @include small-screen {
+    height: 270px;
+  }
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  width: 100%;
+  position: absolute;
+  bottom: 20px;
+
+  @include small-screen {
+    bottom: 10px;
+  }
+}
