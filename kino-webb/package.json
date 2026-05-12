@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "db:migrate": "prisma migrate dev --name init",
-    "seed": "echo 'Seedar databasen...' && node --env-file=.env.local --import tsx prisma/seed.ts",
+    "db:seed": "echo 'Seedar databasen...' && node --env-file=.env.local --import tsx prisma/seed.ts",
     "postinstall": "echo 'Genererar ny prisma-klient...' && prisma generate"
   },
   "dependencies": {
