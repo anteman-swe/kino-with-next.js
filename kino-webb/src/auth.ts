@@ -1,35 +1,38 @@
 import NextAuth from "next-auth";
+import { ZodError } from "zod";
 import Credentials from "next-auth/providers/credentials";
-import { verifyPassword } from '@/src/app/lib/password';
-import { getUserByEmail } from "./app/lib/db";
+import { signInSchema } from "./app/lib/zod";
+import { saltAndHashPassword } from '@/src/app/utils/password';
+import { getUserFromDb } from "./app/utils/db";
 
  
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Credentials({
       credentials: {
-        email: { label: "E-post", type: "email", placeholder: "exempel@exempel.se"},
-        password: { label: "Password", type: "password" },
+        email: { label: "E-post", type: "email", placeholder: "exempelnamn@exempel.se"},
+        password: { label: "Lösenord", type: "password" },
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null; // TODO: Behövs annan felhantering?
+        try {
+          let user = null;
 
-        const user = await getUserByEmail(credentials.email as string);
+          const { email, password } = await signInSchema.parseAsync(credentials);
 
-        if (!user) return null;
+          const pwHash = await saltAndHashPassword(password);
 
-        const passwordValid = await verifyPassword(
-          credentials.password as string,
-          user.passwordHash
-        );
+          user = await getUserFromDb(email, pwHash);
 
-        if (!passwordValid) return null;
+          if (!user) return null;
 
-        return {
-          id: user.id,
-          email: user.email,
-          name: user.name
-        };
+          return user;
+
+        } catch (error) {
+          if (error instanceof ZodError) {
+            return null;
+          }
+        }
       },
     }),
   ],
