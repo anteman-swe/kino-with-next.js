@@ -9,4 +9,6 @@ body {
     border-right: solid 1px black;
     min-height: 100dvh;
     background-color: $dark-bg;
+    display: flex;
+    flex-direction: column;
 }
