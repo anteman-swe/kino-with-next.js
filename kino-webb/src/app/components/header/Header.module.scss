@@ -24,4 +24,14 @@
   @include small-screen {
     bottom: 10px;
   }
+
+  .loginButton {
+  background: transparent;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  }
 }
