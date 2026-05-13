@@ -5,7 +5,7 @@ export const bookings = [
     screeningId: 1,
     seats: ["E5", "E6"],
     totalPrice: 298,
-    status: "confirmed",
+    status: "CONFIRMED",
     createdAt: "2026-05-09T12:15:00",
   },
 ];
