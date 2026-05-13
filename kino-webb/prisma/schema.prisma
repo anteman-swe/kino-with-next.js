@@ -18,4 +18,10 @@ model User {
   name          String?
   passwordHash  String
   createdAt     DateTime  @default(now())
+  role  Role    @default(CUSTOMER)
+}
+
+enum Role {
+  CUSTOMER
+  ADMIN
 }
