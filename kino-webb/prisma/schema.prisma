@@ -13,22 +13,36 @@ datasource db {
 }
 
 model User {
-  id          Int         @id @default(autoincrement())
-  email       String      @unique
-  name        String?
-  role        Role        @default(CUSTOMER)
-  createdAt   DateTime    @default(now())
+  id            Int         @id @default(autoincrement())
+  email         String      @unique
+  name          String?
+  role          Role        @default(CUSTOMER)
+  createdAt     DateTime    @default(now())
 }
 
 model Bookings {
-  id          Int         @id @default(autoincrement())
-  userId      Int
-  screeningId Int
-  seats       String[]
-  totalPrice  Int
-  status      BookStatus  @default(PENDING)
-  createdAt   DateTime    @default(now())
+  id            Int         @id @default(autoincrement())
+  userId        Int
+  screeningId   Int
+  seats         String[]
+  totalPrice    Int
+  status        BookStatus  @default(PENDING)
+  createdAt     DateTime    @default(now())
+}
 
+model Movie {
+  id            Int         @id @default(autoincrement())
+  Series_Title  String      @db.VarChar(50)
+  Released_Year Int
+  Genre         String
+  IMDB_Rating   Float
+  Director      String
+  Stars         String[]
+  Runtime       String
+  Certificate   String
+  Overview      String      @db.VarChar(300)
+  Poster_Link   String
+  Trailer       String
 }
 
 enum Role {
