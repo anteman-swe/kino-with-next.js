@@ -1,0 +1,24 @@
+@use "../../lib/variables_mixins" as *;
+
+.section {
+  width: 100%;
+}
+
+.sectionTitle {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.track {
+  display: flex;
+  gap: $gap-md;
+  align-items: stretch;
+  overflow: hidden;
+  justify-content: center;
+}
+
+.empty {
+  margin: 0;
+  opacity: 0.8;
+  text-align: center;
+}
