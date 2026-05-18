@@ -55,7 +55,7 @@ export default function LoginModal({ onClose }: LoginModalProps) {
           />
         </div>
 
-        <h2 className={styles.title}>Logga in</h2>
+        <h2 className={styles.title}>Logga in eller bli medlem</h2>
 
         <form onSubmit={handleSubmit} className={styles.form}>
           
@@ -112,6 +112,13 @@ export default function LoginModal({ onClose }: LoginModalProps) {
             disabled={!isFormValid}
           >
             Logga in
+          </Button>
+
+           <Button
+            className={styles.registerBtn}
+            type="button"
+          >
+            Bli medlem
           </Button>
 
           <button
