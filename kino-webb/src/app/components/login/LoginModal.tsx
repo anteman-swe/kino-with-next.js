@@ -1,9 +1,10 @@
 "use client";
 
 import { Button, Input } from "@base-ui/react";
+import Image from "next/image";
 import styles from "./LoginModal.module.scss";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 type LoginModalProps = {
   onClose: () => void;
@@ -12,32 +13,49 @@ type LoginModalProps = {
 export default function LoginModal({ onClose }: LoginModalProps) {
   const router = useRouter();
 
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const disabled = !email || !password;
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+
     router.push("/member-page");
   }
-
-  const isDisabled = !username || !password;
 
   return (
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+
+   
         <button className={styles.closeBtn} onClick={onClose}>×</button>
 
-        <h2 className={styles.title}>Logga in</h2>
+      
+        <div className={styles.logoWrapper}>
+          <Image
+            src="/logo2.png"
+            alt="Kino Lycksele logga"
+            width={140}
+            height={60}
+            className={styles.logo}
+            priority
+          />
+        </div>
+
+  
+        <h2 className={styles.title}>Logga in eller bli medlem</h2>
 
         <form onSubmit={handleSubmit} className={styles.form}>
           <label>
-            Användarnamn
+            E‑postadress
             <Input
               className={styles.inputField}
-              placeholder="Användarnamn"
+              placeholder="E‑post"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
             />
           </label>
 
@@ -47,28 +65,29 @@ export default function LoginModal({ onClose }: LoginModalProps) {
               type="password"
               className={styles.inputField}
               placeholder="Lösenord"
-              required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
             />
           </label>
 
-          <div className={styles.links}>
-            <a>Har du inget konto? <span className={styles.registerLink}>Registrera dig</span></a>
-            <a className={styles.forgotLink}>Glömt lösenord?</a>
-          </div>
+          <a className={styles.forgotLink}>Har du glömt ditt lösenord?</a>
 
-          <Button
-            className={styles.loginBtn}
-            type="submit"
-            disabled={isDisabled}
-          >
+          <Button className={styles.loginBtn} type="submit">
             Logga in
           </Button>
 
-          <p className={styles.terms}>
-            By registering you agree with our Terms and Conditions.
-          </p>
+          <Button className={styles.registerBtn} type="button">
+            Bli medlem
+          </Button>
+
+          <button
+            type="button"
+            className={styles.cancelBtn}
+            onClick={onClose}
+          >
+            Avbryt
+          </button>
         </form>
       </div>
     </div>
