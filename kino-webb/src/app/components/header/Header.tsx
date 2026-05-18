@@ -4,9 +4,10 @@ import Logo from "./Logo";
 
 type HeaderProps = {
   onOpenLogin: () => void;
+  onOpenRegister: () => void;
 };
 
-export default function Header({ onOpenLogin }: HeaderProps) {
+export default function Header({ onOpenLogin, onOpenRegister }: HeaderProps) {
   return (
     <header className={styles.header}>
       <div className={styles.header__inner}>

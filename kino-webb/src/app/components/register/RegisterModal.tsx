@@ -2,22 +2,23 @@
 
 import { Button, Input } from "@base-ui/react";
 import Image from "next/image";
-import styles from "./LoginModal.module.scss";
+import styles from "./RegisterModal.module.scss";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-type LoginModalProps = {
+type RegisterModalProps = {
   onClose: () => void;
-   onOpenRegister: () => void;
+  onOpenLogin?: () => void;
 };
 
-export default function LoginModal({ onClose, onOpenRegister }: LoginModalProps) {
+export default function RegisterModal({ onClose, onOpenLogin }: RegisterModalProps) {
   const router = useRouter();
 
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-
+  const [nameTouched, setNameTouched] = useState(false);
   const [emailTouched, setEmailTouched] = useState(false);
   const [passwordTouched, setPasswordTouched] = useState(false);
 
@@ -26,11 +27,14 @@ export default function LoginModal({ onClose, onOpenRegister }: LoginModalProps)
     return regex.test(value);
   }
 
+  const nameIsInvalid = nameTouched && name.trim().length === 0;
   const emailIsInvalid = emailTouched && !validateEmail(email);
-  const passwordIsEmpty = passwordTouched && password.trim().length === 0;
+  const passwordIsInvalid = passwordTouched && password.trim().length ===0;
 
   const isFormValid =
-    validateEmail(email) && password.trim().length > 0;
+    name.trim().length > 0 &&
+    validateEmail(email) &&
+    password.trim().length >0;
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -56,17 +60,33 @@ export default function LoginModal({ onClose, onOpenRegister }: LoginModalProps)
           />
         </div>
 
-        <h2 className={styles.title}>Logga in eller bli medlem</h2>
+        <h2 className={styles.title}>Bli medlem</h2>
 
         <form onSubmit={handleSubmit} className={styles.form}>
-          
+
+          {/* NAME */}
+          <label>
+            Namn
+            <Input
+              className={`${styles.inputField} ${nameIsInvalid ? styles.inputError : ""}`}
+              placeholder="Ditt namn"
+              value={name}
+              onChange={(e) => {
+                setName(e.target.value);
+                setNameTouched(true);
+              }}
+              onBlur={() => setNameTouched(true)}
+            />
+            {nameIsInvalid && (
+              <p className={styles.errorText}>Namn måste anges</p>
+            )}
+          </label>
+
           {/* EMAIL */}
           <label>
             E‑postadress
             <Input
-              className={`${styles.inputField} ${
-                emailIsInvalid ? styles.inputError : ""
-              }`}
+              className={`${styles.inputField} ${emailIsInvalid ? styles.inputError : ""}`}
               placeholder="E‑post"
               value={email}
               onChange={(e) => {
@@ -76,9 +96,7 @@ export default function LoginModal({ onClose, onOpenRegister }: LoginModalProps)
               onBlur={() => setEmailTouched(true)}
             />
             {emailIsInvalid && (
-              <p className={styles.errorText}>
-                E‑postadress måste anges i giltigt format
-              </p>
+              <p className={styles.errorText}>E‑postadress måste anges i giltigt format</p>
             )}
           </label>
 
@@ -87,9 +105,7 @@ export default function LoginModal({ onClose, onOpenRegister }: LoginModalProps)
             Lösenord
             <Input
               type="password"
-              className={`${styles.inputField} ${
-                passwordIsEmpty ? styles.inputError : ""
-              }`}
+              className={`${styles.inputField} ${passwordIsInvalid ? styles.inputError : ""}`}
               placeholder="Lösenord"
               value={password}
               onChange={(e) => {
@@ -98,36 +114,29 @@ export default function LoginModal({ onClose, onOpenRegister }: LoginModalProps)
               }}
               onBlur={() => setPasswordTouched(true)}
             />
-            {passwordIsEmpty && (
-              <p className={styles.errorText}>
-                Lösenord måste anges
-              </p>
+            {passwordIsInvalid && (
+              <p className={styles.errorText}>Lösenord måste anges</p>
             )}
           </label>
 
-          <a className={styles.forgotLink}>Har du glömt ditt lösenord?</a>
-
+          {/* CREATE ACCOUNT */}
           <Button
-            className={styles.loginBtn}
+            className={styles.registerBtnPrimary}
             type="submit"
             disabled={!isFormValid}
           >
-            Logga in
+            Skapa konto
           </Button>
 
-<Button
-  className={styles.registerBtn}
-  type="button"
-  onClick={onOpenRegister}
->
-  Bli medlem
-</Button>
+          {/* SWITCH TO LOGIN */}
+          {onOpenLogin && (
+            <Button className={styles.loginBtn} type="button" onClick={onOpenLogin}>
+              Har du redan ett konto? Logga in
+            </Button>
+          )}
 
-          <button
-            type="button"
-            className={styles.cancelBtn}
-            onClick={onClose}
-          >
+          {/* CANCEL */}
+          <button type="button" className={styles.cancelBtn} onClick={onClose}>
             Avbryt
           </button>
         </form>
