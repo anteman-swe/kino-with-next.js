@@ -4,7 +4,7 @@ export const users = [
     name: "Guy McDudesson",
     email: "Guy@example.com",
     passwordHash: "",
-    role: "CUSTOMER",
+    role: "USER",
   },
     {
     id: 2,
