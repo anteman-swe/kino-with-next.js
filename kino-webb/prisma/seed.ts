@@ -45,7 +45,7 @@ async function main() {
   console.log(`- Vanlig användare skapad: ${normalUser.email}`)
   console.log(`- Admin-användare skapad: ${adminUser.email}`)
   
-  // Skapa övrig dummy-data
+  // Creating the rest of the dummy-data
   await prisma.bookings.createMany({
     data: bookings,
   })
