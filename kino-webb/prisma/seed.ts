@@ -1,5 +1,5 @@
 import { PrismaPg } from '@prisma/adapter-pg'
-import { PrismaClient } from '@/generated/prisma/client';
+import { PrismaClient, Role, BookStatus } from '@/generated/prisma/client';
 import * as bcrypt from 'bcrypt-ts';
 
 // importing dummy data
@@ -28,7 +28,7 @@ async function main() {
       email: "guy@exempel.se",
       name: "Guy McDudesson",
       passwordHash: hashedPassword,
-      role: "USER",
+      role: "USER" as Role,
     },
   })
 
@@ -39,7 +39,7 @@ async function main() {
       email: "admin@exempel.se",
       name: "Boss Chefsson",
       passwordHash: hashedPassword,
-      role: "ADMIN", // giving user admin rights
+      role: "ADMIN" as Role, // giving user admin rights
     },
   })
 
@@ -48,10 +48,14 @@ async function main() {
   console.log(`- Admin-användare skapad: ${adminUser.email}`)
   
   // Creating the rest of the dummy-data
+  const bookingsWithEnumStatus = bookings.map(booking => ({
+    ...booking,
+    status: booking.status as BookStatus
+  }))
   await prisma.bookings.createMany({
-    data: bookings,
+    data: bookingsWithEnumStatus,
   })
-  console.log('Dummy bokningar skrivna till databasen!');
+  console.log('Dummy-bokningar skrivna till databasen!');
   
   await prisma.movies.createMany({
     data: movies,
