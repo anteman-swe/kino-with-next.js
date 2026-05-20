@@ -1,5 +1,4 @@
 allowBuilds:
-  bcrypt: true
   "@parcel/watcher": true
   "@prisma/engines": true
   bcrypt: true

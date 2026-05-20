@@ -8,11 +8,13 @@
     "start": "next start",
     "lint": "eslint",
     "db:migrate": "prisma migrate dev --name init",
-    "db:seed": "echo 'Seedar databasen...' && node --env-file=.env.local --import tsx prisma/seed.ts",
+    "db:reset": "prisma migrate reset",
+    "db:seed": "echo 'Seedar databasen...' && PRISMA_CLIENT_ENGINE_TYPE=library node --env-file=.env.local --import tsx prisma/seed.ts",
     "postinstall": "echo 'Genererar ny prisma-klient...' && prisma generate"
   },
   "dependencies": {
     "@base-ui/react": "^1.4.1",
+    "@prisma/adapter-pg": "^7.8.0",
     "@prisma/client": "^7.8.0",
     "bcrypt-ts": "^8.0.1",
     "next": "16.2.4",
@@ -30,6 +32,7 @@
     "dotenv": "^17.4.2",
     "eslint": "^9.39.4",
     "eslint-config-next": "16.2.4",
+    "tsx": "^4.22.3",
     "typescript": "^5.9.3"
   },
   "prisma": {

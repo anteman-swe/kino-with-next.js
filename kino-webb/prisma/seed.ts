@@ -1,4 +1,5 @@
-import { PrismaClient } from '@prisma/client/extension';
+import { PrismaPg } from '@prisma/adapter-pg'
+import { PrismaClient } from '@/generated/prisma/client';
 import * as bcrypt from 'bcrypt-ts';
 
 // importing dummy data
@@ -6,7 +7,8 @@ import { bookings } from '@/Data/bookings';
 import { movies } from '@/Data/movies';
 import { screenings } from '@/Data/screenings';
 
-const prisma = new PrismaClient();
+const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
+const prisma = new PrismaClient({ adapter });
 
 async function main() {
   // Emptying the database before seeding to prevent duplicate data
@@ -25,7 +27,7 @@ async function main() {
     data: {
       email: "guy@exempel.se",
       name: "Guy McDudesson",
-      password: hashedPassword,
+      passwordHash: hashedPassword,
       role: "USER",
     },
   })
@@ -36,7 +38,7 @@ async function main() {
     data: {
       email: "admin@exempel.se",
       name: "Boss Chefsson",
-      password: hashedPassword,
+      passwordHash: hashedPassword,
       role: "ADMIN", // giving user admin rights
     },
   })
@@ -57,8 +59,9 @@ async function main() {
   console.log('Dummy data för filmer skrivna till databasen!');
 
   await prisma.screenings.createMany({
-      data: screenings,
+    data: screenings,
   })
+
   console.log('Dummy data för visningar är skrivna till databasen!');
   console.log('Databasen är seedad för testning, KLART!')
 }
