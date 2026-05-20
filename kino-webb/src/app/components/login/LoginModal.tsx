@@ -5,6 +5,7 @@ import Image from "next/image";
 import styles from "./LoginModal.module.scss";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 type LoginModalProps = {
   onClose: () => void;
@@ -17,6 +18,8 @@ export default function LoginModal({ onClose, onOpenRegister }: LoginModalProps)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const [emailTouched, setEmailTouched] = useState(false);
   const [passwordTouched, setPasswordTouched] = useState(false);
@@ -32,11 +35,31 @@ export default function LoginModal({ onClose, onOpenRegister }: LoginModalProps)
   const isFormValid =
     validateEmail(email) && password.trim().length > 0;
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!isFormValid) return;
+    setError("");
+    setIsLoading(true);
 
-    router.push("/member-page");
+    try{
+      const loginResult = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
+      if (loginResult?.error) {
+        setError(loginResult.error);
+      } else {
+        router.refresh();
+        router.push("/member-page");
+      }
+    } catch (_err) {
+      setError("Ett oväntat fel har inträffat! Vänligen försök igen.");
+    } finally {
+      setIsLoading(false);
+    }
+
+    
   }
 
   return (
@@ -59,6 +82,7 @@ export default function LoginModal({ onClose, onOpenRegister }: LoginModalProps)
         <h2 className={styles.title}>Logga in eller bli medlem</h2>
 
         <form onSubmit={handleSubmit} className={styles.form}>
+          {error && <p className={ styles.warningText }>{error}</p>}
           
           {/* EMAIL */}
           <label>
@@ -110,9 +134,9 @@ export default function LoginModal({ onClose, onOpenRegister }: LoginModalProps)
           <Button
             className={styles.loginBtn}
             type="submit"
-            disabled={!isFormValid}
+            disabled={!isFormValid || isLoading}
           >
-            Logga in
+            {isLoading ? "Loggar in..." : "Logga in"}
           </Button>
 
 <Button
