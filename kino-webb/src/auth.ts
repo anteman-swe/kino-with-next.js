@@ -2,6 +2,7 @@ import NextAuth from "next-auth";
 import { ZodError } from "zod";
 import Credentials from "next-auth/providers/credentials";
 import { signInSchema } from "./app/lib/zod";
+// import type jwt
 import { saltAndHashPassword } from '@/src/app/utils/password';
 import { getUserFromDb } from "./app/utils/db";
 
@@ -36,6 +37,20 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
   ],
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.role = user.role;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (token?.role) {
+        session.user.role = token.role as string;
+      }
+      return session;
+    }
+  },
   session: {
     strategy: "jwt"
   },
