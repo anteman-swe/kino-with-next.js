@@ -7,7 +7,6 @@ import { bookings } from '@/Data/bookings';
 import { movies } from '@/Data/movies';
 import { screenings } from '@/Data/screenings';
 
-
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
 const prisma = new PrismaClient({ adapter });
 
