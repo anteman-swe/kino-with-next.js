@@ -1,0 +1,59 @@
+.upcomingScreeningsTrack {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: $gap-md;
+  margin-top: 1rem;
+}
+
+  .upcomingScreenings {
+  color: white;
+  text-align: center;
+}
+
+.upcomingScreeningsHeading {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.upcomingScreeningsTitle,
+.upcomingScreeningsTime,
+.upcomingScreeningsRoom {
+  color: white;
+}
+
+ .upcomingScreeningsCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $gap-sm;
+    text-align: center;
+  }
+
+.upcomingScreeningsImg {
+  width: 100%;
+  max-width: 180px;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.upcomingScreeningsTitle {
+  margin:0;
+  font-size: 1.25rem;
+  line-height: 1.2;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+  .upcomingScreeningsTime {
+    font-size: 0.8rem;
+  }
+
+  .upcomingScreeningsRoom {
+    font-size: 0.75rem;
+    opacity: 0.8;
+  }

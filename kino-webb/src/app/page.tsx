@@ -1,5 +1,5 @@
-
 import styles from "./page.module.scss";
+import UpcomingScreenings from "./components/upcoming-screenings/UpcomingScreenings";
 import { movies } from "@/Data/movies";
 import MovieCarousel from "./components/movieCarousel/MovieCarousel";
 
@@ -11,6 +11,10 @@ export default function Home() {
         <h1 className={styles.headline}>
           Kino - superprojekt
         </h1>
+
+      <UpcomingScreenings />
+    
+  
         <section className={styles.carouselSection}>
           <MovieCarousel movies={movies} />
         </section>
@@ -18,5 +22,5 @@ export default function Home() {
         <BistroSection />
       </main>
     </>
-  );  
+  );   
 }
