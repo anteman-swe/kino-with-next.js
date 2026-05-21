@@ -10,7 +10,7 @@ type HeaderProps = {
 
 const logOut = () => {signOut()};
 
-export default function Header({ onOpenLogin, onOpenRegister }: HeaderProps) {
+export default function Header({ onOpenLogin }: HeaderProps) {
   const { data: session, status } = useSession();
 
   if (session?.user) {

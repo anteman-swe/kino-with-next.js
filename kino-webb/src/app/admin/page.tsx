@@ -5,6 +5,11 @@ import { redirect } from "next/navigation";
 
 const Adminpage = async () => {
     const session = await auth();
+    
+    if (!session?.user) {
+       redirect("/");
+    }
+    
     if (session?.user?.role !== "ADMIN") {
         redirect("/");
     } else {

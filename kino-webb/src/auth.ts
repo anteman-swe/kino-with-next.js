@@ -5,6 +5,7 @@ import { signInSchema } from "@/app/lib/zod";
 import { verifyPassword } from '@/app/utils/password';
 import { getUserByEmail } from "@/app/utils/db";
 import { Role } from '@/generated/prisma/client';
+import { NextResponse } from "next/server";
 
  
 export const { handlers, signIn, signOut, auth } = NextAuth({
@@ -59,13 +60,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       const path  = nextUrl.pathname;
 
       if (path.startsWith("/admin") && (!isLoggedIn || !isAdmin)) {
-        return false;
+        const url = nextUrl.clone();
+        url.pathname = '/';
+        url.searchParams.set('openLogin', 'true');
+        return NextResponse.redirect(url);
       }
 
       if (path.startsWith("/member-page") && !isLoggedIn) {
-        return false;
+        const url = nextUrl.clone();
+        url.pathname = '/';
+        url.searchParams.set('openLogin', 'true');
+        return NextResponse.redirect(url);
       }
-
       return true;
     },
   },
