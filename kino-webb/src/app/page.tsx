@@ -20,14 +20,12 @@ export default function Home() {
           <MovieCarousel movies={movies} />
         </section>
 
-         <PopularMovies />
+        <PopularMovies />
 
-      <UpcomingScreenings />
-
+        <UpcomingScreenings />
        
         <MovieList movies={movies} title="Aktuella filmer" />
         
-
         <BistroSection />
       </main>
     </>
