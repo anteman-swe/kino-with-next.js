@@ -43,18 +43,20 @@ export default function LoginModal({ onClose, onOpenRegister }: LoginModalProps)
 
     try{
       const loginResult = await signIn("credentials", {
-        email,
-        password,
-        redirect: false,
-      });
+          email,
+          password,
+          redirect: false,
+        });
       if (loginResult?.error) {
-        setError(loginResult.error);
+        setError("Inloggningen misslyckades. Vänligen kontrollera dina uppgifter.");
       } else {
         router.refresh();
         router.push("/member-page");
+        onClose();
       }
-    } catch (_err) {
+    } catch (err) {
       setError("Ett oväntat fel har inträffat! Vänligen försök igen.");
+      console.error("Fel i login:", err);
     } finally {
       setIsLoading(false);
     }

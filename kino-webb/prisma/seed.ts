@@ -1,25 +1,28 @@
 import { PrismaPg } from '@prisma/adapter-pg'
 import { PrismaClient, Role, BookStatus } from '@/generated/prisma/client';
-import * as bcrypt from 'bcrypt-ts';
+import { saltAndHashPassword } from '@/app/utils/password';
 
 // importing dummy data
 import { bookings } from '@/Data/bookings';
 import { movies } from '@/Data/movies';
 import { screenings } from '@/Data/screenings';
 
+
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
   // Emptying the database before seeding to prevent duplicate data
+  console.log("Tömmer databasen...");
   await prisma.user.deleteMany({})
   await prisma.bookings.deleteMany({})
   await prisma.movies.deleteMany({})
   await prisma.screenings.deleteMany({})
+  console.log("Databasen är tömd!");
 
   console.log("Genererar haschade lösenord...")
   // Making one password for use by both users
-  const hashedPassword = await bcrypt.hash("secret1234", 10)
+  const hashedPassword = await saltAndHashPassword("secret1234");
 
   // Creating one user with normal rights
   console.log("Skapar vanlig användare...")
