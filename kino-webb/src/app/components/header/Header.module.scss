@@ -1,6 +1,7 @@
 
 .header {
-  background-color: $dark-bg;
+  background-color: var(--site-bg); 
+  border-bottom: 1px solid var(--card-border);
   position: relative;
   display: flex;
   flex-direction: column;
@@ -25,11 +26,22 @@
     bottom: 10px;
   }
 
+  .header__controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem; 
+    position: relative;
+    z-index: 10;
+  }
+
   .loginButton {
   background: transparent;
-  color: #fff;
+  color: var(--text-main);
   border: none;
-  padding: 0.6rem 1.2rem;
+  padding: 0.4rem 1.2rem;
+  margin: 0;
+    display: inline-flex;
+    align-items: center;
   font-size: 0.9rem;
   cursor: pointer;
   text-transform: uppercase;

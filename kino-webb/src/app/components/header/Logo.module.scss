@@ -3,4 +3,16 @@
   height: auto;
   object-fit: contain;
   margin: 0 auto;
+  mix-blend-mode: normal;
+  filter: none;
+  :global(html:not(.dark)) & {
+    filter: contrast(1.1) brightness(1.05);
+    mix-blend-mode: multiply;
+  }
+
+}
+
+.logoPlaceholder {
+  width: 280px;
+  height: 55px; 
 }
