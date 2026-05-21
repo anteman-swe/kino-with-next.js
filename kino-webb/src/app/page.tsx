@@ -29,5 +29,5 @@ export default function Home() {
         <EventList events={events} />
       </main>
     </>
-  );
+  );   
 }
