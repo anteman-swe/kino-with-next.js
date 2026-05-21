@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useTheme } from "next-themes";
 import { Toggle } from "@base-ui/react/toggle";
-import "./DarkLightTheme.scss";
+import "./DarkLightTheme.module.scss";
 
 export default function DarkLightTheme() {
   const { setTheme, resolvedTheme } = useTheme();
