@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 import "./MovieCarousel.scss";
-
 
 export interface Movie {
   Certificate: string | number | null | undefined;
@@ -20,89 +19,87 @@ interface MovieCarouselProps {
   movies: Movie[];
 }
 
+const getAgeCategory = (certificate: Movie["Certificate"]): AgeCategory => {
+  if (!certificate) return { category: null, class: null };
+  const cert = certificate.toString().toUpperCase();
+  if (cert === "A" || cert === "R") {
+    return { category: "Adult", class: "adults-only" };
+  } else if (cert === "U" || cert === "UA" || cert === "PG-13") {
+    return { category: "Children", class: "for-children" };
+  } else {
+    return { category: certificate.toString(), class: "other-rating" };
+  }
+};
+
 export default function MovieCarousel({ movies }: MovieCarouselProps) {
-  const heroInnerRef = useRef<HTMLDivElement>(null);
-  const prevBtnRef = useRef<HTMLButtonElement>(null);
-  const nextBtnRef = useRef<HTMLButtonElement>(null);
+  const [carouselMovies, setCarouselMovies] = useState<Movie[]>([]);
+  const [currentSlide, setCurrentSlide] = useState<number>(0);
+
 
   useEffect(() => {
-    const heroInner = heroInnerRef.current;
-    const prevBtn = prevBtnRef.current;
-    const nextBtn = nextBtnRef.current;
-
-    const getAgeCategory = (certificate: Movie["Certificate"]): AgeCategory => {
-      if (!certificate) return { category: null, class: null };
-      const cert = certificate.toString().toUpperCase();
-      if (cert === "A" || cert === "R") {
-        return { category: "Adult", class: "adults-only" };
-      } else if (cert === "U" || cert === "UA" || cert === "PG-13") {
-        return { category: "Children", class: "for-children" };
-      } else {
-        return { category: certificate.toString(), class: "other-rating" };
-      }
-    };
-
-    if (heroInner && movies.length > 0) {
-      const heroMovies = [...movies].sort(() => Math.random() - 0.5).slice(0, 6);
-
-      // Injecting images into the container
-      heroInner.innerHTML = heroMovies
-        .map((movie, index) => {
-          const { category, class: categoryClass } = getAgeCategory(
-            movie.Certificate,
-          );
-
-          return `
-                  <div class="carousel_slide ${index === 0 ? "active" : ""}" style="background-image: url('${movie.Poster_Link}')">
-                      <div class="slide_content">
-                          <h1 class="film_title">${movie.Series_Title}</h1>
-                          <div class="festival_dates">
-                              <h2>Released: ${movie.Released_Year}</h2>
-                              <h3>${category ? `<span class="certificate-badge ${categoryClass}">${category}</span>` : ""}</h3><br>
-                          </div>
-                      </div>
-                  </div>`;
-        })
-        .join("");
-
-      const slides = heroInner.querySelectorAll(".carousel_slide");
-      let currentSlide = 0;
-
-      const showSlide = (index: number): void => {
-        if (slides.length === 0) return;
-        slides[currentSlide].classList.remove("active");
-        currentSlide = (index + slides.length) % slides.length;
-        slides[currentSlide].classList.add("active");
-      };
-
-      // Use onclick or ensure listeners aren't added multiple times
-      if (prevBtn && nextBtn) {
-        prevBtn.onclick = () => showSlide(currentSlide - 1);
-        nextBtn.onclick = () => showSlide(currentSlide + 1);
-      }
-
-      // Auto-play
-      const intervalId = setInterval(() => showSlide(currentSlide + 1), 5000);
-
-      // Cleanup on unmount to prevent memory leaks
-      return () => {
-        clearInterval(intervalId);
-        if (prevBtn) prevBtn.onclick = null;
-        if (nextBtn) nextBtn.onclick = null;
-      };
+    if (movies && movies.length > 0) {
+      const selected = [...movies].sort(() => Math.random() - 0.5).slice(0, 6);
+      setCarouselMovies(selected);
+      setCurrentSlide(0);
     }
   }, [movies]);
 
-  return (
-    
-    <div className="carousel_container">
-      {/* Define heroInner inside the function via ref */}
-      <div id="heroInner" ref={heroInnerRef}></div>
 
-      {/* Accessible navigation buttons with inline vector icons */}
+  useEffect(() => {
+    if (carouselMovies.length === 0) return;
+
+    const intervalId = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % carouselMovies.length);
+    }, 5000);
+
+    return () => clearInterval(intervalId);
+  }, [carouselMovies]);
+
+
+  const handlePrev = () => {
+    setCurrentSlide((prev) => (prev - 1 + carouselMovies.length) % carouselMovies.length);
+  };
+
+  const handleNext = () => {
+    setCurrentSlide((prev) => (prev + 1) % carouselMovies.length);
+  };
+
+  if (carouselMovies.length === 0) return null;
+
+  return (
+    <div className="carousel_container">
+      <div id="heroInner">
+        {carouselMovies.map((movie, index) => {
+          const { category, class: categoryClass } = getAgeCategory(movie.Certificate);
+          const isActive = index === currentSlide;
+
+          return (
+            <div
+              key={`${movie.Series_Title}-${index}`}
+              className={`carousel_slide ${isActive ? "active" : ""}`}
+              style={{ backgroundImage: `url('${movie.Poster_Link}')` }}
+            >
+              <div className="slide_content">
+                <h1 className="film_title">{movie.Series_Title}</h1>
+                <div className="festival_dates">
+                  <h2>Released: {movie.Released_Year}</h2>
+                  {category && (
+                    <h3>
+                      <span className={`certificate-badge ${categoryClass}`}>{category}</span>
+                    </h3>
+                  )}
+                  <br />
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+    
       <button 
         className="carousel_control prev" 
-        ref={prevBtnRef}
+        onClick={handlePrev}
         aria-label="Previous slide"
       >
         <svg 
@@ -119,7 +116,7 @@ export default function MovieCarousel({ movies }: MovieCarouselProps) {
 
       <button 
         className="carousel_control next" 
-        ref={nextBtnRef}
+        onClick={handleNext}
         aria-label="Next slide"
       >
         <svg 
@@ -135,5 +132,4 @@ export default function MovieCarousel({ movies }: MovieCarouselProps) {
       </button>
     </div>
   );
- 
 }
