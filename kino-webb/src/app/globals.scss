@@ -1,3 +1,17 @@
+:root {
+  --site-bg: #ffffff;
+  --text-main: #111827;
+  --card-bg: #f3f4f6;       
+  --card-border: #e5e7eb;
+}
+
+html.dark {
+  --site-bg: #120303;       
+  --text-main: #ffffff;
+  --card-bg: #1f0b0b;       
+  --card-border: #372525;
+}
+
 .root {
   isolation: isolate;
 }
@@ -5,10 +19,20 @@
 body {
     margin: auto;
     max-width: 1200px;
-    border-left: solid 1px black;
-    border-right: solid 1px black;
     min-height: 100dvh;
-    background-color: $dark-bg;
+    background-color: var(--site-bg);
+    color: var(--text-color);
     display: flex;
     flex-direction: column;
+    transition: background-color 0.3s ease, color 0.3s ease;
+
+    :global(html.dark) & {
+    border-left: solid 1px black;
+    border-right: solid 1px black;
+    }
+
+    :global(html:not(.dark)) & {
+      border-left: none;
+      border-right: none;
+    }
 }

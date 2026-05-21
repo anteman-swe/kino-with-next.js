@@ -1,0 +1,43 @@
+.theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
+  background-color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+
+  .icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    
+    &.sun { text-color: #eab308; } 
+    &.moon { text-color: #334155; } 
+  }
+
+  &:hover {
+    background-color: #f3f4f6;
+  }
+
+  // Base UI sets this attribute automatically when pressed is true (dark mode)
+  &[data-pressed] {
+    border-color: #374151;
+    background-color: #1f2937;
+
+    &:hover {
+      background-color: #111827;
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+  }
+}
+
+.theme-toggle-placeholder {
+  width: 2.375rem;
+  height: 2.375rem;
+}
