@@ -14,6 +14,10 @@ export default function Home() {
         <h1 className={styles.headline}>
           Kino - superprojekt
         </h1>
+
+      <UpcomingScreenings />
+    
+  
         <section className={styles.carouselSection}>
           <MovieCarousel movies={movies} />
         </section>
