@@ -3,10 +3,10 @@
 .section {
   width: 100%;
   padding: 3rem 0;
-  background-color: $dark-bg;
-  border: 2px solid gray;
+  background-color: var(--card-bg);
+  border: 2px solid var(--card-border);
   border-radius: 12px;
-  color: #fff;
+  color: var(--text-main);
   text-align: center;
 }
 
@@ -22,5 +22,6 @@
   font-size: 1.4rem;
   margin-bottom: 0.1rem;
   font-weight: 600;
-  color: #ffffff; 
+  color: var(--text-main);
+  transition: color 0.3s ease;
 }

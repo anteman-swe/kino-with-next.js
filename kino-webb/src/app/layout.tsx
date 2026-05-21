@@ -29,24 +29,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable}`}
-      suppressHydrationWarning
-      style={{ colorScheme: "light" }}
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}
+    suppressHydrationWarning
+      style={{ colorScheme: 'light' }}
     >
       <body className="root">
         <SessionProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <HeaderWrapper />
-            {children}
-            <Footer />
-          </ThemeProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+        <HeaderWrapper />
+        {children}
+        <Footer />
+        </ThemeProvider>
         </SessionProvider>
       </body>
     </html>
