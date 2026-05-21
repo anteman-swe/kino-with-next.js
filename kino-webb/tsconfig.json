@@ -22,7 +22,8 @@
     "paths": {
       "@/*": ["./src/*"],
       "@prism": ["./prisma"]
-    }
+    },
+    "types": ["bcrypt-ts"]
   },
   "include": [
     "next-env.d.ts",
