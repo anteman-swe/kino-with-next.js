@@ -17,7 +17,15 @@ const Memberpage = async () => {
 
     return (
         <>
-        <h1 className={styles.headLine}>Member Page</h1>
+        <section className={styles.members__offers}>
+            <h2 className={styles['members__offers--title']}>Member page</h2>
+            <div className={styles['members__offers--images']}>
+                {/* <img src="/Assets/offers.png">
+                <img src="/Assets/offers.png">
+                <img src="/Assets/offers.png">
+                <img src="/Assets/offers.png"> */}
+            </div>
+        </section>
         </>
     )
 };
