@@ -5,6 +5,8 @@ import { movies } from "../Data/movies";
 import UpcomingScreenings from "./components/upcoming-screenings/UpcomingScreenings";
 import MovieCarousel from "./components/movieCarousel/MovieCarousel";
 import BistroSection from "./components/bistro/bistroSection/BistroSection";
+import PopularMovies from "./components/popular-movies/PopularMovies";
+
 
 export default function Home() {
   return (
@@ -14,6 +16,8 @@ export default function Home() {
           Kino - superprojekt
         </h1>
         <MovieList movies={movies} title="Aktuella filmer" />
+        
+        <PopularMovies />
 
       <UpcomingScreenings />
     
