@@ -1,0 +1,42 @@
+.popularMovies {
+  margin-top: 2rem;
+  font-size: 1.5rem;
+  text-align: center;
+  color: white;
+}
+
+.popularMoviesTrack {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.popularMoviesCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.popularMoviesImg {
+  width: 70%;
+  max-width: 160px;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.popularMoviesTitle {
+  margin: 0.5rem 0 0;
+  font-size: 0.95rem;
+  color: white;
+}
+
+.popularMoviesRating {
+  font-size: 0.8rem;
+  color: #f5c518;
+}
+
+.popularMoviesReviews {
+  font-size: 0.75rem;
+}
