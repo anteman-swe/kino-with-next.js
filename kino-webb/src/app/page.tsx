@@ -16,7 +16,6 @@ export default function Home() {
         <h1 className={styles.headline}>
           Kino - superprojekt
         </h1>
-        <MovieList movies={movies} title="Aktuella filmer" />
 
         <section className={styles.carouselSection}>
           <MovieCarousel movies={movies} />
