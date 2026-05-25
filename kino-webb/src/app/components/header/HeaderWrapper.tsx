@@ -8,6 +8,7 @@ import RegisterModal from "../register/RegisterModal";
 
 export default function HeaderWrapper() {
   const paramToOpen = useSearchParams();
+  const openLogin = (): void => {setIsLoginOpen(true)};
 
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
@@ -18,7 +19,7 @@ export default function HeaderWrapper() {
       const url = new URL(window.location.href);
       url.searchParams.delete('openLogin');
       window.history.replaceState({}, '', url);
-      setIsLoginOpen(true);
+      openLogin();
     }
   }, [paramToOpen]);
   
@@ -26,12 +27,12 @@ export default function HeaderWrapper() {
   return (
     <>
       <Header
-  onOpenLogin={() => setIsLoginOpen(true)}
-  onOpenRegister={() => {
-    setIsLoginOpen(false);
-    setIsRegisterOpen(true);
-  }}
-/>
+        onOpenLogin={() => setIsLoginOpen(true)}
+        onOpenRegister={() => {
+          setIsLoginOpen(false);
+          setIsRegisterOpen(true);
+        }}
+      />
 
       {isLoginOpen && (
         <LoginModal
