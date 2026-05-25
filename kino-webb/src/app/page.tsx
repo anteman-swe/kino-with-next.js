@@ -1,5 +1,4 @@
 import styles from "./page.module.scss";
-import Start from "./components/start";
 import MovieList from "./components/MovieList/MovieList";
 import { movies } from "../Data/movies";
 import UpcomingScreenings from "./components/upcoming-screenings/UpcomingScreenings";

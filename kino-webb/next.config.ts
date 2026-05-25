@@ -6,7 +6,14 @@ const nextConfig: NextConfig = {
     prependData: `@use "@/styles/variables.scss" as *; @use "@/styles/mixins.scss" as *;`,
   },
   images: {
-    domains: ["m.media-amazon.com"],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'm.media-amazon.com',
+        port: '',
+        pathname: '*/**',
+      },
+    ],
   },
 
   turbopack: {
