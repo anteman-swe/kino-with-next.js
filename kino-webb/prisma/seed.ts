@@ -72,6 +72,7 @@ async function main() {
   await prisma.screening.createMany({
     data: screenings,
   })
+
   console.log('Dummy data för visningar är skrivna till databasen!');
 
   
