@@ -13,8 +13,6 @@ export const movies = [
       "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
     Poster_Link:
       "https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_UX500_CR0,0,500,739_AL_.jpg",
-    Show_Time: "13:45",
-    Show_Date: "21-01-2026",
     Trailer: "https://www.youtube.com/watch?v=NmzuHjWmXOc&t=9s",
   },
   {
@@ -31,8 +29,6 @@ export const movies = [
       "An organized crime dynasty's aging patriarch transfers control of his clandestine empire to his reluctant son.",
     Poster_Link:
       "https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_UY98_CR1,0,67,98_AL_.jpg",
-    Show_Time: "09:45",
-    Show_Date: "18-01-2026",
     Trailer: "https://www.youtube.com/watch?v=UaVTIH8mujA",
   },
   {
@@ -49,8 +45,6 @@ export const movies = [
       "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.",
     Poster_Link:
       "https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_UX500_CR0,0,500,739_AL_.jpg",
-    Show_Time: "21:30",
-    Show_Date: "15-01-2026",
     Trailer: "https://www.youtube.com/watch?v=EXeTwQWrcwY",
   },
   {
@@ -67,8 +61,6 @@ export const movies = [
       "The early life and career of Vito Corleone in 1920s New York City is portrayed, while his son, Michael, expands and tightens his grip on the family crime syndicate.",
     Poster_Link:
       "https://m.media-amazon.com/images/M/MV5BMWMwMGQzZTItY2JlNC00OWZiLWIyMDctNDk2ZDQ2YjRjMWQ0XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_UY98_CR1,0,67,98_AL_.jpg",
-    Show_Time: "19:15",
-    Show_Date: "28-05-2026",
     Trailer: "https://www.youtube.com/watch?v=9O1Iy9od7-A",
   },
   {
@@ -85,8 +77,6 @@ export const movies = [
       "A jury holdout attempts to prevent a miscarriage of justice by forcing his colleagues to reconsider the evidence.",
     Poster_Link:
       "https://m.media-amazon.com/images/M/MV5BMWU4N2FjNzYtNTVkNC00NzQ0LTg0MjAtYTJlMjFhNGUxZDFmXkEyXkFqcGdeQXVyNjc1NTYyMjg@._V1_UX500_CR0,0,500,739_AL_.jpg",
-    Show_Time: "15:30",
-    Show_Date: "03-05-2026",
     Trailer: "https://www.youtube.com/watch?v=TEN-2uTi2c0",
   },
   {
@@ -103,8 +93,6 @@ export const movies = [
       "Gandalf and Aragorn lead the World of Men against Sauron's army to draw his gaze from Frodo and Sam as they approach Mount Doom with the One Ring.",
     Poster_Link:
       "https://m.media-amazon.com/images/M/MV5BNzA5ZDNlZWMtM2NhNS00NDJjLTk4NDItYTRmY2EwMWZlMTY3XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_UX500_CR0,0,500,739_AL_.jpg",
-    Show_Time: "17:00",
-    Show_Date: "10-07-2026",
     Trailer: "https://www.youtube.com/watch?v=r5X-hFf6Bwo",
   },
   {
@@ -121,8 +109,6 @@ export const movies = [
       "The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits intertwine in four tales of violence and redemption.",
     Poster_Link:
       "https://m.media-amazon.com/images/M/MV5BNGNhMDIzZTUtNTBlZi00MTRlLWFjM2ItYzViMjE3YzI5MjljXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_UX500_CR0,0,500,739_AL_.jpg",
-    Show_Time: "21:00",
-    Show_Date: "29-05-2026",
     Trailer: "https://www.youtube.com/watch?v=s7EdQ4FqbhY",
   },
   {
@@ -139,8 +125,6 @@ export const movies = [
       "In German-occupied Poland during World War II, industrialist Oskar Schindler gradually becomes concerned for his Jewish workforce after witnessing their persecution by the Nazis.",
     Poster_Link:
       "https://m.media-amazon.com/images/M/MV5BNDE4OTMxMTctNmRhYy00NWE2LTg3YzItYTk3M2UwOTU5Njg4XkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_UX500_CR0,0,500,739_AL_.jpg",
-    Show_Time: "09:45",
-    Show_Date: "06-07-2026",
     Trailer: "https://www.youtube.com/watch?v=mxphAlJID9U&t=2s",
   },
   {
@@ -162,8 +146,6 @@ export const movies = [
       "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.",
     Poster_Link:
       "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_UX500_CR0,0,500,739_AL_.jpg",
-    Show_Time: "17:00",
-    Show_Date: "21-06-2026",
     Trailer: "https://www.youtube.com/watch?v=YoHD9XEInc0",
   },
   {
@@ -180,8 +162,6 @@ export const movies = [
       "An insomniac office worker and a devil-may-care soapmaker form an underground fight club that evolves into something much, much more.",
     Poster_Link:
       "https://m.media-amazon.com/images/M/MV5BMmEzNTkxYjQtZTc0MC00YTVjLTg5ZTEtZWMwOWVlYzY0NWIwXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_UX500_CR0,0,500,739_AL_.jpg",
-    Show_Time: "22:00",
-    Show_Date: "06-07-2026",
     Trailer: "https://www.youtube.com/watch?v=BdJKm16Co6M",
   },
 ];
