@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import styles from "./menu.module.scss";
+import Link from "next/link";
 
 export default function Menu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,31 +28,31 @@ export default function Menu() {
 
           <ul className={styles.navList}>
             <li>
-              <a href="/">På bio just nu</a>
+              <Link href="/">På bio just nu</Link>
             </li>
             <li>
-              <a href="/">Kommande filmer</a>
+              <Link href="/">Kommande filmer</Link>
             </li>
             <li>
-              <a href="/">Barnbio</a>
+              <Link href="/">Barnbio</Link>
             </li>
             <li>
-              <a href="/">Presentkort</a>
+              <Link href="/">Presentkort</Link>
             </li>
             <li>
-              <a href="/">Café&Bistro</a>
+              <Link href="/">Café&Bistro</Link>
             </li>
             <li>
-              <a href="/">Event</a>
+              <Link href="/">Event</Link>
             </li>
             <li>
-              <a href="/">Kundservice</a>
+              <Link href="/">Kundservice</Link>
             </li>
             <li>
-              <a href="/">Mina sidor</a>
+              <Link href="/member-page">Mina sidor</Link>
             </li>
             <li>
-              <a href="/">Företag</a>
+              <Link href="/">Företag</Link>
             </li>
           </ul>
         </div>
