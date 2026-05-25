@@ -6,17 +6,17 @@ import LoginModal from "../login/LoginModal";
 import RegisterModal from "../register/RegisterModal";
 export default function HeaderWrapper() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
-    const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
 
   return (
     <>
       <Header
-  onOpenLogin={() => setIsLoginOpen(true)}
-  onOpenRegister={() => {
-    setIsLoginOpen(false);
-    setIsRegisterOpen(true);
-  }}
-/>
+        onOpenLogin={() => setIsLoginOpen(true)}
+        onOpenRegister={() => {
+          setIsLoginOpen(false);
+          setIsRegisterOpen(true);
+        }}
+      />
 
       {isLoginOpen && (
         <LoginModal
