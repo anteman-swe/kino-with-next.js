@@ -28,10 +28,6 @@ export default function Home() {
        
         <MovieList movies={movies} title="Aktuella filmer" />
         
-       
-    
-  
-        
 
         <BistroSection />
       </main>

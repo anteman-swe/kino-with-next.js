@@ -1,11 +1,12 @@
+import Image from "next/image";
 import style from "./PopularMovies.module.scss";
-import { movies } from "@/Data/movies";
 import { reviews } from "@/Data/reviews";
+import { movies } from "@/Data/movies";
+
+const THIRTY_DAYS = 30 * 24 * 60 * 60 * 1000;
+const now = Date.now();
 
 export default function PopularMovies() {
-  const THIRTY_DAYS = 30 * 24 * 60 * 60 * 1000;
-  const now = Date.now();
-
   const recentReviews = reviews.filter((review) => {
     const reviewTime = new Date(review.createdAt).getTime();
     return now - reviewTime <= THIRTY_DAYS;
@@ -20,7 +21,7 @@ export default function PopularMovies() {
       const averageRating =
         movieReviews.length > 0
           ? movieReviews.reduce((sum, review) => sum + review.rating, 0) /
-            movieReviews.length
+          movieReviews.length
           : 0;
 
       return {
@@ -33,27 +34,29 @@ export default function PopularMovies() {
     .sort((a, b) => b.averageRating - a.averageRating)
     .slice(0, 5);
 
+  if (popularMovies.length === 0) {
+    return (
+      <div className={style.popularMovies}>
+        <h2 className={style.popularMoviesHeading}>Populära filmer</h2>
+        <p>Inga recensioner ännu.</p>
+      </div>
+    );
+  }
 
-    if (popularMovies.length === 0) {
   return (
     <div className={style.popularMovies}>
       <h2 className={style.popularMoviesHeading}>Populära filmer</h2>
-      <p>Inga recensioner ännu.</p>
-    </div>
-  );
-}
 
-  return (
-    <div className={style.popularMovies}>
-      <h2 className={style.popularMoviesHeading}>Populära filmer</h2>
-
-      <div className={style.popularMoviesTrack}>
+      <section className={style.popularMoviesContent}>
         {popularMovies.map(({ movie, averageRating, reviewCount }) => (
           <div className={style.popularMoviesCard} key={movie.id}>
-            <img
+
+            <Image
               className={style.popularMoviesImg}
               src={movie.Poster_Link}
               alt={movie.Series_Title}
+              width={200}
+              height={300}
             />
 
             <h3 className={style.popularMoviesTitle}>
@@ -69,7 +72,7 @@ export default function PopularMovies() {
             </p>
           </div>
         ))}
-      </div>
+      </section>
     </div>
   );
 }
