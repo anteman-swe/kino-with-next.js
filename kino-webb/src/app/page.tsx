@@ -11,14 +11,11 @@ export default function Home() {
   return (
     <>
       <main className={styles.page}>
+       
         <h1 className={styles.headline}>
           Kino - superprojekt
         </h1>
-        <MovieList movies={movies} title="Aktuella filmer" />
 
-      <UpcomingScreenings />
-    
-  
         <section className={styles.carouselSection}>
           <MovieCarousel movies={movies} />
         </section>
