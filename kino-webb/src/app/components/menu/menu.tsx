@@ -26,7 +26,7 @@ export default function Menu() {
             ×
           </button>
 
-          <ul className={styles.navList}>
+          <ul className={styles.navList} onClick={() => setIsOpen(false)}>
             <li>
               <Link href="/">På bio just nu</Link>
             </li>

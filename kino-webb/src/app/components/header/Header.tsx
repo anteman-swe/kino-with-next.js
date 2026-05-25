@@ -10,7 +10,7 @@ type HeaderProps = {
   children?: React.ReactNode;
 };
 
-const logOut = () => {signOut()};
+const logOut = () => {signOut({ callbackUrl: "/" })};
 
 export default function Header({ onOpenLogin, children }: HeaderProps) {
   const { data: session, status } = useSession();
