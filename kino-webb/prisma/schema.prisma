@@ -58,6 +58,17 @@ model Screenings {
   totalSeats      Int
 }
 
+model Offers {
+  id              Int       @id @default(autoincrement())
+  type            Otype     @default(MOVIE)
+  title           String    @db.VarChar(50)
+  text            String    @db.Text
+  picture         String    @default("/defaultimg.png")
+  price           Decimal?  @db.Decimal(6, 2)
+  createdAt       DateTime  @default(now())
+  validForDays    Int       @default(30)
+}
+
 enum Role {
   USER
   ADMIN
@@ -67,4 +78,11 @@ enum BookStatus {
   PENDING
   CONFIRMED
   CANCELLED
+}
+
+enum Otype {
+  MOVIE
+  FOOD
+  SNACKS
+  COMBO
 }
