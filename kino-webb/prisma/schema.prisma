@@ -58,6 +58,15 @@ model Screenings {
   totalSeats      Int
 }
 
+model Reviews {
+  id              Int       @id @default(autoincrement())
+  movieId         Int
+  userId          Int
+  rating          Rating    @default(I)
+  comment         String    @db.VarChar(100)   
+  createdAt       DateTime  @default(now())
+}
+
 model Offers {
   id              Int       @id @default(autoincrement())
   type            Otype     @default(MOVIE)
@@ -78,6 +87,19 @@ enum BookStatus {
   PENDING
   CONFIRMED
   CANCELLED
+}
+
+enum Rating {
+  I
+  II
+  III
+  IIII
+  IIIII
+  IIIIII
+  IIIIIII
+  IIIIIIII
+  IIIIIIIII
+  IIIIIIIIII
 }
 
 enum Otype {
