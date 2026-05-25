@@ -1,12 +1,27 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import Header from "./Header";
 import LoginModal from "../login/LoginModal";
 import RegisterModal from "../register/RegisterModal";
+
 export default function HeaderWrapper() {
+  const paramToOpen = useSearchParams();
+
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+
+  useEffect(() => {
+    if (paramToOpen.get('openLogin') === 'true') {
+      console.log('Jag borde öppna loginmodalen...');
+      const url = new URL(window.location.href);
+      url.searchParams.delete('openLogin');
+      window.history.replaceState({}, '', url);
+      setIsLoginOpen(true);
+    }
+  }, [paramToOpen]);
+  
 
   return (
     <>

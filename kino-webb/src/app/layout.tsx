@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.scss";
 
+import { SessionProvider } from "next-auth/react";
+
 import HeaderWrapper from "./components/header/HeaderWrapper";
 import Footer from "./components/footer/Footer";
 
@@ -29,9 +31,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body className="root">
-        <HeaderWrapper />
-        {children}
-        <Footer />
+        <SessionProvider>
+          <HeaderWrapper />
+          {children}
+          <Footer />
+        </SessionProvider>
+        
       </body>
     </html>
   );
