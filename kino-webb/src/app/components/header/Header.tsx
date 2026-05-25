@@ -9,7 +9,7 @@ type HeaderProps = {
   onOpenRegister: () => void;
 };
 
-const logOut = () => {signOut()};
+const logOut = () => {signOut({ callbackUrl: "/" })};
 
 export default function Header({ onOpenLogin }: HeaderProps) {
   const { data: session, status } = useSession();
@@ -25,7 +25,7 @@ export default function Header({ onOpenLogin }: HeaderProps) {
         <button className={styles.loginButton}
           onClick={buttonMode ? logOut : onOpenLogin}
         >
-          { status === "loading" ? "Laddar..." : buttonMode ? "BLI MEDLEM / LOGGA IN" : "LOGGA UT"}
+          { status === "loading" ? "Laddar..." : buttonMode ? "LOGGA UT" : "BLI MEDLEM / LOGGA IN"}
         </button>
       </div>
     </header>
