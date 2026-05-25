@@ -31,7 +31,7 @@ model Booking {
   createdAt       DateTime    @default(now())
 }
 
-model Movie {
+model Movies {
   id              Int         @id @default(autoincrement())
   Series_Title    String      @db.VarChar(50)
   Released_Year   Int

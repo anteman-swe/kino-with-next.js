@@ -79,6 +79,7 @@ async function main() {
   await prisma.review.createMany({
     data: reviews,
   })
+
   console.log('Dummy data för visningar är skrivna till databasen!');
 
   await prisma.offer.createMany({
