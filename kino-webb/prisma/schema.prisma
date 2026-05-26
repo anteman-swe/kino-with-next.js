@@ -21,7 +21,7 @@ model User {
   createdAt       DateTime    @default(now())
 }
 
-model Bookings {
+model Booking {
   id              Int         @id @default(autoincrement())
   userId          Int
   screeningId     Int
@@ -46,7 +46,7 @@ model Movie {
   Trailer         String
 }
 
-model Screenings {
+model Screening {
   id              Int         @id @default(autoincrement())
   movieId         Int
   auditorium      String
@@ -58,6 +58,26 @@ model Screenings {
   totalSeats      Int
 }
 
+model Review {
+  id              Int       @id @default(autoincrement())
+  movieId         Int
+  userId          Int
+  rating          Rating    @default(I)
+  comment         String    @db.VarChar(100)   
+  createdAt       DateTime  @default(now())
+}
+
+model Offer {
+  id              Int       @id @default(autoincrement())
+  type            Otype     @default(MOVIE)
+  title           String    @db.VarChar(50)
+  text            String    @db.Text
+  picture         String    @default("")
+  price           Decimal?  @db.Decimal(6, 2)
+  createdAt       DateTime  @default(now())
+  validForDays    Int       @default(30)
+}
+
 enum Role {
   USER
   ADMIN
@@ -67,4 +87,24 @@ enum BookStatus {
   PENDING
   CONFIRMED
   CANCELLED
+}
+
+enum Rating {
+  I
+  II
+  III
+  IIII
+  IIIII
+  IIIIII
+  IIIIIII
+  IIIIIIII
+  IIIIIIIII
+  IIIIIIIIII
+}
+
+enum Otype {
+  MOVIE
+  FOOD
+  SNACKS
+  COMBO
 }
