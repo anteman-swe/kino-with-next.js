@@ -1,0 +1,38 @@
+
+.wrapper {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.heading {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.card {
+  display: block;
+  cursor: pointer;
+  text-decoration: none;   
+  color: inherit;          
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+
+.image {
+  border-radius: 12px;
+  width: 100%;
+  height: auto;
+}
+
+.title {
+  margin-top: 1rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+}
