@@ -11,10 +11,6 @@ export default function Home() {
   return (
     <>
       <main className={styles.page}>
-       
-        <h1 className={styles.headline}>
-          Kino - superprojekt
-        </h1>
 
         <section className={styles.carouselSection}>
           <MovieCarousel movies={movies} />
