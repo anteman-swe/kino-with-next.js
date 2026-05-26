@@ -16,19 +16,19 @@ export default function BistroOffers() {
       id: 2,
       title: "Passa på att se en film när ni äter lunch!",
       image: "/bistro/lunch.png",
-      href: "/booking?offer=lunch",
+      href: "/",
     },
     {
       id: 3,
       title: "Bjud någon på middag med film!",
       image: "/bistro/dinner.png",
-      href: "/booking?offer=dinner",
+      href: "/",
     },
     {
       id: 4,
       title: "Färdiga snacks med filmen!",
       image: "/bistro/snacks.png",
-      href: "/booking?offer=snacks",
+      href: "/",
     },
   ];
 
