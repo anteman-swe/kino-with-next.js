@@ -40,7 +40,7 @@ export default function Menu() {
               <Link href="/">Presentkort</Link>
             </li>
             <li>
-              <Link href="/">Café&Bistro</Link>
+              <Link href="/">Café & Bistro</Link>
             </li>
             <li>
               <Link href="/">Event</Link>
