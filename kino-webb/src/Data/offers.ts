@@ -12,7 +12,7 @@ export const offers = [
         validForDays: 30
     },
     {
-        id: 1,
+        id: 2,
         type: Otype.SNACKS,
         title: "Köp extra snacks till filmen",
         text: "30% rabatt på ett köp av valfria snacks i samband med biobesök",
@@ -22,7 +22,7 @@ export const offers = [
         validForDays: 30
     },
     {
-        id: 1,
+        id: 3,
         type: Otype.FOOD,
         title: "Lunch på tisdagar till bra pris!",
         text: "Få 25% rabatt på lunchen på tisdagar",
@@ -32,7 +32,7 @@ export const offers = [
         validForDays: 180
     },
     {
-        id: 1,
+        id: 4,
         type: Otype.COMBO,
         title: "Dagens film och popcorn på köpet!",
         text: "Gå på dagens film och få en gratis popcorn till filmen.",
