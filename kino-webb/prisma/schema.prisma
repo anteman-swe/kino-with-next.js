@@ -72,7 +72,7 @@ model Offers {
   type            Otype     @default(MOVIE)
   title           String    @db.VarChar(50)
   text            String    @db.Text
-  picture         String    @default("/defaultimg.png")
+  picture         String    @default("")
   price           Decimal?  @db.Decimal(6, 2)
   createdAt       DateTime  @default(now())
   validForDays    Int       @default(30)
