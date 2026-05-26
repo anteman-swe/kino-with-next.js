@@ -16,7 +16,7 @@ export const screenings = [
     auditorium: "Salong 2",
     startsAt: "2026-05-10T15:00:00",
     language: "Swedish",
-    subtitles: null,
+    subtitles: "none",
     price: 119,
     availableSeats: 80,
     totalSeats: 100,

@@ -1,23 +1,28 @@
-import { PrismaClient } from '@prisma/client/extension';
-import * as bcrypt from 'bcrypt-ts';
+import { PrismaPg } from '@prisma/adapter-pg'
+import { PrismaClient, Role, BookStatus } from '@/generated/prisma/client';
+import { saltAndHashPassword } from '@/app/utils/password';
 
 // importing dummy data
 import { bookings } from '@/Data/bookings';
 import { movies } from '@/Data/movies';
 import { screenings } from '@/Data/screenings';
 
-const prisma = new PrismaClient();
+
+const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
+const prisma = new PrismaClient({ adapter });
 
 async function main() {
   // Emptying the database before seeding to prevent duplicate data
+  console.log("Tömmer databasen...");
   await prisma.user.deleteMany({})
   await prisma.bookings.deleteMany({})
   await prisma.movies.deleteMany({})
   await prisma.screenings.deleteMany({})
+  console.log("Databasen är tömd!");
 
   console.log("Genererar haschade lösenord...")
   // Making one password for use by both users
-  const hashedPassword = await bcrypt.hash("secret1234", 10)
+  const hashedPassword = await saltAndHashPassword("secret1234");
 
   // Creating one user with normal rights
   console.log("Skapar vanlig användare...")
@@ -25,8 +30,8 @@ async function main() {
     data: {
       email: "guy@exempel.se",
       name: "Guy McDudesson",
-      password: hashedPassword,
-      role: "USER",
+      passwordHash: hashedPassword,
+      role: "USER" as Role,
     },
   })
 
@@ -36,8 +41,8 @@ async function main() {
     data: {
       email: "admin@exempel.se",
       name: "Boss Chefsson",
-      password: hashedPassword,
-      role: "ADMIN", // giving user admin rights
+      passwordHash: hashedPassword,
+      role: "ADMIN" as Role, // giving user admin rights
     },
   })
 
@@ -46,10 +51,14 @@ async function main() {
   console.log(`- Admin-användare skapad: ${adminUser.email}`)
   
   // Creating the rest of the dummy-data
+  const bookingsWithEnumStatus = bookings.map(booking => ({
+    ...booking,
+    status: booking.status as BookStatus
+  }))
   await prisma.bookings.createMany({
-    data: bookings,
+    data: bookingsWithEnumStatus,
   })
-  console.log('Dummy bokningar skrivna till databasen!');
+  console.log('Dummy-bokningar skrivna till databasen!');
   
   await prisma.movies.createMany({
     data: movies,
@@ -57,8 +66,9 @@ async function main() {
   console.log('Dummy data för filmer skrivna till databasen!');
 
   await prisma.screenings.createMany({
-      data: screenings,
+    data: screenings,
   })
+
   console.log('Dummy data för visningar är skrivna till databasen!');
   console.log('Databasen är seedad för testning, KLART!')
 }
