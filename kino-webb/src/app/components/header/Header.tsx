@@ -15,9 +15,7 @@ const logOut = async () => {await signOut({ redirectTo: "/" })};
 export default function Header({ onOpenLogin }: HeaderProps) {
   const { data: session, status } = useSession();
   const buttonMode = useMemo(() => {
-    if (session?.user && status === "authenticated") {
-      return true;
-    } else return false;
+    if (session?.user && status === "authenticated") { return true; } else return false;
   }, [session?.user, status]);
   
   return (
