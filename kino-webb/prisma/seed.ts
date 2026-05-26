@@ -6,6 +6,7 @@ import { saltAndHashPassword } from '@/app/utils/password';
 import { bookings } from '@/Data/bookings';
 import { movies } from '@/Data/movies';
 import { screenings } from '@/Data/screenings';
+import { offers } from '@/Data/offers';
 
 
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
@@ -68,8 +69,13 @@ async function main() {
   await prisma.screenings.createMany({
     data: screenings,
   })
-
   console.log('Dummy data för visningar är skrivna till databasen!');
+
+  await prisma.offers.createMany({
+    data: offers,
+  })
+  console.log('Dummy data för erbjudanden är skrivna till databasen!');
+
   console.log('Databasen är seedad för testning, KLART!')
 }
 
