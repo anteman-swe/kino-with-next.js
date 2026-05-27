@@ -5,6 +5,7 @@ import { auth } from '@/auth';
 import { redirect } from "next/navigation";
 import { Otype, Role } from "@/generated/prisma/enums";
 import Offer from "./components/Offer";
+import ReviewInputModule from "./components/ReviewInputModule";
 
 // Temporary plejshålder för "functions"
 const offerHeadline: string = "Standard erbjudande!";
@@ -45,6 +46,7 @@ const Memberpage = async () => {
 
             </div>
         </section>
+        <ReviewInputModule />
         </>
     )
 };
