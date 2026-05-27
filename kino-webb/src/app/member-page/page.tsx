@@ -3,17 +3,9 @@ import styles from "./page.module.scss";
 //import { Drawer } from '@base-ui/react/drawer';  // Importera för att göra en panel för settings?
 import { auth } from '@/auth';
 import { redirect } from "next/navigation";
-import { Otype, Role } from "@/generated/prisma/enums";
-import Offer from "./components/Offer";
-import ReviewInputModule from "./components/ReviewInputModule";
-
-// Temporary plejshålder för "functions"
-const offerHeadline: string = "Standard erbjudande!";
-const offerText: string = "Vi erbjuder alltid något för alla!";
-const offerPrice: number = 180;
-const offerImageType: Otype = Otype.MOVIE
-const offerImageUrl: string = ''; //'/starwars_echoes_the_force.png';
-const validTo: string = '2026-05-30';  
+import { Role } from "@/generated/prisma/enums";
+import OfferSection from "./components/OfferSection";
+import ReviewInputModule from "./components/ReviewInputSection";
 
 
 const Memberpage = async () => {
@@ -34,16 +26,9 @@ const Memberpage = async () => {
         <section className={styles.members__offers}>
             <h2 className={styles['members__offers--title']}>Medlemssida</h2>
             <p className={styles['members__offers--name']}>{thisUser}</p>
-            <Offer
-            offerHeadline={offerHeadline}
-            offerText={offerText}
-            offerPrice={offerPrice}
-            offerImageType={offerImageType}
-            offerImageUrl={offerImageUrl}
-            validTo={validTo}
-            />
+            <OfferSection />
+            
             <div className={styles['members__offers--images']}>
-
             </div>
         </section>
         <ReviewInputModule />

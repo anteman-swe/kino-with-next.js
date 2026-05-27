@@ -1,17 +1,46 @@
+"use client";
+
+import { Offer as fetchOffer } from "@/generated/prisma/client";
 import Offer from "./Offer";
-import { useEffect } from "react";
+import styles from './OfferSection.module.scss';
 
-export const OfferSection: React.FC = () => {
-    useEffect(() => {
-        const memberOffers = async () => {
-            return fetch('/api/')
-        }
-    }, [])
+const oneDayms = 24 * 60 * 60 *1000;
 
-
-    return (
-        <>
-            
-        </>
-    )
+async function getOffers() {
+  try {
+    const response = await fetch("/api/offers");
+    const result = await response.json();
+    return result as fetchOffer[];
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
 }
+
+const theOffers = await getOffers();
+
+const convertedOffers = theOffers?.map((element) => ({
+    ...element,
+    createdAt: new Date(element.createdAt),
+}))
+// const convertedOffers = theOffers;
+const OfferSection: React.FC = () => {
+  
+  return (
+    <div className={styles.offerSection}>
+    {convertedOffers?.map((element) => (
+        <Offer
+        key={element.id}
+        offerImageType={element.type}
+        offerHeadline={element.title}
+        offerText={element.text}
+        offerPrice={element.price}
+        offerImageUrl={element.picture}
+        validTo={(new Date(element.createdAt.getTime() + element.validForDays * oneDayms)).toISOString().split('T')[0]}
+        />
+    ))}
+    </div>
+  )
+};
+
+export default OfferSection;

@@ -1,0 +1,15 @@
+.FieldRoot {
+}
+.form {
+  &__textarea {
+    &--label {
+      display: block;
+      margin-bottom: 0.25rem;
+      font-size: 1.2rem;
+      font-family: sans-serif;
+    }
+
+    &--description {
+    }
+  }
+}

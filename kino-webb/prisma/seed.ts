@@ -1,5 +1,5 @@
 import { PrismaPg } from '@prisma/adapter-pg'
-import { PrismaClient, Role, BookStatus, Rating } from '@/generated/prisma/client';
+import { PrismaClient, Role, BookStatus } from '@/generated/prisma/client';
 import { saltAndHashPassword } from '@/app/utils/password';
 
 // importing dummy data
