@@ -1,5 +1,6 @@
 import styles from "./page.module.scss";
 
+//import { Drawer } from '@base-ui/react/drawer';  // Importera för att göra en panel för settings?
 import { auth } from '@/auth';
 import { redirect } from "next/navigation";
 import { Otype, Role } from "@/generated/prisma/enums";

@@ -31,7 +31,7 @@ model Booking {
   createdAt       DateTime    @default(now())
 }
 
-model Movies {
+model Movie {
   id              Int         @id @default(autoincrement())
   Series_Title    String      @db.VarChar(50)
   Released_Year   Int
@@ -62,7 +62,7 @@ model Review {
   id              Int       @id @default(autoincrement())
   movieId         Int
   userId          Int
-  rating          Rating    @default(I)
+  rating          Int       @default(1)
   comment         String    @db.VarChar(100)   
   createdAt       DateTime  @default(now())
 }
@@ -87,19 +87,6 @@ enum BookStatus {
   PENDING
   CONFIRMED
   CANCELLED
-}
-
-enum Rating {
-  I
-  II
-  III
-  IIII
-  IIIII
-  IIIIII
-  IIIIIII
-  IIIIIIII
-  IIIIIIIII
-  IIIIIIIIII
 }
 
 enum Otype {
