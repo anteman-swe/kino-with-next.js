@@ -27,19 +27,23 @@ const convertedOffers = theOffers?.map((element) => ({
 const OfferSection: React.FC = () => {
   
   return (
-    <div className={styles.offerSection}>
-    {convertedOffers?.map((element) => (
-        <Offer
-        key={element.id}
-        offerImageType={element.type}
-        offerHeadline={element.title}
-        offerText={element.text}
-        offerPrice={element.price}
-        offerImageUrl={element.picture}
-        validTo={(new Date(element.createdAt.getTime() + element.validForDays * oneDayms)).toISOString().split('T')[0]}
-        />
-    ))}
-    </div>
+    <>
+        <h3 className={styles.offerHeadline}>Erbjudanden</h3>
+        <div className={styles.offerSection}>
+        {convertedOffers?.map((element) => (
+            <Offer
+            key={element.id}
+            offerImageType={element.type}
+            offerHeadline={element.title}
+            offerText={element.text}
+            offerPrice={element.price}
+            offerImageUrl={element.picture}
+            validTo={(new Date(element.createdAt.getTime() + element.validForDays * oneDayms)).toISOString().split('T')[0]}
+            />
+        ))}
+        </div>
+    </>
+    
   )
 };
 

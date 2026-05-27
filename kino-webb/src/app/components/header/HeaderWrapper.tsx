@@ -16,7 +16,6 @@ export default function HeaderWrapper() {
 
   useEffect(() => {
     if (paramToOpen.get('openLogin') === 'true') {
-      console.log('Jag borde öppna loginmodalen...');
       const url = new URL(window.location.href);
       url.searchParams.delete('openLogin');
       window.history.replaceState({}, '', url);
