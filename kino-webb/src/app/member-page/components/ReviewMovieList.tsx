@@ -33,7 +33,7 @@ export default function ReviewMovieList() {
                         </Combobox.Empty>
                         <Combobox.List className={styles.List}>
                             {(item: Movie) => (
-                                <Combobox.Item key={item.id} value={item} className={styles.Item}>
+                                <Combobox.Item key={item.id} value={item.Series_Title} className={styles.Item}>
                                     <Combobox.ItemIndicator className={styles.ItemIndicator}>
                                         <CheckIcon />
                                     </Combobox.ItemIndicator>
