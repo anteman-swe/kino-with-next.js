@@ -5,7 +5,7 @@ export const reviews = [
     userId: 1,
     rating: 9,
     comment: "Fantastisk film",
-    createdAt: "2026-05-01T12:00:00",
+    createdAt: "2026-05-01T12:00:00+02:00",
   },
 
   {
@@ -14,7 +14,7 @@ export const reviews = [
     userId: 2,
     rating: 8,
     comment: "Mycket bra",
-    createdAt: "2026-05-15T18:30:00",
+    createdAt: "2026-05-15T18:30:00+02:00",
   },
 
   {
@@ -23,6 +23,6 @@ export const reviews = [
     userId: 1,
     rating: 10,
     comment: "Mästerverk",
-    createdAt: "2026-05-20T20:00:00",
+    createdAt: "2026-05-20T20:00:00+02:00",
   },
 ];
