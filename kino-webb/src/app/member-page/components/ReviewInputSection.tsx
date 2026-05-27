@@ -9,13 +9,16 @@ import { StarRating } from "./StarRating";
 import styles from './ReviewInputSection.module.scss';
 
 export default function ReviewInputSection() {
-  const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState(3);
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
   return (
     <>
       <ReviewForm
         onSubmit={async (event) => {
           event.preventDefault();
-          console.log('Formulär inskickad!');
+          setLoading(true)
+          console.log('Formulär inskickad! (simulering)');
         }}
       >
         <ReviewMovieList />
@@ -33,7 +36,9 @@ export default function ReviewInputSection() {
           areaLabel="Beskrivning"
           description="Skriv vad du tycker..."
         />
-        <Button type="submit" className={styles.submitButton}/>
+        <Button type="submit" disabled={loading} focusableWhenDisabled className={styles.submitButton}>
+        Skicka in
+      </Button>
       </ReviewForm>
     </>
   );
