@@ -13,17 +13,22 @@
     width: 1.25rem;
     height: 1.25rem;
     
-    &.sun { color: $toggle-on; } 
-    &.moon { color: $toggle-off; } 
+    &.sun { text-color: $toggle-on; } 
+    &.moon { text-color: $toggle-off; } 
   }
 
-  &:hover { background-color: $dark-text; }
+  &:hover {
+    background-color: $dark-text;
+  }
+
 
   &[data-pressed] {
     border-color: $border-dark;
     background-color: $background-dark;
 
-    &:hover { background-color: $background-dark-hover; }
+    &:hover {
+      background-color: $background-dark-hover;
+    }
   }
 
   &:focus-visible {
@@ -35,42 +40,4 @@
 .theme-toggle-placeholder {
   width: 2.375rem;
   height: 2.375rem;
-}
-
-
-// LIGHT MODE
-html:not([class*="dark"])[lang][class] body {
-  h1, h2, h3, h4, h5, h6, p, span, small, a, li, 
-  .main-title, [class*="title"], [class*="heading"], [class*="Heading"] {
-    color: $light-text;
-  }
-
-  // Keep them bright white over dark backdrops
-  [class*="hero"], [class*="Hero"], [class*="slider"], [class*="Slider"], [class*="carousel"] {
-    h1, h2, h3, h4, h5, h6, p, span, small, a, li {
-      color: $dark-text;
-    }
-  }
-
-  //  Force text nested inside any movie grid layouts to stay white
-  [class*="Aktuella"], [class*="card"], [class*="movie"] {
-    h1, h2, h3, h4, h5, h6, p, span, small, a, li {
-      color: $dark-text;
-    }
-  }
-
-  //  Keep text bright white over dark menus
-  [class*="Menu"], [class*="menu"], [class*="drawer"], [class*="Dialog"] {
-    h1, h2, h3, h4, h5, h6, p, span, small, a, li, button {
-      color: $dark-text;
-    }
-  }
-}
-
-// DARK MODE
-html[class*="dark"][lang][class] body {
-  h1, h2, h3, h4, h5, h6, p, span, small, a, li, 
-  .main-title, [class*="title"], [class*="heading"], [class*="Heading"] {
-    color: $dark-text;
-  }
 }
