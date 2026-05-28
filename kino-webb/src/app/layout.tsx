@@ -29,9 +29,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}
-    suppressHydrationWarning
-      style={{ colorScheme: 'light' }}
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable}`}
+      suppressHydrationWarning
+      style={{ colorScheme: "light" }}
     >
       <body className="root">
         <SessionProvider>
