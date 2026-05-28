@@ -1,15 +1,23 @@
-
-
 .section {
   width: 100%;
   padding: 3rem 0;
-  background-color: var(--card-bg);
-  border: 2px solid var(--card-border);
   border-radius: 12px;
-  color: var(--text-main);
   text-align: center;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+
+  background-color: $light-bg;     
+  border: 2px solid $border-color; 
+  color: $light-text;              
 }
 
+
+:global(html.dark) {
+  :local(.section) {
+    background-color: $dark-bg;     
+    border: 2px solid $border-dark; 
+    color: $dark-text;              
+  }
+}
 
 .wrapper {
   width: 80%;
@@ -18,10 +26,20 @@
   text-align: center;
   font-family: var(--font-geist-sans), sans-serif;
 }
+
 .heading {
   font-size: 1.4rem;
   margin-bottom: 0.1rem;
   font-weight: 600;
-  color: var(--text-main);
   transition: color 0.3s ease;
+
+
+  color: $light-text; 
+}
+
+
+:global(html.dark) {
+  :local(.heading) {
+    color: $dark-text;
+  }
 }

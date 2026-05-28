@@ -5,12 +5,20 @@
 .footer {
   display: flex;
   flex-direction: column;
-  background-color: var(--card-bg); 
-  color: var(--text-main);           
   font-size: 1.1rem;
   font-family: sans-serif;
   padding: 2rem;
   transition: background-color 0.3s ease, color 0.3s ease;
+
+  // Default light values
+  background-color: $light-footer; 
+  color: $light-text;           
+
+  // Swaps to dark values when html has the .dark class
+  :global(html.dark) & {
+    background-color: $dark-footer;
+    color: $dark-text;
+  }
 }
 
 .footerContent {
@@ -31,11 +39,18 @@
 .footerTerms,
 .footerInfo {
   font-size: 0.8rem;
-  color: var(--text-main);           
   list-style: none;
   padding: 0;
   margin: 0;
   transition: color 0.3s ease;
+
+  // Default light value
+  color: $light-text;           
+
+  // Swaps to dark text
+  :global(html.dark) & {
+    color: $dark-text;
+  }
 
   a {
     color: inherit;
@@ -45,10 +60,17 @@
 
 .footerIcons {
   display: flex;
-  color: var(--text-main);           
   gap: 2rem;
   font-size: 2.5rem;
   transition: color 0.3s ease;
+
+  // Default light value
+  color: $light-text;           
+
+  // Swaps to dark icons
+  :global(html.dark) & {
+    color: $dark-text;
+  }
 
   a {
     color: inherit;
@@ -71,20 +93,37 @@
   padding: 0.5rem;
   width: 8rem;
   max-width: 100%;
-  border: 1px solid var(--card-border); 
+  border: 1px solid $border-color; 
   border-radius: 8px;
-  background-color: var(--site-bg);    
-  color: var(--text-main);              
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+
+  // Default light values
+  background-color: $light-bg;    
+  color: $light-text;              
+
+  // Swaps to dark values
+  :global(html.dark) & {
+    border-color: $border-dark;
+    background-color: $dark-bg;
+    color: $dark-text;
+  }
 }
 
 .newsletterSubmit {
-  background-color: var(--text-main); 
-  color: var(--site-bg);               
   border: none;
   padding: 0.6rem 1rem;
   border-radius: 8px;
   cursor: pointer;
   font-size: 0.8rem;
   transition: background-color 0.3s ease, color 0.3s ease;
+
+  // Default light contrast colors
+  background-color: $light-text; 
+  color: $light-bg;               
+
+  // Swaps to dark contrast colors
+  :global(html.dark) & {
+    background-color: $dark-button;
+    color: $dark-text;
+  }
 }
