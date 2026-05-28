@@ -14,7 +14,7 @@ type HeaderProps = {
 
 const logOut = async () => {await signOut({ redirectTo: "/" })};
 
-export default function Header({ onOpenLogin }: HeaderProps) {
+export default function Header({ onOpenLogin, children }: HeaderProps) {
   const { data: session, status } = useSession();
   const buttonMode = useMemo(() => {
     if (session?.user && status === "authenticated") { return true; } else return false;
@@ -25,6 +25,9 @@ export default function Header({ onOpenLogin }: HeaderProps) {
         <div className={styles.header__inner}>
         <Menu />
         <Logo />
+        <div className={styles.header__controls}>
+          {children}
+        </div>
         <button className={styles.loginButton}
           onClick={buttonMode ? logOut : onOpenLogin}
         >
