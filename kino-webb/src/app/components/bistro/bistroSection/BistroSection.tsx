@@ -1,4 +1,6 @@
 import styles from "./BistroSection.module.scss";
+import BistroBanner from "../bistroBanner/BistroBanner";
+import BistroOffers from "../bistroOffers/BistroOffers";
 
 export default function BistroSection() {
   return (
@@ -6,7 +8,8 @@ export default function BistroSection() {
       <h1 className={styles.heading}>Café&Bistro</h1>
 
       <section className={styles.section}>
-  
+         <BistroBanner />
+         <BistroOffers />
       </section>
     </div>
   );

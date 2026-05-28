@@ -13,7 +13,98 @@ datasource db {
 }
 
 model User {
-  id  Int @id @default(autoincrement())
-  email String  @unique
-  name  String?
+  id              Int         @id @default(autoincrement())
+  email           String      @unique
+  passwordHash    String
+  name            String?
+  role            Role        @default(USER)
+  createdAt       DateTime    @default(now())
+}
+
+model Booking {
+  id              Int         @id @default(autoincrement())
+  userId          Int
+  screeningId     Int
+  seats           String[]
+  totalPrice      Int
+  status          BookStatus  @default(PENDING)
+  createdAt       DateTime    @default(now())
+}
+
+model Movie {
+  id              Int         @id @default(autoincrement())
+  Series_Title    String      @db.VarChar(50)
+  Released_Year   Int
+  Genre           String
+  IMDB_Rating     Float
+  Director        String
+  Stars           String[]
+  Runtime         String
+  Certificate     String
+  Overview        String      @db.VarChar(300)
+  Poster_Link     String
+  Trailer         String
+}
+
+model Screening {
+  id              Int         @id @default(autoincrement())
+  movieId         Int
+  auditorium      String
+  startsAt        String
+  language        String
+  subtitles       String
+  price           Int
+  availableSeats  Int
+  totalSeats      Int
+}
+
+model Review {
+  id              Int       @id @default(autoincrement())
+  movieId         Int
+  userId          Int
+  rating          Rating    @default(I)
+  comment         String    @db.VarChar(100)   
+  createdAt       DateTime  @default(now())
+}
+
+model Offer {
+  id              Int       @id @default(autoincrement())
+  type            Otype     @default(MOVIE)
+  title           String    @db.VarChar(50)
+  text            String    @db.Text
+  picture         String    @default("")
+  price           Decimal?  @db.Decimal(6, 2)
+  createdAt       DateTime  @default(now())
+  validForDays    Int       @default(30)
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum BookStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+}
+
+enum Rating {
+  I
+  II
+  III
+  IIII
+  IIIII
+  IIIIII
+  IIIIIII
+  IIIIIIII
+  IIIIIIIII
+  IIIIIIIIII
+}
+
+enum Otype {
+  MOVIE
+  FOOD
+  SNACKS
+  COMBO
 }

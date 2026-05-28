@@ -1,0 +1,25 @@
+.section {
+  width: 100%;
+}
+
+.sectionTitle {
+  text-align: center;
+  margin-bottom: 16px;
+  color: #ffffff;
+}
+
+.track {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: stretch;
+  justify-content: center;
+  overflow: visible;
+}
+
+.empty {
+  margin: 0;
+  opacity: 0.8;
+  text-align: center;
+  color: #ffffff;
+}
