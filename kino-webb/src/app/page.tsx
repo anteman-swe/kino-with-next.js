@@ -12,9 +12,7 @@ export default function Home() {
     <>
       <main className={styles.page}>
 
-        <section className={styles.carouselSection}>
-          <MovieCarousel movies={movies} />
-        </section>
+        <MovieCarousel movies={movies} />
 
         <PopularMovies />
 
@@ -23,6 +21,7 @@ export default function Home() {
         <MovieList movies={movies} title="Aktuella filmer" />
         
         <BistroSection />
+        
       </main>
     </>
   );
