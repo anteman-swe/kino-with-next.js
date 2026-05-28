@@ -8,7 +8,6 @@ import { SessionProvider } from "next-auth/react";
 import HeaderWrapper from "./components/header/HeaderWrapper";
 import Footer from "./components/footer/Footer";
 
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -30,9 +29,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}
-    suppressHydrationWarning
-      style={{ colorScheme: 'light' }}
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable}`}
+      suppressHydrationWarning
+      style={{ colorScheme: "light" }}
     >
       <body className="root">
         <SessionProvider>
