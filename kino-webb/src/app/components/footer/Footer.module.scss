@@ -5,8 +5,8 @@
 .footer {
   display: flex;
   flex-direction: column;
-  background-color: var(--card-bg); 
-  color: var(--text-main);           
+  background-color: $light-footer; 
+  color: $light-text;           
   font-size: 1.1rem;
   font-family: sans-serif;
   padding: 2rem;
@@ -31,7 +31,7 @@
 .footerTerms,
 .footerInfo {
   font-size: 0.8rem;
-  color: var(--text-main);           
+  color: $light-text;           
   list-style: none;
   padding: 0;
   margin: 0;
@@ -45,7 +45,7 @@
 
 .footerIcons {
   display: flex;
-  color: var(--text-main);           
+  color: $light-text;           
   gap: 2rem;
   font-size: 2.5rem;
   transition: color 0.3s ease;
@@ -71,16 +71,16 @@
   padding: 0.5rem;
   width: 8rem;
   max-width: 100%;
-  border: 1px solid var(--card-border); 
+  border: 1px solid $border-color; 
   border-radius: 8px;
-  background-color: var(--site-bg);    
-  color: var(--text-main);              
+  background-color: $light-bg;    
+  color: $light-text;              
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 .newsletterSubmit {
-  background-color: var(--text-main); 
-  color: var(--site-bg);               
+  background-color: $light-text; 
+  color: $light-bg;               
   border: none;
   padding: 0.6rem 1rem;
   border-radius: 8px;
