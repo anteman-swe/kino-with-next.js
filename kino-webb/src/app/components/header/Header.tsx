@@ -21,17 +21,17 @@ export default function Header({ onOpenLogin, children }: HeaderProps) {
   return (
       <header className={styles.header}>
         <div className={styles.header__inner}>
-          <Menu />
-          <Logo />
-          <div className={styles.header__controls}>
-            {children}
-            <button className={styles.loginButton}
-              onClick={buttonMode ? logOut : onOpenLogin}
-            >
-              { status === "loading" ? "Laddar..." : buttonMode ? "LOGGA UT" : "BLI MEDLEM / LOGGA IN"}
-            </button>
-            </div>
+        <Menu />
+        <Logo />
+        <div className={styles.header__controls}>
+          {children}
         </div>
+        <button className={styles.loginButton}
+          onClick={buttonMode ? logOut : onOpenLogin}
+        >
+          { status === "loading" ? "Laddar..." : buttonMode ? "LOGGA UT" : "BLI MEDLEM / LOGGA IN"}
+        </button>
+      </div>
     </header>
   );
 }
