@@ -1,5 +1,7 @@
 import styles from "./BistroSection.module.scss";
 import BistroBanner from "../bistroBanner/BistroBanner";
+import BistroOffers from "../bistroOffers/BistroOffers";
+
 export default function BistroSection() {
   return (
     <div className={styles.wrapper}>
@@ -7,6 +9,7 @@ export default function BistroSection() {
 
       <section className={styles.section}>
          <BistroBanner />
+         <BistroOffers />
       </section>
     </div>
   );
