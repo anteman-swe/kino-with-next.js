@@ -1,0 +1,27 @@
+
+
+.section {
+  width: 100%;
+  padding: 3rem 0;
+  background-color: $dark-bg;
+  border: 2px solid gray;
+  border-radius: 12px;
+  color: #fff;
+  text-align: center;
+
+}
+
+
+.wrapper {
+  width: 80%;
+  max-width: 1200px;
+  margin: 8rem auto;
+  text-align: center;
+  font-family: var(--font-geist-sans), sans-serif;
+}
+.heading {
+  font-size: 1.4rem;
+  margin-bottom: 0.1rem;
+  font-weight: 600;
+  color: #ffffff; 
+}

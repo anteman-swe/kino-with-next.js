@@ -1,0 +1,14 @@
+.root {
+  isolation: isolate;
+}
+
+body {
+    margin: auto;
+    max-width: 1200px;
+    border-left: solid 1px black;
+    border-right: solid 1px black;
+    min-height: 100dvh;
+    background-color: $dark-bg;
+    display: flex;
+    flex-direction: column;
+}
