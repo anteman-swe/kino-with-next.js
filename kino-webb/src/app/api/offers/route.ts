@@ -13,7 +13,7 @@ export async function GET() {
     .sort((a, b) => (
         (a.createdAt.getTime() + a.validForDays * oneDayms)
          - (b.createdAt.getTime() + b.validForDays * oneDayms)));
-    if (memberOffers.length  > 5) {
-        return memberOffers.splice(5)
+    if (memberOffers.length  > 4) {
+        return memberOffers.splice(4)
     } else return NextResponse.json(memberOffers);
 }
