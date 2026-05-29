@@ -9,7 +9,7 @@ import { useMemo } from "react";
 type HeaderProps = {
   onOpenLogin: () => void;
   onOpenRegister: () => void;
-  children?: React.ReactNode; 
+  children?: React.ReactNode;
 };
 
 const logOut = async () => {await signOut({ redirectTo: "/" })};
