@@ -3,14 +3,15 @@ import { Input } from '@base-ui/react/input';
 import styles from './ReviewTextarea.module.scss';
 
 interface TextareaProps {
+  name: string;
   placeHolder: string;
   areaLabel: string;
   description: string;
 }
 
-const Textarea = ({ placeHolder, areaLabel, description }: TextareaProps) => {
+const Textarea = ({ name, placeHolder, areaLabel, description }: TextareaProps) => {
   return (
-    <Field.Root className={styles.FieldRoot}>
+    <Field.Root className={styles.FieldRoot} name={name}>
       <Field.Label className={styles['form__textarea--label']}>
         {areaLabel}
       </Field.Label>

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { FC, useState } from 'react';
 
 export interface StarRatingProps {
   value: number;
@@ -10,7 +10,7 @@ export interface StarRatingProps {
   readOnly?: boolean;
 }
 
-export const StarRating: React.FC<StarRatingProps> = ({
+export const StarRating: FC<StarRatingProps> = ({
   value,
   onChange,
   maxStars = 5,
@@ -19,7 +19,7 @@ export const StarRating: React.FC<StarRatingProps> = ({
   emptyColor = '#d3d3d3',
   readOnly = false,
 }) => {
-  const [hoverValue, setHoverValue] = React.useState<number | null>(null);
+  const [hoverValue, setHoverValue] = useState<number | null>(null);
 
   const handleClick = (starValue: number) => {
     if (!readOnly) onChange(starValue);
@@ -43,12 +43,14 @@ export const StarRating: React.FC<StarRatingProps> = ({
   };
 
   return (
+    <>
     <div style={{ display: 'flex', gap: '4px' }} role="radiogroup">
       {Array.from({ length: maxStars }, (_, i) => i + 1).map((starValue) => {
         const isFilled = starValue <= (hoverValue || value);
 
         return (
           <button
+            type='button'
             key={starValue}
             onClick={() => handleClick(starValue)}
             onMouseEnter={() => handleMouseEnter(starValue)}
@@ -73,5 +75,6 @@ export const StarRating: React.FC<StarRatingProps> = ({
         );
       })}
     </div>
+    </>
   );
 };

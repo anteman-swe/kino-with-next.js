@@ -21,7 +21,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         try {
           const { email, password } = await signInSchema.parseAsync(credentials);
           const user = await getUserByEmail(email);
-
+          
           if(user) {
             const passwordVerified = await verifyPassword(password, user.passwordHash);
             if (passwordVerified) {
@@ -51,6 +51,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async session({ session, token }) {
       if (token?.role && session.user) {
         session.user.role = token.role;
+        session.user.id = token.sub!;
       }
       return session;
     },

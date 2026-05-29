@@ -21,17 +21,17 @@ body {
     max-width: 1200px;
     min-height: 100dvh;
     background-color: var(--site-bg);
-    color: var(--text-color);
+    color: var(--text-main);
     display: flex;
     flex-direction: column;
     transition: background-color 0.3s ease, color 0.3s ease;
 
-    :global(html.dark) & {
+    html.dark & {
     border-left: solid 1px black;
     border-right: solid 1px black;
     }
 
-    :global(html:not(.dark)) & {
+    html:not(.dark) & {
       border-left: none;
       border-right: none;
     }

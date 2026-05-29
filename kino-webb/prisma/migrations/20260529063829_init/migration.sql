@@ -5,9 +5,6 @@ CREATE TYPE "Role" AS ENUM ('USER', 'ADMIN');
 CREATE TYPE "BookStatus" AS ENUM ('PENDING', 'CONFIRMED', 'CANCELLED');
 
 -- CreateEnum
-CREATE TYPE "Rating" AS ENUM ('I', 'II', 'III', 'IIII', 'IIIII', 'IIIIII', 'IIIIIII', 'IIIIIIII', 'IIIIIIIII', 'IIIIIIIIII');
-
--- CreateEnum
 CREATE TYPE "Otype" AS ENUM ('MOVIE', 'FOOD', 'SNACKS', 'COMBO');
 
 -- CreateTable
@@ -23,7 +20,7 @@ CREATE TABLE "User" (
 );
 
 -- CreateTable
-CREATE TABLE "Bookings" (
+CREATE TABLE "Booking" (
     "id" SERIAL NOT NULL,
     "userId" INTEGER NOT NULL,
     "screeningId" INTEGER NOT NULL,
@@ -32,11 +29,11 @@ CREATE TABLE "Bookings" (
     "status" "BookStatus" NOT NULL DEFAULT 'PENDING',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT "Bookings_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Booking_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "Movies" (
+CREATE TABLE "Movie" (
     "id" SERIAL NOT NULL,
     "Series_Title" VARCHAR(50) NOT NULL,
     "Released_Year" INTEGER NOT NULL,
@@ -50,11 +47,11 @@ CREATE TABLE "Movies" (
     "Poster_Link" TEXT NOT NULL,
     "Trailer" TEXT NOT NULL,
 
-    CONSTRAINT "Movies_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Movie_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "Screenings" (
+CREATE TABLE "Screening" (
     "id" SERIAL NOT NULL,
     "movieId" INTEGER NOT NULL,
     "auditorium" TEXT NOT NULL,
@@ -65,33 +62,33 @@ CREATE TABLE "Screenings" (
     "availableSeats" INTEGER NOT NULL,
     "totalSeats" INTEGER NOT NULL,
 
-    CONSTRAINT "Screenings_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Screening_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "Reviews" (
+CREATE TABLE "Review" (
     "id" SERIAL NOT NULL,
     "movieId" INTEGER NOT NULL,
     "userId" INTEGER NOT NULL,
-    "rating" "Rating" NOT NULL DEFAULT 'I',
+    "rating" INTEGER NOT NULL DEFAULT 1,
     "comment" VARCHAR(100) NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    CONSTRAINT "Reviews_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Review_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "Offers" (
+CREATE TABLE "Offer" (
     "id" SERIAL NOT NULL,
     "type" "Otype" NOT NULL DEFAULT 'MOVIE',
     "title" VARCHAR(50) NOT NULL,
     "text" TEXT NOT NULL,
-    "picture" TEXT NOT NULL DEFAULT '/defaultimg.png',
+    "picture" TEXT NOT NULL DEFAULT '',
     "price" DECIMAL(6,2),
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "validForDays" INTEGER NOT NULL DEFAULT 30,
 
-    CONSTRAINT "Offers_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Offer_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex

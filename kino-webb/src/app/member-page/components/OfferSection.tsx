@@ -22,8 +22,8 @@ const theOffers = await getOffers();
 const convertedOffers = theOffers?.map((element) => ({
     ...element,
     createdAt: new Date(element.createdAt),
-}))
-// const convertedOffers = theOffers;
+}));
+
 const OfferSection: React.FC = () => {
   
   return (

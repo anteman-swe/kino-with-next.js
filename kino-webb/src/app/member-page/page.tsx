@@ -5,16 +5,15 @@ import { auth } from '@/auth';
 import { redirect } from "next/navigation";
 import { Role } from "@/generated/prisma/enums";
 import OfferSection from "./components/OfferSection";
-import ReviewInputModule from "./components/ReviewInputSection";
+import ReviewInputSection from "./components/ReviewInputSection";
 
 
 const Memberpage = async () => {
     const session = await auth();
-
-    const thisUser = (session?.user?.name);
-
+    const thisUserName = (session?.user?.name);
+    const userID = (session?.user?.id);
     if (!session?.user) {
-        redirect("/"); // If not user not logged in redirect back to start
+        redirect("/"); // If user not logged in redirect back to start
     }
 
     if (session?.user?.role  === Role.ADMIN) {
@@ -25,13 +24,15 @@ const Memberpage = async () => {
         <>
         <section className={styles.members__offers}>
             <h2 className={styles['members__offers--title']}>Medlemssida</h2>
-            <p className={styles['members__offers--name']}>{thisUser}</p>
+            <p className={styles['members__offers--name']}>{thisUserName}</p>
             <OfferSection />
             
             <div className={styles['members__offers--images']}>
             </div>
         </section>
-        <ReviewInputModule />
+        <ReviewInputSection
+            reviewerID={userID ?? ""} 
+        />
         </>
     )
 };

@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 
 const Adminpage = async () => {
     const session = await auth();
+    const adminID = session?.user?.id;
     
     if (!session?.user) {
        redirect("/");
@@ -15,7 +16,7 @@ const Adminpage = async () => {
     } else {
         return (
             <>
-            <h1 className={styles.headLine}>Admin Page</h1>
+            <h1 className={styles.headLine}>Admin Page, ID: {adminID}</h1>
             </>
         )
     }
