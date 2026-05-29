@@ -30,7 +30,7 @@ CREATE TABLE "Bookings" (
 );
 
 -- CreateTable
-CREATE TABLE "Movie" (
+CREATE TABLE "Movies" (
     "id" SERIAL NOT NULL,
     "Series_Title" VARCHAR(50) NOT NULL,
     "Released_Year" INTEGER NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE "Movie" (
     "Poster_Link" TEXT NOT NULL,
     "Trailer" TEXT NOT NULL,
 
-    CONSTRAINT "Movie_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Movies_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
