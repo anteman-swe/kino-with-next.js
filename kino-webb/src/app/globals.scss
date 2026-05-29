@@ -5,10 +5,21 @@
 body {
     margin: auto;
     max-width: 1200px;
-    border-left: solid 1px black;
-    border-right: solid 1px black;
     min-height: 100dvh;
-    background-color: $dark-bg;
     display: flex;
     flex-direction: column;
+    transition: background-color 0.3s ease, color 0.3s ease;
+
+    background-color: $light-bg; 
+    color: $light-text;
+    border-left: none;
+    border-right: none;
+}
+
+
+html.dark body {
+    background-color: $dark-bg; 
+    color: $dark-text;
+    border-left: solid 1px black;
+    border-right: solid 1px black;
 }

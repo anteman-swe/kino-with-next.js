@@ -7,11 +7,12 @@ import { signOut, useSession } from "next-auth/react";
 type HeaderProps = {
   onOpenLogin: () => void;
   onOpenRegister: () => void;
+  children?: React.ReactNode;
 };
 
 const logOut = () => {signOut()};
 
-export default function Header({ onOpenLogin }: HeaderProps) {
+export default function Header({ onOpenLogin, children }: HeaderProps) {
   const { data: session, status } = useSession();
   let buttonMode:  boolean = false;
   if (session?.user) {
@@ -22,6 +23,9 @@ export default function Header({ onOpenLogin }: HeaderProps) {
         <div className={styles.header__inner}>
         <Menu />
         <Logo />
+        <div className={styles.header__controls}>
+          {children}
+        </div>
         <button className={styles.loginButton}
           onClick={buttonMode ? logOut : onOpenLogin}
         >

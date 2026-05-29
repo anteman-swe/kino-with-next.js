@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import Header from "./Header";
 import LoginModal from "../login/LoginModal";
 import RegisterModal from "../register/RegisterModal";
+import DarkLightTheme from "../darkLightTheme/DarkLightTheme";
 
 export default function HeaderWrapper() {
   const paramToOpen = useSearchParams();
@@ -32,7 +33,10 @@ export default function HeaderWrapper() {
           setIsLoginOpen(false);
           setIsRegisterOpen(true);
         }}
-      />
+      >
+        <DarkLightTheme />  
+      </Header>  
+    
 
       {isLoginOpen && (
         <LoginModal
