@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link"; // 1. Import Next.js Link
 import style from "./PopularMovies.module.scss";
 import { reviews } from "@/Data/reviews";
 import { movies } from "@/Data/movies";
@@ -21,7 +22,7 @@ export default function PopularMovies() {
       const averageRating =
         movieReviews.length > 0
           ? movieReviews.reduce((sum, review) => sum + review.rating, 0) /
-          movieReviews.length
+            movieReviews.length
           : 0;
 
       return {
@@ -49,8 +50,12 @@ export default function PopularMovies() {
 
       <section className={style.popularMoviesContent}>
         {popularMovies.map(({ movie, averageRating, reviewCount }) => (
-          <div className={style.popularMoviesCard} key={movie.id}>
-
+          
+          <Link 
+            href={`/movies/${movie.id}`} 
+            className={style.popularMoviesCard} 
+            key={movie.id}
+          >
             <Image
               className={style.popularMoviesImg}
               src={movie.Poster_Link}
@@ -70,7 +75,7 @@ export default function PopularMovies() {
             <p className={style.popularMoviesReviews}>
               {reviewCount} recensioner senaste 30 dagarna
             </p>
-          </div>
+          </Link>
         ))}
       </section>
     </div>
