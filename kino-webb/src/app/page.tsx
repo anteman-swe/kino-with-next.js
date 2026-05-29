@@ -12,10 +12,7 @@ export default function Home() {
   return (
     <>
       <main className={styles.page}>
-       
-        <h1 className={styles.headline}>
-          Kino - superprojekt
-        </h1>
+        <h1 className={styles.headline}>Kino - superprojekt</h1>
 
         <section className={styles.carouselSection}>
           <MovieCarousel movies={movies} />
@@ -24,9 +21,9 @@ export default function Home() {
         <PopularMovies />
 
         <UpcomingScreenings />
-       
+
         <MovieList movies={movies} title="Aktuella filmer" />
-        
+
         <BistroSection />
 
         <EventList events={events} />
