@@ -37,16 +37,16 @@ export default function RootLayout({
     >
       <body className="root">
         <SessionProvider>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-        <HeaderWrapper />
-        {children}
-        <Footer />
-        </ThemeProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <HeaderWrapper />
+            {children}
+            <Footer />
+          </ThemeProvider>
         </SessionProvider>
       </body>
     </html>
