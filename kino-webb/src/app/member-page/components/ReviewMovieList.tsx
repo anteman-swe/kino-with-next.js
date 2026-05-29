@@ -1,11 +1,16 @@
 import { useId } from "react";
-
-import { movies } from "@/Data/movies"; // Dummy data, remove when changing to real data from db
 import { Movie } from "@/generated/prisma/client";
 import { Combobox } from "@base-ui/react/combobox";
 import { Field } from "@base-ui/react/field";
 import styles from "./ReviewMovieList.module.scss";
-const movieList = movies;
+
+const getMovies = async () => {
+  const response = await fetch('/api/movies');
+  const result = await response.json();
+  return result;
+};
+
+const movieList = await getMovies();
 
 interface ReviewMovieListProps {
   name: string;
