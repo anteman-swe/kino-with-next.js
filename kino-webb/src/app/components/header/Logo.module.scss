@@ -5,9 +5,10 @@
   margin: 0 auto;
   mix-blend-mode: normal;
   filter: none;
-  :global(html:not(.dark)) & {
-    filter: contrast(1.1) brightness(1.05);
+  :global(html:not(.dark) body) img.logo {
+    background-color: transparent;
     mix-blend-mode: multiply;
+    filter: contrast(1.1) brightness(1.05);
   }
 
 }
