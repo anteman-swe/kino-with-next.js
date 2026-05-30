@@ -1,0 +1,381 @@
+.recensionContainer {
+  --recension-bg: #{$dark-bg};
+  --recension-text: #{$dark-text};
+  --recension-card-bg: rgba(#{$dark-menu}, 0.45);
+  --recension-item-bg: rgba(#{$dark-bg}, 0.6);
+  --recension-input-bg: rgba(0, 0, 0, 0.35);
+  --recension-border: #{$border-muted};
+
+  min-height: 100vh;
+  background-color: var(--recension-bg);
+  color: var(--recension-text);
+  font-family: sans-serif;
+  padding-bottom: 5rem;
+}
+
+:global(html:not([class*="dark"])) .recensionContainer {
+  --recension-bg: #{$light-bg};
+  --recension-text: #{$light-text};
+  --recension-card-bg: #{$light-menu};
+  --recension-item-bg: rgba(0, 0, 0, 0.03);
+  --recension-input-bg: rgba(0, 0, 0, 0.05);
+  --recension-border: rgba(0, 0, 0, 0.1);
+}
+
+.errorContainer, .heroBanner, .mainContent {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.errorContainer {
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 2rem;
+}
+
+.mainContent {
+  max-width: 1140px;
+  margin: 2.5rem auto 0;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3.5rem;
+
+  @media (min-width: 1024px) {
+    grid-template-columns: minmax(0, 2.7fr) minmax(0, 340px);
+  }
+}
+
+.castSection, .userReviewsCard, .addReviewSection, .ratingCard, .posterCard {
+  
+  border: 1px solid var(--recension-border);
+  border-radius: 1.25rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
+}
+
+.heroBanner {
+  position: relative;
+  min-height: 42vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 8rem 0 3rem 0;
+  overflow: hidden;
+
+  .bannerImg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.4; 
+    z-index: 1;
+  }
+
+  .gradientOverlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 100%);
+    z-index: 2;
+  }
+
+  .topNav {
+    position: absolute;
+    top: 2.5rem;
+    left: 2.5rem;
+    z-index: 20;
+  }
+
+  .heroContent {
+    position: relative;
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    z-index: 10;
+
+    .genres {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+
+      .genreTag {
+        background-color: rgba(255, 255, 255, 0.15);
+        padding: 0.35rem 0.85rem;
+        border-radius: 2rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #ffffff;
+      }
+    }
+
+    .movieTitle {
+      font-size: 2.6rem;
+      font-weight: 800;
+      margin: 0 0 1rem 0;
+      line-height: 1.15;
+      color: #ffffff;
+
+      @media (min-width: 768px) { font-size: 3.75rem; }
+    }
+
+    .metaRow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.9);
+
+      .metaItem {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        
+        svg { fill: currentColor; }
+      }
+    }
+  }
+}
+
+.backLink {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.95rem;
+  color: #ffffff;
+  text-decoration: none;
+
+  &:hover { opacity: 0.8; }
+}
+
+.reviewDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  min-width: 0;
+
+  .sectionTitle {
+    font-size: 1.45rem;
+    font-weight: 700;
+    margin: 0 0 1.25rem 0;
+    border-bottom: 1px solid var(--recension-border);
+    padding-bottom: 0.6rem;
+    color: var(--recension-text);
+  }
+
+  .synopsisText {
+    font-size: 1.1rem;
+    line-height: 1.75;
+    margin: 0;
+  }
+
+  .castSection {
+    border-radius: 0.85rem;
+    padding: 1.5rem;
+
+    .subTitle { font-size: 0.9rem; font-weight: 600; margin: 0 0 0.5rem 0; color: #{$text-muted}; text-transform: uppercase; }
+    .castText { font-size: 1rem; margin: 0; line-height: 1.5; }
+  }
+
+  .userReviewsCard {
+    padding: 2.25rem;
+
+    .cardTitle {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin: 0 0 1.5rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      border-bottom: 1px solid var(--recension-border);
+      padding-bottom: 0.85rem;
+      color: var(--recension-text);
+      
+      svg { color: #{$toggle-on}; }
+    }
+
+    .noReviews { font-size: 1rem; color: #{$text-muted}; text-align: center; padding: 2.5rem 0; }
+
+    .reviewsList {
+      display: flex;
+      gap: 1.5rem; 
+      overflow-x: auto; 
+      scroll-snap-type: x mandatory; 
+      padding-bottom: 1.25rem;
+    }
+
+    .reviewItem {
+      flex: 0 0 85%;
+      max-width: 520px; 
+      background-color: var(--recension-item-bg);
+      border: 1px solid var(--recension-border);
+      padding: 1.75rem; 
+      border-radius: 1rem;
+      scroll-snap-align: start;
+
+      @media (max-width: 640px) { flex: 0 0 95%; }
+
+      &:hover { border-color: rgba($toggle-on, 0.3); }
+
+      .reviewHeader {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.95rem;
+        margin-bottom: 0.6rem;
+
+        .reviewerName { font-weight: 600; }
+        .reviewDate { color: #{$text-muted}; font-size: 0.85rem; }
+      }
+
+      .reviewStars {
+        display: flex;
+        gap: 3px;
+        margin-bottom: 1rem;
+        
+        .filledStar { color: #{$toggle-on}; fill: #{$toggle-on}; }
+        .emptyStar { color: var(--recension-border); }
+      }
+
+      .reviewComment {
+        font-size: 1rem;
+        line-height: 1.65;
+        margin: 0;
+        font-style: italic;
+      }
+    }
+  }
+
+  .addReviewSection {
+    padding: 2.5rem;
+    .formSectionTitle { font-size: 1.4rem; font-weight: 700; margin: 0 0 1.75rem 0; color: var(--recension-text); }
+  }
+
+  .reviewForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+
+    .formRow {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      @media (min-width: 640px) { grid-template-columns: 3fr 1fr; }
+    }
+
+    .formGroup {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+
+      label {
+        font-size: 0.75rem;
+        color: #{$text-muted};
+        text-transform: uppercase;
+        font-weight: 700;
+      }
+
+      input, select, textarea {
+        background-color: var(--recension-input-bg);
+        border: 1px solid var(--recension-border);
+        border-radius: 0.6rem;
+        padding: 0.95rem 1.1rem;
+        color: var(--recension-text);
+        font-size: 1rem;
+        font-family: inherit;
+        box-sizing: border-box;
+
+        &:focus {
+          outline: none;
+          border-color: #{$toggle-on};
+          background-color: rgba(0, 0, 0, 0.1);
+          box-shadow: 0 0 0 4px rgba($toggle-on, 0.15);
+        }
+      }
+
+      textarea { resize: vertical; min-height: 130px; }
+
+      select {
+        cursor: pointer;
+        appearance: none; 
+        background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23aaa' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>") no-repeat right 1rem center / 1rem;
+        padding-right: 2.75rem;
+
+        option {  color: var(--recension-text); }
+      }
+    }
+
+    .submitButton {
+      align-self: flex-start;
+      min-width: 190px;
+      background-color: var(--recension-text);
+      color: var(--recension-bg);
+      border: none;
+      padding: 1rem 2.25rem;
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: 0.6rem;
+      cursor: pointer;
+
+      @media (max-width: 480px) { width: 100%; }
+      &:hover { opacity: 0.9; }
+    }
+  }
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  min-width: 0;
+
+  .ratingCard {
+    padding: 1.5rem 1.75rem;
+    text-align: center;
+
+    .cardTitle { font-size: 0.95rem; font-weight: 700; margin: 0; color: var(--recension-text); text-transform: uppercase; }
+
+    .scoreBox {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba($toggle-on, 0.09); 
+      color: #{$toggle-on};
+      padding: 0.45rem 1.25rem;
+      border-radius: 9999px;
+      gap: 0.5rem;
+      margin: 1rem 0;
+
+      .starIcon { fill: #{$toggle-on}; }
+      .ratingNum { font-size: 1.65rem; font-weight: 800; }
+      
+      .ratingMax {
+        color: var(--recension-text);
+        font-size: 0.9rem;
+        opacity: 0.55;
+        align-self: flex-end;
+        margin-bottom: 0.2rem;
+      }
+    }
+
+    .reviewCountText { font-size: 0.85rem; color: #{$text-muted}; font-weight: 500; margin: 0; }
+  }
+
+  .posterCard {
+    padding: 0.55rem;
+    overflow: hidden;
+
+    .posterWrapper {
+      position: relative;
+      aspect-ratio: 2 / 3;
+      border-radius: 0.85rem;
+      overflow: hidden;
+
+      .featuredPosterImg { object-fit: cover; width: 100%; height: 100%; }
+    }
+  }
+}
