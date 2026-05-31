@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import { ZodError } from "zod";
 import Credentials from "next-auth/providers/credentials";
-import { signInSchema } from "@/app/lib/zod";
+import { signInSchema } from "@/lib/zod";
 import { verifyPassword } from '@/app/utils/password';
 import { getUserByEmail } from "@/app/utils/db";
 import { Role } from '@/generated/prisma/client';
