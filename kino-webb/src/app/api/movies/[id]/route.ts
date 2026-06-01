@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
+import { RouteParams } from '@/types';
+import { PrismaPg } from '@prisma/adapter-pg';
+import { PrismaClient } from "@/generated/prisma/client";
 
-import { RouteParams } from '@/types'
+const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
+const prisma = new PrismaClient({ adapter });
 
 
 export async function GET(request: NextRequest, { params }: RouteParams) {
@@ -15,8 +19,18 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
                 status: 400
             });
         }
-        // Kod för att hämta film från databasen
-    } catch {
-        // Kod för att fånga fel, error
+        const theMovie = await prisma.movie.findUnique({
+            where: { id: movieId },
+        });
+
+        return NextResponse.json(theMovie);
+
+    } catch(err) {
+        console.error('Error getting movie from db:', err);
+        return NextResponse.json({
+            name: "dbError",
+            message: "Could not get movie from DB",
+            status: 400
+        });
     }
 } 
