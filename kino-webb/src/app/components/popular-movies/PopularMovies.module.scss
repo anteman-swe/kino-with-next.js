@@ -1,19 +1,49 @@
-.popularMovies {
-  margin-top: 2rem;
-  font-size: 1.5rem;
-  text-align: center;
-  color: white;
-}
-
-.popularMoviesHeading {
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
-}
-
 .popularMoviesTrack {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 1rem;
+  gap: $gap-md;
+  margin-top: 1rem;
+}
+
+.popularMovies {
+  // margin-top: 2rem;
+  // font-size: 1.5rem;
+  text-align: center;
+  color: var(--text-main);
+}
+
+.popularMoviesHeading {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.popularMoviesTitle,
+.popularMoviesReviews {
+  color: var(--text-main);
+}
+
+.popularMoviesCard {
+  width: 15rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: $gap-sm;
+  text-align: center;
+  padding: 0.8rem;
+  text-decoration: none;
+  background-color: var(--card-bg);
+  border-radius: $border-radius;
+  border: 1px solid var(--card-border);
+}
+
+.popularMoviesImg {
+  width: auto;
+  // max-height: 240px;
+  max-width: 180px;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: 6px;
 }
 
 .popularMoviesContent {
@@ -23,24 +53,16 @@
   flex-wrap: wrap;
 }
 
-.popularMoviesImg {
-  width: auto;
-  max-height: 240px;
-  max-width: 160px;
-  aspect-ratio: 2 / 3;
-  object-fit: cover;
-  border-radius: 6px;
-}
+
 
 .popularMoviesTitle {
   margin: 0.5rem 0 0;
   font-size: 0.95rem;
-  color: white;
 }
 
 .popularMoviesRating {
   font-size: 0.8rem;
-  color: #f5c518;
+  color: var(--review-score);
 }
 
 .popularMoviesReviews {

@@ -48,7 +48,7 @@ export default function LoginModal({ onClose, onOpenRegister }: LoginModalProps)
           redirect: false,
         });
       if (loginResult?.error) {
-        setError("Inloggningen misslyckades. Vänligen kontrollera dina uppgifter.");
+        setError("Inloggningen misslyckades. Vänligen kontrollera dina uppgifter och försök igen.");
       } else {
         router.refresh();
         router.push("/member-page");
