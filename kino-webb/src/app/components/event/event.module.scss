@@ -1,0 +1,54 @@
+.section {
+  width: 100%;
+}
+
+.sectionTitle {
+  text-align: center;
+  margin-bottom: 16px;
+  color: #ffffff;
+}
+
+.track {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.empty {
+  margin: 0;
+  opacity: 0.8;
+  text-align: center;
+  color: #ffffff;
+}
+
+.card {
+  color: #ffffff;
+}
+
+.image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+}
+
+.content {
+  margin-top: 8px;
+}
+
+.title {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.date {
+  margin: 4px 0 0;
+  opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  .track {
+    grid-template-columns: 1fr;
+  }
+}

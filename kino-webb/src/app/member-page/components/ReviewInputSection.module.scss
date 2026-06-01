@@ -1,0 +1,45 @@
+.reviewFormWrapper {
+  width: 100%;
+  margin: 2rem 0;
+  display: grid;
+  justify-content: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.reviewHeader {
+  color: var(--foreground);
+  font-size: 1.4rem;
+}
+
+.reviewForm {
+  // background-color: aquamarine;
+  min-width: 30rem;
+}
+
+.RateMovie {
+  font-size: 1rem;
+  margin-top: 2rem;
+  margin-bottom: 0;
+}
+
+.ratingText {
+  font-size: 1rem;
+}
+
+.submitButton {
+  width: 100%;
+  height: max-content;
+  padding: 1rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 1.5rem;
+  border: 0;
+  border-radius: $border-radius;
+  background-color: $dark-button;
+  color: $dark-text;
+  &:hover {
+    cursor: pointer;
+  }
+  &:active {
+    transform: translate(5px, 5px);
+  }
+}

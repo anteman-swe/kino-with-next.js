@@ -1,0 +1,23 @@
+.FieldRoot {
+  width: auto;
+}
+.form {
+  &__textarea {
+    background-color: var(--card-bg);
+    border: 2px solid var(--card-border);
+    border-radius: calc($border-radius * 0.5);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 1rem;
+    width: 98%;
+    &--label {
+      display: block;
+      margin-bottom: 0.25rem;
+      font-size: 1.2rem;
+      font-family: sans-serif;
+    }
+
+    &--description {
+      font-size: 1rem;
+    }
+  }
+}

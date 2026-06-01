@@ -21,7 +21,8 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@prism": ["./prisma"]
+      "@prism/*": ["./prisma/*"],
+      "@imgs/*": ["./public/*"]
     },
     "types": ["bcrypt-ts"]
   },

@@ -6,6 +6,8 @@ import { saltAndHashPassword } from '@/app/utils/password';
 import { bookings } from '@/Data/bookings';
 import { movies } from '@/Data/movies';
 import { screenings } from '@/Data/screenings';
+import { reviews } from '@/Data/reviews';
+import { offers } from '@/Data/offers';
 
 
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
@@ -14,10 +16,12 @@ const prisma = new PrismaClient({ adapter });
 async function main() {
   // Emptying the database before seeding to prevent duplicate data
   console.log("Tömmer databasen...");
-  await prisma.user.deleteMany({})
-  await prisma.bookings.deleteMany({})
-  await prisma.movies.deleteMany({})
-  await prisma.screenings.deleteMany({})
+  await prisma.user.deleteMany({});
+  await prisma.booking.deleteMany({});
+  await prisma.movie.deleteMany({});
+  await prisma.screening.deleteMany({});
+  await prisma.review.deleteMany({});
+  await prisma.offer.deleteMany({});
   console.log("Databasen är tömd!");
 
   console.log("Genererar haschade lösenord...")
@@ -55,21 +59,34 @@ async function main() {
     ...booking,
     status: booking.status as BookStatus
   }))
-  await prisma.bookings.createMany({
+  await prisma.booking.createMany({
     data: bookingsWithEnumStatus,
   })
   console.log('Dummy-bokningar skrivna till databasen!');
   
-  await prisma.movies.createMany({
+  await prisma.movie.createMany({
     data: movies,
   })
   console.log('Dummy data för filmer skrivna till databasen!');
 
-  await prisma.screenings.createMany({
+  await prisma.screening.createMany({
     data: screenings,
   })
 
   console.log('Dummy data för visningar är skrivna till databasen!');
+
+  
+  await prisma.review.createMany({
+    data: reviews,
+  })
+
+  console.log('Dummy data för visningar är skrivna till databasen!');
+
+  await prisma.offer.createMany({
+    data: offers,
+  })
+  console.log('Dummy data för erbjudanden är skrivna till databasen!');
+
   console.log('Databasen är seedad för testning, KLART!')
 }
 
