@@ -4,8 +4,8 @@
 }
 
 .menuButton {
-  background-color: #1a0000;
-  color: white;
+  background-color: transparent;
+  color: var(--text-main);
   font-size: 1.4rem;
   border: none;
   cursor: pointer;
@@ -22,7 +22,7 @@
     transform 0.4s ease,
     visibility 0.4s ease;
 
-  background-color: rgba(26, 0, 0, 0.95);
+  background-color: rgba(var(--modal-overlay), 0.95);
   position: fixed;
   inset: 0;
   z-index: 9998;
@@ -40,8 +40,8 @@
 }
 
 .menuModal {
-  background: #1a0000;
-  color: white;
+  background: var(--modal-bg);
+  // color: var(--text-main);
   width: min(420px, calc(100vw - 2rem));
   padding: 2rem;
   border-radius: 10px;
@@ -56,7 +56,7 @@
 
   background: none;
   border: none;
-  color: #b3b3b3;
+  color: var(--text-main);
   font-size: 35px;
   cursor: pointer;
   padding: 0;
@@ -64,7 +64,7 @@
 }
 
 .closeButton:hover {
-  color: #ffffff;
+  color: var(--modal-hover);
 }
 
 .navList {
@@ -78,12 +78,12 @@
 }
 
 .navList a {
-  color: white;
+  color: var(--text-main);
   text-decoration: none;
   font-size: 1.2rem;
   font-weight: 600;
 }
 
 .navList a:hover {
-  color: #c9c6c6;
+  color: var(--modal-hover);
 }
