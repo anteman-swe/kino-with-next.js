@@ -1,97 +1,147 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 // Get a free hosted Postgres database in seconds: `npx create-db`
+ 
 
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
 }
+
+ 
 
 datasource db {
-  provider = "postgresql"
+  provider = "postgresql"
 }
+
+ 
 
 model User {
-  id              Int         @id @default(autoincrement())
-  email           String      @unique
-  passwordHash    String
-  name            String?
-  role            Role        @default(USER)
-  createdAt       DateTime    @default(now())
+  id           Int       @id @default(autoincrement())
+  email        String    @unique
+  passwordHash String
+  name         String?
+  role         Role      @default(USER)
+  createdAt    DateTime  @default(now())
+
+ 
+
+  // Relations
+  bookings     Booking[]
+  reviews      Review[]
 }
+
+ 
 
 model Booking {
-  id              Int         @id @default(autoincrement())
-  userId          Int
-  screeningId     Int
-  seats           String[]
-  totalPrice      Int
-  status          BookStatus  @default(PENDING)
-  createdAt       DateTime    @default(now())
+  id          Int        @id @default(autoincrement())
+  userId      Int
+  screeningId Int
+  seats       String[]
+  totalPrice  Int
+  status      BookStatus @default(PENDING)
+  createdAt   DateTime   @default(now())
+
+ 
+
+  // Relations
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  screening   Screening  @relation(fields: [screeningId], references: [id], onDelete: Cascade)
 }
+
+ 
 
 model Movie {
-  id              Int         @id @default(autoincrement())
-  Series_Title    String      @db.VarChar(50)
-  Released_Year   Int
-  Genre           String
-  IMDB_Rating     Float
-  Director        String
-  Stars           String[]
-  Runtime         String
-  Certificate     String
-  Overview        String      @db.VarChar(300)
-  Poster_Link     String
-  Trailer         String
+  id           Int         @id @default(autoincrement())
+  seriesTitle  String      @map("Series_Title") @db.VarChar(50)
+  releasedYear Int         @map("Released_Year")
+  genre        String      @map("Genre")
+  imdbRating   Float       @map("IMDB_Rating")
+  director     String      @map("Director")
+  stars        String[]    @map("Stars")
+  runtime      String      @map("Runtime")
+  certificate  String      @map("Certificate")
+  overview     String      @map("Overview") @db.VarChar(300)
+  posterLink   String      @map("Poster_Link")
+  trailer      String      @map("Trailer")
+
+ 
+
+  // Relations
+  screenings   Screening[]
+  reviews      Review[]
 }
+
+ 
 
 model Screening {
-  id              Int         @id @default(autoincrement())
-  movieId         Int
-  auditorium      String
-  startsAt        String
-  language        String
-  subtitles       String
-  price           Int
-  availableSeats  Int
-  totalSeats      Int
+  id             Int       @id @default(autoincrement())
+  movieId        Int
+  auditorium     String
+  startsAt       DateTime  // Changed from String to DateTime for easier sorting/filtering
+  language       String
+  subtitles      String
+  price          Int
+  availableSeats Int
+  totalSeats     Int
+
+ 
+
+  // Relations
+  movie          Movie     @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  bookings       Booking[]
 }
+
+ 
 
 model Review {
-  id              Int       @id @default(autoincrement())
-  movieId         Int
-  userId          Int
-  rating          Int       @default(1)
-  comment         String    @db.VarChar(100)   
-  createdAt       DateTime  @default(now())
+  id        Int      @id @default(autoincrement())
+  movieId   Int
+  userId    Int
+  rating    Int      @default(1)
+  comment   String   @db.VarChar(100)
+  createdAt DateTime @default(now())
+
+ 
+
+  // Relations
+  movie     Movie    @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
+
+ 
 
 model Offer {
-  id              Int       @id @default(autoincrement())
-  type            Otype     @default(MOVIE)
-  title           String    @db.VarChar(50)
-  text            String    @db.Text
-  picture         String    @default("")
-  price           Decimal?  @db.Decimal(6, 2)
-  createdAt       DateTime  @default(now())
-  validForDays    Int       @default(30)
+  id           Int      @id @default(autoincrement())
+  type         Otype    @default(MOVIE)
+  title        String   @db.VarChar(50)
+  text         String   @db.Text
+  picture      String   @default("")
+  price        Decimal? @db.Decimal(6, 2)
+  createdAt    DateTime @default(now())
+  validForDays Int      @default(30)
 }
+
+ 
 
 enum Role {
-  USER
-  ADMIN
+  USER
+  ADMIN
 }
+
+ 
 
 enum BookStatus {
-  PENDING
-  CONFIRMED
-  CANCELLED
+  PENDING
+  CONFIRMED
+  CANCELLED
 }
 
+ 
+
 enum Otype {
-  MOVIE
-  FOOD
-  SNACKS
-  COMBO
+  MOVIE
+  FOOD
+  SNACKS
+  COMBO
 }
