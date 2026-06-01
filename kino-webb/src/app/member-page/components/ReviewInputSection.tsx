@@ -93,8 +93,8 @@ export default function ReviewInputSection({ reviewerID }: ReviewInputSectionPro
           <Textarea
             name="reviewText"
             placeHolder="Skriv vad du tyckte om filmen..."
-            areaLabel="Beskrivning"
-            description="Skriv vad du tycker..."
+            areaLabel="Recension"
+            description=""
           />
           <Field.Root name="reviewerID">
             <Field.Control
