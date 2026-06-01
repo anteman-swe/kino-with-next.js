@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { BookStatus } from "@/generated/prisma/client";
+import { BookStatus, Prisma } from "@/generated/prisma/client";
 
 export async function GET() {
   try {
@@ -67,6 +67,14 @@ export async function POST(request: NextRequest) {
         },
       });
 
+        await tx.bookingSeat.createMany({
+          data: seats.map((seat: string) => ({
+          bookingId: createdBooking.id,
+          screeningId,
+          seat,
+    })),
+    });
+
       await tx.screening.update({
         where: { id: screeningId },
         data: {
@@ -80,10 +88,21 @@ export async function POST(request: NextRequest) {
     });
 
     return NextResponse.json(booking, { status: 201 });
-  } catch {
+} catch (error) {
+  if (
+    error instanceof Prisma.PrismaClientKnownRequestError &&
+    error.code === "P2002"
+  ) {
     return NextResponse.json(
-      { message: "Could not create booking" },
-      { status: 500 }
+      { message: "One or more seats are already booked" },
+      { status: 409 }
     );
   }
+
+  console.error("POST /api/bookings failed:", error);
+
+  return NextResponse.json(
+    { message: "Could not create booking" },
+    { status: 500 }
+  );
 }
