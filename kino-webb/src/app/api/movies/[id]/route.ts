@@ -20,3 +20,6 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
         // Kod för att fånga fel, error
     }
 } 
+
+// import { NextRequest, NextResponse } from "next/server";
+
