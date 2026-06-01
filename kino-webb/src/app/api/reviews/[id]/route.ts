@@ -13,11 +13,10 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
         const reviewId = parseInt(id, 10);
 
         if (isNaN(reviewId)) {
-            return NextResponse.json({ 
+            return NextResponse.json({
                 name: "NotANumber",
                 message: "ID must be a valid number",
-                status: 500
-            });
+            }, { status: 500 });
         }
         const theReview = await prisma.review.findUnique({
             where: { id: reviewId },
@@ -26,9 +25,8 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
         if (!theReview) {
             return NextResponse.json({
                 name: "dbError",
-                message: "Could not find a review in the DB",
-                status: 404
-            })
+                message: "Could not find a review in the DB"
+            }, { status: 404 });
         }
         return NextResponse.json(theReview);
 
@@ -36,8 +34,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
         console.error('Error getting a review from db:', err);
         return NextResponse.json({
             name: "dbError",
-            message: "Could not get a review from DB",
-            status: 500
-        });
+            message: "Could not get a review from DB"
+        }, { status: 500 });
     }
 } 

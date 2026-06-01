@@ -14,8 +14,7 @@ export async function GET() {
             return NextResponse.json({
                 name: "dbError",
                 message: "Could not find any member offers in the DB",
-                status: 404
-            });
+            }, { status: 404 });
         }
         memberOffers.sort((a, b) => (
             (a.createdAt.getTime() + a.validForDays * oneDayms)
@@ -27,8 +26,7 @@ export async function GET() {
         return NextResponse.json({
             name: "dbError",
             message: "Could not get any member offers from DB",
-            status: 500
-        });
+        }, { status: 500 });
     }
     
 }
@@ -46,8 +44,7 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({
             name: "API-Error",
             message: "Invalid data for creating an member offer",
-            status: 400
-        });
+        }, { status: 400 });
     }
 
     const offer = await prisma.$transaction(async (no) => {
@@ -69,7 +66,6 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({
             name: "dbError",
             message: "Could not create an member offer in the DB",
-            status: 500
-        });
+        }, { status: 500 });
     }
 }
