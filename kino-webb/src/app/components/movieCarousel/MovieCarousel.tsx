@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import "./MovieCarousel.scss";
+import "./MovieCarousel.module.scss";
 
 export interface Movie {
   Certificate: string | number | null | undefined;
