@@ -38,9 +38,10 @@
 }
 
 .popularMoviesImg {
-  width: auto;
-  // max-height: 240px;
-  max-width: 180px;
+  width: 100%;
+  height: auto;
+  max-height: 300px;
+  max-width: 200px;
   aspect-ratio: 2 / 3;
   object-fit: cover;
   border-radius: 6px;
