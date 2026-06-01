@@ -16,13 +16,20 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
             return NextResponse.json({ 
                 name: "NotANumber",
                 message: "ID must be a valid number",
-                status: 400
+                status: 500
             });
         }
         const theReview = await prisma.review.findUnique({
             where: { id: reviewId },
         });
 
+        if (!theReview) {
+            return NextResponse.json({
+                name: "dbError",
+                message: "Could not find a review in the DB",
+                status: 404
+            })
+        }
         return NextResponse.json(theReview);
 
     } catch(err) {
@@ -30,7 +37,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
         return NextResponse.json({
             name: "dbError",
             message: "Could not get a review from DB",
-            status: 400
+            status: 500
         });
     }
 } 
