@@ -27,7 +27,7 @@ type BookingClientProps = {
 };
 
 // TODO MOCK:
-// Sätt till false när databasen och API:t ska användas live.
+// remove lines 31-38
 const USE_MOCK_BOOKING = true;
 
 const mockBookedSeatsByScreening: Record<number, string[]> = {
@@ -92,10 +92,9 @@ export function BookingClient({ movie }: BookingClientProps) {
 
       /*
       TODO DATABASE LIVE:
-      När API:t och databasen fungerar:
-      1. Sätt USE_MOCK_BOOKING till false.
-      2. Behåll koden nedan.
-      3. Mock-koden ovan kan tas bort.
+      Delete code above, lines 87-91
+      Keep the code below, make sure to remove this and the comment dashes
+      
 
       const response = await fetch(`/api/screenings/${selectedScreeningId}/seats`);
 
@@ -152,11 +151,9 @@ export function BookingClient({ movie }: BookingClientProps) {
     }
 
     /*
-    TODO DATABASE LIVE:
-    När API:t och databasen fungerar:
-    1. Sätt USE_MOCK_BOOKING till false.
-    2. Behåll koden nedan.
-    3. Ta bort mock-blocket ovan.
+      TODO DATABASE LIVE:
+      Delete code above, lines 146-151
+      Keep the code below, make sure to remove this and the comment dashes
 
     const response = await fetch("/api/bookings", {
       method: "POST",

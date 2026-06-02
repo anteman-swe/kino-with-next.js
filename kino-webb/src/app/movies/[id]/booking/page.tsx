@@ -1,6 +1,6 @@
 import { BookingClient } from "@/app/components/booking/bookingClient";
 
-// TODO DATABASE LIVE: (remove comments on imports below)
+// TODO DATABASE LIVE: (remove comments on imports below, lines 3-4)
 // import { notFound } from "next/navigation";
 // import { prisma } from "@/lib/prisma";
 
@@ -12,7 +12,7 @@ export default async function BookingPage({ params }: PageProps) {
   const { id } = await params;
 
   // TODO MOCK:
-  // Remove the whole mockMovie-block when we go live with database
+  // Remove the whole mockMovie-block when we go live with database, lines 16-45
   const mockMovie = {
     id: Number(id),
     title: "Jurassic Park",
@@ -47,7 +47,7 @@ export default async function BookingPage({ params }: PageProps) {
   /*
   TODO DATABASE LIVE:
   Remove mockMovie above
-  Below is live code which will be used
+  Keep the code below, make sure to remove this and the comment dashes
 
   const movieId = Number(id);
 

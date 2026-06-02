@@ -54,7 +54,6 @@ export function SeatMap({
                     styles.seat,
                     isSelected ? styles.selected : "",
                     isBooked ? styles.booked : "",
-                    index === 6 ? styles.afterAisle : "",
                   ].join(" ")}
                 >
                   {index + 1}
