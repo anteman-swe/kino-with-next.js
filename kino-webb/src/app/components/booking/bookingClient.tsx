@@ -2,11 +2,11 @@
 
 import { useEffect, useMemo, useState } from "react";
 import styles from "./booking.module.scss";
-import { BookingHeader } from "./bookingHeader";
-import { DateSelector } from "./dateSelector";
-import { TimeSelector } from "./timeSelector";
-import { SeatMap } from "./seatMap";
-import { BookingSummary } from "./bookingSummary";
+import { BookingHeader } from "./BookingHeader";
+import { DateSelector } from "./DateSelector";
+import { TimeSelector } from "./TimeSelector";
+import { SeatMap } from "./SeatMap";
+import { BookingSummary } from "./BookingSummary";
 
 type Screening = {
   id: number;

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { BookingClient } from "@/app/components/booking/bookingClient";
+import { BookingClient } from "@/app/components/booking/BookingClient";
 
 type Screening = {
   id: number;
