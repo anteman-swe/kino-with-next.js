@@ -12,7 +12,7 @@ export async function GET() {
         return NextResponse.json({
             name: "dbError",
             message: "Could not get any movies from DB",
-            status: 400
+            status: 500
         });
     }
     
