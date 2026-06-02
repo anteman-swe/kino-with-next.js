@@ -13,7 +13,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
             return NextResponse.json({ 
                 name: "NotANumber",
                 message: "ID must be a valid number",
-                status: 400
+                status: 500
             });
         }
         const theMoviesReviews = await prisma.review.findMany({
