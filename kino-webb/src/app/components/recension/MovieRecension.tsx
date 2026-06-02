@@ -1,26 +1,64 @@
+//MovieRecension.tsx
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import style from "./MovieRecension.module.scss";
-import { reviews as initialReviews } from "@/Data/reviews";
 import { movies } from "@/Data/movies";
 
 interface MovieRecensionProps {
   movieId: number;
 }
 
+interface Review {
+  id: number;
+  movieId: number;
+  userId: number;
+  userName: string;
+  rating: number;
+  comment: string;
+  createdAt: string;
+}
+
 export default function MovieRecension({ movieId }: MovieRecensionProps) {
   const currentMovie = movies.find((m) => m.id === movieId);
 
-  const [movieReviews, setMovieReviews] = useState(() =>
-    initialReviews.filter((review) => review.movieId === movieId)
-  );
+  const [movieReviews, setMovieReviews] = useState<Review[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [userName, setUserName] = useState("");
-  const [rating, setRating] = useState(10);
+  const [rating, setRating] = useState(5); 
   const [comment, setComment] = useState("");
+
+
+useEffect(() => {
+  async function fetchReviews() {
+    try {
+      setIsLoading(true);
+      const res = await fetch(`/api/reviews/${movieId}`);
+      
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        console.error("Server error response details:", errorData);
+        throw new Error("Failed to fetch data from the database");
+      }
+
+      const data = await res.json();
+      
+      setMovieReviews(Array.isArray(data) ? data : []);
+
+    } catch (error) {
+      console.error("Error loading reviews inside catch block:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  if (movieId) {
+    fetchReviews();
+  }
+}, [movieId]);
 
   if (!currentMovie) {
     return (
@@ -39,33 +77,52 @@ export default function MovieRecension({ movieId }: MovieRecensionProps) {
       ? movieReviews.reduce((sum, review) => sum + review.rating, 0) / movieReviews.length
       : 0;
 
-  const handleSubmitReview = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmitReview = async (e: React.FormEvent) => {
+  e.preventDefault();
 
-    if (!userName.trim() || !comment.trim()) {
-      alert("Please fill in both name and comment.");
-      return;
+  if (!userName.trim() || !comment.trim()) {
+    alert("Please fill in both name and comment.");
+    return;
+  }
+
+  try {
+
+    const response = await fetch(`/api/reviews/${movieId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: userName.trim(),
+        rating: rating,
+        comment: comment.trim(),
+        userId: 1,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to save review to the database");
     }
 
-    const newReview = {
-      id: Date.now(),
-      movieId: currentMovie.id,
-      userId: Math.floor(Math.random() * 100000),
-      username: userName.trim(),
-      rating: rating,
-      comment: comment.trim(),
-      createdAt: new Date().toISOString(),
-    };
 
-    setMovieReviews([newReview, ...movieReviews]);
+    const savedReview: Review = await response.json();
+
+    setMovieReviews([savedReview, ...movieReviews]);
+    
+
     setUserName("");
     setComment("");
-    setRating(10);
-  };
+    setRating(5);
+
+  } catch (error) {
+    console.error("Error saving review:", error);
+    alert("Could not save your review right now. Please try again later.");
+  }
+};
 
   return (
     <div className={style.recensionContainer}>
-      {/* Upper Backdrop Header Banner */}
+
       <div className={style.heroBanner}>
         <div className={style.gradientOverlay} />
         <Image
@@ -126,21 +183,24 @@ export default function MovieRecension({ movieId }: MovieRecensionProps) {
           </section>
 
           {currentMovie.Stars && currentMovie.Stars.length > 0 && (
-          <section className={style.castSection}>
-            <h3 className={style.subTitle}>Cast</h3>
-            <p className={style.castText}>
-              {currentMovie.Stars.filter(Boolean).join(", ")}
-            </p>
-          </section>
-)}
+            <section className={style.castSection}>
+              <h3 className={style.subTitle}>Cast</h3>
+              <p className={style.castText}>
+                {currentMovie.Stars.filter(Boolean).join(", ")}
+              </p>
+            </section>
+          )}
 
-          {/* User Reviews */}
+          {/* User Reviews Card */}
           <div className={style.userReviewsCard}>
             <h3 className={style.cardTitle}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 
               User Reviews
             </h3>
-            {movieReviews.length === 0 ? (
+            
+            {isLoading ? (
+              <p className={style.noReviews}>Loading reviews from database...</p>
+            ) : movieReviews.length === 0 ? (
               <p className={style.noReviews}>No reviews written yet. Be the first to write one!</p>
             ) : (
               <div className={style.reviewsList}>
@@ -148,14 +208,14 @@ export default function MovieRecension({ movieId }: MovieRecensionProps) {
                   <div key={review.id} className={style.reviewItem}>
                     <div className={style.reviewHeader}>
                       <span className={style.reviewerName}>
-                        {/* @ts-ignore */}
-                        {review.username || "Anonymous"}</span>
+                        {review.userName || "Anonymous"}
+                      </span>
                       <span className={style.reviewDate}>
                         {review.createdAt ? new Date(review.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }) : ""}
                       </span>
                     </div>
                     <div className={style.reviewStars}>
-                      {[...Array(10)].map((_, index) => (
+                      {[...Array(5)].map((_, index) => (
                         <svg
                           key={index}
                           width="14"
@@ -201,9 +261,9 @@ export default function MovieRecension({ movieId }: MovieRecensionProps) {
                     value={rating}
                     onChange={(e) => setRating(Number(e.target.value))}
                   >
-                    {[...Array(10)].map((_, i) => (
+                    {[...Array(5)].map((_, i) => (
                       <option key={i + 1} value={i + 1}>
-                        {i + 1} / 10 ★
+                        {i + 1} / 5 ★
                       </option>
                     ))}
                   </select>
@@ -232,8 +292,10 @@ export default function MovieRecension({ movieId }: MovieRecensionProps) {
             <h3 className={style.cardTitle}>Kino Rating</h3>
             <div className={style.scoreBox}>
               <svg className={style.starIcon} width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span className={style.ratingNum}>{averageRating > 0 ? averageRating.toFixed(1) : "-"}</span>
-              <span className={style.ratingMax}>/ 10</span>
+              <span className={style.ratingNum}>
+                {isLoading ? "..." : averageRating > 0 ? averageRating.toFixed(1) : "-"}
+              </span>
+              <span className={style.ratingMax}>/ 5</span>
             </div>
             <p className={style.reviewCountText}>
               Based on {movieReviews.length} {movieReviews.length === 1 ? "review" : "reviews"}
