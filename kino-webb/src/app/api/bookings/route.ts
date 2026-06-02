@@ -105,4 +105,4 @@ export async function POST(request: NextRequest) {
     { message: "Could not create booking" },
     { status: 500 }
   );
-}
+}}
