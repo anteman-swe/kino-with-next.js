@@ -26,17 +26,6 @@ type BookingClientProps = {
   movie: Movie;
 };
 
-// TODO MOCK:
-// remove lines 31-38
-const USE_MOCK_BOOKING = true;
-
-const mockBookedSeatsByScreening: Record<number, string[]> = {
-  1: ["D4", "D5", "D6", "E8"],
-  2: ["A1", "A2", "B7"],
-  3: ["H10", "H11", "H12"],
-  4: ["C3", "C4", "F6"],
-};
-
 export function BookingClient({ movie }: BookingClientProps) {
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedScreeningId, setSelectedScreeningId] = useState<number | null>(
@@ -84,19 +73,9 @@ export function BookingClient({ movie }: BookingClientProps) {
       setError("");
       setSuccessMessage("");
 
-      if (USE_MOCK_BOOKING) {
-        setBookedSeats(mockBookedSeatsByScreening[selectedScreeningId] ?? []);
-        setSelectedSeats([]);
-        return;
-      }
-
-      /*
-      TODO DATABASE LIVE:
-      Delete code above, lines 87-91
-      Keep the code below, make sure to remove this and the comment dashes
-      
-
-      const response = await fetch(`/api/screenings/${selectedScreeningId}/seats`);
+      const response = await fetch(
+        `/api/screenings/${selectedScreeningId}/seats`,
+      );
 
       if (!response.ok) {
         setError("Kunde inte hämta bokade platser.");
@@ -106,7 +85,6 @@ export function BookingClient({ movie }: BookingClientProps) {
       const data = await response.json();
       setBookedSeats(data.bookedSeats);
       setSelectedSeats([]);
-      */
     }
 
     loadBookedSeats();
@@ -135,6 +113,18 @@ export function BookingClient({ movie }: BookingClientProps) {
     setSuccessMessage("");
   }
 
+  async function reloadBookedSeats(screeningId: number) {
+    const response = await fetch(`/api/screenings/${screeningId}/seats`);
+
+    if (!response.ok) {
+      setError("Kunde inte uppdatera bokade platser.");
+      return;
+    }
+
+    const data = await response.json();
+    setBookedSeats(data.bookedSeats);
+  }
+
   async function bookSeats() {
     if (!selectedScreening || selectedSeats.length === 0) {
       return;
@@ -142,18 +132,6 @@ export function BookingClient({ movie }: BookingClientProps) {
 
     setError("");
     setSuccessMessage("");
-
-    if (USE_MOCK_BOOKING) {
-      setBookedSeats((current) => [...current, ...selectedSeats]);
-      setSuccessMessage(`Mockbokning bekräftad: ${selectedSeats.join(", ")}`);
-      setSelectedSeats([]);
-      return;
-    }
-
-    /*
-      TODO DATABASE LIVE:
-      Delete code above, lines 146-151
-      Keep the code below, make sure to remove this and the comment dashes
 
     const response = await fetch("/api/bookings", {
       method: "POST",
@@ -170,13 +148,7 @@ export function BookingClient({ movie }: BookingClientProps) {
 
     if (response.status === 409) {
       setError("En eller flera platser hann bli bokade. Välj igen.");
-
-      const seatsResponse = await fetch(
-        `/api/screenings/${selectedScreening.id}/seats`
-      );
-      const data = await seatsResponse.json();
-
-      setBookedSeats(data.bookedSeats);
+      await reloadBookedSeats(selectedScreening.id);
       setSelectedSeats([]);
       return;
     }
@@ -188,13 +160,7 @@ export function BookingClient({ movie }: BookingClientProps) {
 
     setSuccessMessage("Bokningen är bekräftad.");
     setSelectedSeats([]);
-
-    const seatsResponse = await fetch(
-      `/api/screenings/${selectedScreening.id}/seats`
-    );
-    const data = await seatsResponse.json();
-    setBookedSeats(data.bookedSeats);
-    */
+    await reloadBookedSeats(selectedScreening.id);
   }
 
   return (
