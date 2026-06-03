@@ -13,19 +13,23 @@ function HeaderWrapperContent() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
 
+  const openLogin = (): void => {
+    setIsLoginOpen(true);
+  };
+
   useEffect(() => {
     if (paramToOpen.get("openLogin") === "true") {
       const url = new URL(window.location.href);
       url.searchParams.delete("openLogin");
       window.history.replaceState({}, "", url);
-      setIsLoginOpen(true);
+      openLogin();
     }
   }, [paramToOpen]);
 
   return (
     <>
       <Header
-        onOpenLogin={() => setIsLoginOpen(true)}
+        onOpenLogin={openLogin}
         onOpenRegister={() => {
           setIsLoginOpen(false);
           setIsRegisterOpen(true);
@@ -49,7 +53,7 @@ function HeaderWrapperContent() {
           onClose={() => setIsRegisterOpen(false)}
           onOpenLogin={() => {
             setIsRegisterOpen(false);
-            setIsLoginOpen(true);
+            openLogin();
           }}
         />
       )}

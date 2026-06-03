@@ -7,6 +7,7 @@ import { DateSelector } from "./DateSelector";
 import { TimeSelector } from "./TimeSelector";
 import { SeatMap } from "./SeatMap";
 import { BookingSummary } from "./BookingSummary";
+import { useSession } from "next-auth/react";
 
 type Screening = {
   id: number;
@@ -27,6 +28,7 @@ type BookingClientProps = {
 };
 
 export function BookingClient({ movie }: BookingClientProps) {
+  const { data: session } = useSession();
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedScreeningId, setSelectedScreeningId] = useState<number | null>(
     null,
@@ -135,12 +137,23 @@ export function BookingClient({ movie }: BookingClientProps) {
     setError("");
     setSuccessMessage("");
 
+    const userId = session?.user?.id ? Number(session.user.id) : 1;
+    const isGuest = userId === 1;
+
+    if (isGuest && !guestEmail.trim() && !guestPhone.trim()) {
+      setError(
+        "Fyll i e-post eller telefonnummer för att boka utan inloggning.",
+      );
+      return;
+    }
+
     const response = await fetch("/api/bookings", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        userId,
         screeningId: selectedScreening.id,
         seats: selectedSeats,
         totalPrice: selectedSeats.length * selectedScreening.price,
@@ -157,7 +170,9 @@ export function BookingClient({ movie }: BookingClientProps) {
     }
 
     if (!response.ok) {
-      setError("Bokningen kunde inte genomföras.");
+      const data = await response.json().catch(() => null);
+
+      setError(data?.message ?? "Bokningen kunde inte genomföras.");
       return;
     }
 
@@ -191,29 +206,31 @@ export function BookingClient({ movie }: BookingClientProps) {
       {error && <p className={styles.error}>{error}</p>}
       {successMessage && <p className={styles.success}>{successMessage}</p>}
 
-      <section className={styles.section}>
-        <h2>Kontaktuppgifter</h2>
+      {!session?.user && (
+        <section className={styles.section}>
+          <h2>Kontaktuppgifter</h2>
 
-        <label>
-          E-post
-          <input
-            type="email"
-            value={guestEmail}
-            onChange={(event) => setGuestEmail(event.target.value)}
-            placeholder="namn@email.se"
-          />
-        </label>
+          <label>
+            E-post
+            <input
+              type="email"
+              value={guestEmail}
+              onChange={(event) => setGuestEmail(event.target.value)}
+              placeholder="namn@email.se"
+            />
+          </label>
 
-        <label>
-          Telefon
-          <input
-            type="tel"
-            value={guestPhone}
-            onChange={(event) => setGuestPhone(event.target.value)}
-            placeholder="0701234567"
-          />
-        </label>
-      </section>
+          <label>
+            Telefon
+            <input
+              type="tel"
+              value={guestPhone}
+              onChange={(event) => setGuestPhone(event.target.value)}
+              placeholder="0701234567"
+            />
+          </label>
+        </section>
+      )}
 
       <BookingSummary
         selectedSeats={selectedSeats}

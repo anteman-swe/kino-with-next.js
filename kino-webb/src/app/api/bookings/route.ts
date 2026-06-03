@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { BookStatus, Prisma } from "@/generated/prisma/client";
 
@@ -25,13 +24,10 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-
-    const session = await auth();
-    const userId = session?.user?.id ? Number(session.user.id) : null;
-
-    const { screeningId, seats, totalPrice, guestEmail, guestPhone } = body;
+    const { userId, screeningId, seats, totalPrice, guestEmail, guestPhone } = body;
 
     if (
+      typeof userId !== "number" ||
       typeof screeningId !== "number" ||
       !Array.isArray(seats) ||
       seats.length === 0 ||
@@ -49,15 +45,16 @@ export async function POST(request: NextRequest) {
     const hasGuestPhone =
       typeof guestPhone === "string" && guestPhone.trim().length > 0;
 
-    if (!userId && !hasGuestEmail && !hasGuestPhone) {
+    const isGuest = userId === 1;
+
+    if (isGuest && !hasGuestEmail && !hasGuestPhone) {
       return NextResponse.json(
-        {
-          message:
-            "E-post eller telefonnummer krävs för att boka utan inloggning",
-        },
-        { status: 400 },
-      );
-    }
+     {
+        message: "E-post eller telefonnummer krävs för att boka utan inloggning",
+     },
+     { status: 400 },
+   );
+}
 
     const screening = await prisma.screening.findUnique({
       where: { id: screeningId },
@@ -84,8 +81,8 @@ export async function POST(request: NextRequest) {
           screeningId,
           seats,
           totalPrice,
-          guestEmail: userId ? null : hasGuestEmail ? guestEmail.trim() : null,
-          guestPhone: userId ? null : hasGuestPhone ? guestPhone.trim() : null,
+          guestEmail: userId !== 1 ? null : hasGuestEmail ? guestEmail.trim() : null,
+          guestPhone: userId !== 1 ? null : hasGuestPhone ? guestPhone.trim() : null,
           status: BookStatus.CONFIRMED,
         },
       });

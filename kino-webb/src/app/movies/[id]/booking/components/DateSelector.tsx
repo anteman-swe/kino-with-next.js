@@ -7,6 +7,15 @@ type Props = {
 };
 
 export function DateSelector({ dates, selectedDate, onSelectDate }: Props) {
+  if (dates.length === 0) {
+    return (
+      <section className={styles.section}>
+        <h2>Välj datum</h2>
+        <p>Det finns inga visningar för den här filmen.</p>
+      </section>
+    );
+  }
+
   return (
     <section className={styles.section}>
       <h2>Välj datum</h2>
@@ -16,7 +25,9 @@ export function DateSelector({ dates, selectedDate, onSelectDate }: Props) {
             key={date}
             type="button"
             onClick={() => onSelectDate(date)}
-            className={`${styles.option} ${date === selectedDate ? styles.active : ""}`}
+            className={`${styles.option} ${
+              date === selectedDate ? styles.active : ""
+            }`}
           >
             {new Date(date).toLocaleDateString("sv-SE", {
               weekday: "short",

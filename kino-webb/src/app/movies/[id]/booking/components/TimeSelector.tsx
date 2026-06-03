@@ -17,6 +17,15 @@ export function TimeSelector({
   selectedScreeningId,
   onSelectScreening,
 }: Props) {
+  if (screenings.length === 0) {
+    return (
+      <section className={styles.section}>
+        <h2>Välj tid</h2>
+        <p>Det finns inga tider för valt datum.</p>
+      </section>
+    );
+  }
+
   return (
     <section className={styles.section}>
       <h2>Välj tid</h2>
