@@ -1,4 +1,3 @@
-//MovieRecension.tsx
 "use client";
 
 import { useState, useEffect } from "react";
@@ -32,33 +31,33 @@ export default function MovieRecension({ movieId }: MovieRecensionProps) {
   const [comment, setComment] = useState("");
 
 
-useEffect(() => {
-  async function fetchReviews() {
-    try {
-      setIsLoading(true);
-      const res = await fetch(`/api/reviews/${movieId}`);
-      
-      if (!res.ok) {
-        const errorData = await res.json().catch(() => ({}));
-        console.error("Server error response details:", errorData);
-        throw new Error("Failed to fetch data from the database");
+  useEffect(() => {
+    async function fetchReviews() {
+      try {
+        setIsLoading(true);
+        const res = await fetch(`/api/reviews/${movieId}`);
+        
+        if (!res.ok) {
+          const errorData = await res.json().catch(() => ({}));
+          console.error("Server error response details:", errorData);
+          throw new Error("Failed to fetch data from the database");
+        }
+
+        const data = await res.json();
+        
+        setMovieReviews(Array.isArray(data) ? data : []);
+
+      } catch (error) {
+        console.error("Error loading reviews inside catch block:", error);
+      } finally {
+        setIsLoading(false);
       }
-
-      const data = await res.json();
-      
-      setMovieReviews(Array.isArray(data) ? data : []);
-
-    } catch (error) {
-      console.error("Error loading reviews inside catch block:", error);
-    } finally {
-      setIsLoading(false);
     }
-  }
 
-  if (movieId) {
-    fetchReviews();
-  }
-}, [movieId]);
+    if (movieId) {
+      fetchReviews();
+    }
+  }, [movieId]);
 
   if (!currentMovie) {
     return (
@@ -78,47 +77,46 @@ useEffect(() => {
       : 0;
 
   const handleSubmitReview = async (e: React.FormEvent) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  if (!userName.trim() || !comment.trim()) {
-    alert("Please fill in both name and comment.");
-    return;
-  }
-
-  try {
-
-    const response = await fetch(`/api/reviews/${movieId}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: userName.trim(),
-        rating: rating,
-        comment: comment.trim(),
-        userId: 1,
-      }),
-    });
-
-    if (!response.ok) {
-      throw new Error("Failed to save review to the database");
+    if (!userName.trim() || !comment.trim()) {
+      alert("Please fill in both name and comment.");
+      return;
     }
 
+    try {
 
-    const savedReview: Review = await response.json();
+      const response = await fetch(`/api/reviews`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          movieId: movieId,
+          userId: 1,
+          rating: rating,
+          comment: comment.trim(),
+          userName: userName.trim(), 
+        }),
+      });
 
-    setMovieReviews([savedReview, ...movieReviews]);
-    
+      if (!response.ok) {
+        throw new Error("Failed to save review to the database");
+      }
 
-    setUserName("");
-    setComment("");
-    setRating(5);
+      const savedReview: Review = await response.json();
 
-  } catch (error) {
-    console.error("Error saving review:", error);
-    alert("Could not save your review right now. Please try again later.");
-  }
-};
+      setMovieReviews([savedReview, ...movieReviews]);
+      
+      setUserName("");
+      setComment("");
+      setRating(5);
+
+    } catch (error) {
+      console.error("Error saving review:", error);
+      alert("Could not save your review right now. Please try again later.");
+    }
+  };
 
   return (
     <div className={style.recensionContainer}>
