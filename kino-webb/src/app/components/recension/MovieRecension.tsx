@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import style from "./MovieRecension.module.scss";
@@ -21,6 +22,7 @@ interface Review {
 }
 
 export default function MovieRecension({ movieId }: MovieRecensionProps) {
+  const { data: session } = useSession();
   const currentMovie = movies.find((m) => m.id === movieId);
 
   const [movieReviews, setMovieReviews] = useState<Review[]>([]);
@@ -79,35 +81,40 @@ export default function MovieRecension({ movieId }: MovieRecensionProps) {
   const handleSubmitReview = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (!session?.user?.id) {
+      alert("You must be logged in to submit a review.");
+      return;
+    }
+
     if (!userName.trim() || !comment.trim()) {
       alert("Please fill in both name and comment.");
       return;
     }
 
     try {
-
-      const response = await fetch(`/api/reviews`, {
+      const response = await fetch(`/api/reviews/${movieId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          movieId: movieId,
-          userId: 1,
+          userId: session.user.id,
+          userName: userName.trim(),
           rating: rating,
           comment: comment.trim(),
-          userName: userName.trim(), 
+          verified: true, 
         }),
       });
 
       if (!response.ok) {
-        throw new Error("Failed to save review to the database");
+        const errorResponse = await response.json().catch(() => ({}));
+        console.error("Backend error details:", errorResponse);
+        throw new Error("Failed to save review via nested movie route");
       }
 
       const savedReview: Review = await response.json();
-
       setMovieReviews([savedReview, ...movieReviews]);
-      
+
       setUserName("");
       setComment("");
       setRating(5);
