@@ -41,10 +41,8 @@ export async function POST(request: NextRequest) {
         data: {
           movieId,
           userId,
-          userName: uName,
           rating,
           comment,
-          verified,
         },
       });
       return createdReview;
