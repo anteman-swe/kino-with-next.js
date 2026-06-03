@@ -27,6 +27,20 @@ async function main() {
   console.log("Genererar haschade lösenord...");
   // Making one password for use by both users
   const hashedPassword = await saltAndHashPassword("secret1234");
+  const guestUserPwHash = await saltAndHashPassword(
+    "Gästanvändare-guest@kino.se",
+  );
+
+  // Creating guest user with normal rights but not available password
+  console.log("Skapar vanlig användare...");
+  const guestUser = await prisma.user.create({
+    data: {
+      email: "guest@kino.se",
+      name: "Gästanvändare",
+      passwordHash: guestUserPwHash,
+      role: "USER" as Role,
+    },
+  });
 
   // Creating one user with normal rights
   console.log("Skapar vanlig användare...");
@@ -50,7 +64,8 @@ async function main() {
     },
   });
 
-  console.log(`2 användare skapade!`);
+  console.log(`3 användare skapade!`);
+  console.log(`- Gästanvändare skapad, namn: ${guestUser.name}`);
   console.log(`- Vanlig användare skapad: ${normalUser.email}`);
   console.log(`- Admin-användare skapad: ${adminUser.email}`);
 
@@ -104,7 +119,7 @@ async function main() {
   const adaptedReviews = reviews.map((review) => ({
     ...review,
     movieId: getRandomId(),
-    userId: getRandomUserId(),
+    userId: review.userName === null ? getRandomUserId() : userList[0].id,
   }));
   await prisma.review.createMany({
     data: adaptedReviews,
@@ -143,7 +158,7 @@ async function main() {
   await prisma.bookingSeat.createMany({
     data: bSeats,
   });
-  console.log('Dummy data för bokade stolar är skrivna till databasen');
+  console.log("Dummy data för bokade stolar är skrivna till databasen");
 
   console.log("Databasen är seedad för testning, KLART!");
 }

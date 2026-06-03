@@ -47,17 +47,6 @@ model BookingSeat {
   booking      Booking  @relation(fields: [bookingId], references: [id], onDelete: Cascade)
 
   @@unique([screeningId, seat])
-    id          Int        @id @default(autoincrement())
-    userId      Int
-    screeningId Int
-    seats       String[]
-    totalPrice  Int
-    status      BookStatus @default(PENDING)
-    createdAt   DateTime   @default(now())
-
-    // Relations
-    user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-    screening Screening @relation(fields: [screeningId], references: [id], onDelete: Cascade)
 }
 
 model Movie {
@@ -99,7 +88,7 @@ model Review {
     id        Int      @id @default(autoincrement())
     movieId   Int
     userId    Int
-    userName  String
+    userName  String?
     rating    Int      @default(1)
     comment   String   @db.VarChar(100)
     verified    Boolean
