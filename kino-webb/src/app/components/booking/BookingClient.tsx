@@ -35,6 +35,8 @@ export function BookingClient({ movie }: BookingClientProps) {
   const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [guestEmail, setGuestEmail] = useState("");
+  const [guestPhone, setGuestPhone] = useState("");
 
   const screeningsByDate = useMemo(() => {
     return movie.screenings.reduce<Record<string, Screening[]>>(
@@ -142,6 +144,8 @@ export function BookingClient({ movie }: BookingClientProps) {
         screeningId: selectedScreening.id,
         seats: selectedSeats,
         totalPrice: selectedSeats.length * selectedScreening.price,
+        guestEmail,
+        guestPhone,
       }),
     });
 
@@ -186,6 +190,30 @@ export function BookingClient({ movie }: BookingClientProps) {
 
       {error && <p className={styles.error}>{error}</p>}
       {successMessage && <p className={styles.success}>{successMessage}</p>}
+
+      <section className={styles.section}>
+        <h2>Kontaktuppgifter</h2>
+
+        <label>
+          E-post
+          <input
+            type="email"
+            value={guestEmail}
+            onChange={(event) => setGuestEmail(event.target.value)}
+            placeholder="namn@email.se"
+          />
+        </label>
+
+        <label>
+          Telefon
+          <input
+            type="tel"
+            value={guestPhone}
+            onChange={(event) => setGuestPhone(event.target.value)}
+            placeholder="0701234567"
+          />
+        </label>
+      </section>
 
       <BookingSummary
         selectedSeats={selectedSeats}

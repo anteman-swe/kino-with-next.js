@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
+import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { BookStatus, Prisma } from "@/generated/prisma/client";
-import { auth } from "@/auth";
 
 export async function GET() {
   try {
@@ -12,10 +12,12 @@ export async function GET() {
     });
 
     return NextResponse.json(bookings);
-  } catch {
+  } catch (error) {
+    console.error("GET /api/bookings failed:", error);
+
     return NextResponse.json(
-      { message: "Could not fetch bookings" },
-      { status: 500 }
+      { message: "Kunde inte hämta bokningar" },
+      { status: 500 },
     );
   }
 }
@@ -25,17 +27,9 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
 
     const session = await auth();
+    const userId = session?.user?.id ? Number(session.user.id) : null;
 
-    if (!session?.user?.id) {
-      return NextResponse.json(
-        { message: "You must be logged in to create a booking" },
-        { status: 401 },
-      );
-    }
-
-    const userId = Number(session.user.id);
-
-    const { screeningId, seats, totalPrice } = body;
+    const { screeningId, seats, totalPrice, guestEmail, guestPhone } = body;
 
     if (
       typeof screeningId !== "number" ||
@@ -44,7 +38,23 @@ export async function POST(request: NextRequest) {
       typeof totalPrice !== "number"
     ) {
       return NextResponse.json(
-        { message: "Invalid booking data" },
+        { message: "Ogiltig bokningsdata" },
+        { status: 400 },
+      );
+    }
+
+    const hasGuestEmail =
+      typeof guestEmail === "string" && guestEmail.trim().length > 0;
+
+    const hasGuestPhone =
+      typeof guestPhone === "string" && guestPhone.trim().length > 0;
+
+    if (!userId && !hasGuestEmail && !hasGuestPhone) {
+      return NextResponse.json(
+        {
+          message:
+            "E-post eller telefonnummer krävs för att boka utan inloggning",
+        },
         { status: 400 },
       );
     }
@@ -55,14 +65,14 @@ export async function POST(request: NextRequest) {
 
     if (!screening) {
       return NextResponse.json(
-        { message: "Screening not found" },
+        { message: "Visningen hittades inte" },
         { status: 404 },
       );
     }
 
     if (screening.availableSeats < seats.length) {
       return NextResponse.json(
-        { message: "Not enough available seats" },
+        { message: "Det finns inte tillräckligt många lediga platser" },
         { status: 400 },
       );
     }
@@ -74,6 +84,8 @@ export async function POST(request: NextRequest) {
           screeningId,
           seats,
           totalPrice,
+          guestEmail: userId ? null : hasGuestEmail ? guestEmail.trim() : null,
+          guestPhone: userId ? null : hasGuestPhone ? guestPhone.trim() : null,
           status: BookStatus.CONFIRMED,
         },
       });
@@ -100,20 +112,21 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(booking, { status: 201 });
   } catch (error) {
-  if (
-    error instanceof Prisma.PrismaClientKnownRequestError &&
-    error.code === "P2002"
-  ) {
+    if (
+      error instanceof Prisma.PrismaClientKnownRequestError &&
+      error.code === "P2002"
+    ) {
+      return NextResponse.json(
+        { message: "En eller flera platser är redan bokade" },
+        { status: 409 },
+      );
+    }
+
+    console.error("POST /api/bookings failed:", error);
+
     return NextResponse.json(
-      { message: "En eller flera platser är redan bokade" },
-      { status: 409 }
+      { message: "Kunde inte skapa bokning" },
+      { status: 500 },
     );
   }
-
-  console.error("POST /api/bookings failed:", error);
-
-  return NextResponse.json(
-    { message: "Kunde inte skapa bokning" },
-    { status: 500 }
-  );
-}}
+}
