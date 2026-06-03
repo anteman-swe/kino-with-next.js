@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { BookStatus, Prisma } from "@/generated/prisma/client";
+import { auth } from "@/auth";
 
 export async function GET() {
   try {
@@ -23,10 +24,20 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
 
-    const { userId, screeningId, seats, totalPrice } = body;
+    const session = await auth();
+
+    if (!session?.user?.id) {
+      return NextResponse.json(
+        { message: "You must be logged in to create a booking" },
+        { status: 401 },
+      );
+    }
+
+    const userId = Number(session.user.id);
+
+    const { screeningId, seats, totalPrice } = body;
 
     if (
-      typeof userId !== "number" ||
       typeof screeningId !== "number" ||
       !Array.isArray(seats) ||
       seats.length === 0 ||
@@ -34,7 +45,7 @@ export async function POST(request: NextRequest) {
     ) {
       return NextResponse.json(
         { message: "Invalid booking data" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -45,14 +56,14 @@ export async function POST(request: NextRequest) {
     if (!screening) {
       return NextResponse.json(
         { message: "Screening not found" },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
     if (screening.availableSeats < seats.length) {
       return NextResponse.json(
         { message: "Not enough available seats" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -67,13 +78,13 @@ export async function POST(request: NextRequest) {
         },
       });
 
-        await tx.bookingSeat.createMany({
-          data: seats.map((seat: string) => ({
+      await tx.bookingSeat.createMany({
+        data: seats.map((seat: string) => ({
           bookingId: createdBooking.id,
           screeningId,
           seat,
-    })),
-    });
+        })),
+      });
 
       await tx.screening.update({
         where: { id: screeningId },
@@ -88,13 +99,13 @@ export async function POST(request: NextRequest) {
     });
 
     return NextResponse.json(booking, { status: 201 });
-} catch (error) {
+  } catch (error) {
   if (
     error instanceof Prisma.PrismaClientKnownRequestError &&
     error.code === "P2002"
   ) {
     return NextResponse.json(
-      { message: "One or more seats are already booked" },
+      { message: "En eller flera platser är redan bokade" },
       { status: 409 }
     );
   }
@@ -102,7 +113,7 @@ export async function POST(request: NextRequest) {
   console.error("POST /api/bookings failed:", error);
 
   return NextResponse.json(
-    { message: "Could not create booking" },
+    { message: "Kunde inte skapa bokning" },
     { status: 500 }
   );
 }}

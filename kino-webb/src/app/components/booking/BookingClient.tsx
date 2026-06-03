@@ -139,7 +139,6 @@ export function BookingClient({ movie }: BookingClientProps) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        userId: 1,
         screeningId: selectedScreening.id,
         seats: selectedSeats,
         totalPrice: selectedSeats.length * selectedScreening.price,
