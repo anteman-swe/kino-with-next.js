@@ -100,30 +100,26 @@ async function main() {
   }));
 
   await prisma.screening.createMany({
-    data: adaptedScreenings,
+    data: mappedScreenings,
   });
   console.log("Dummy data för visningar är skrivna till databasen!");
 
   const userList = await prisma.user.findMany({});
   const sortedUserList = userList.sort((a, b) => a.id - b.id);
   const getRandomUserId = (): number => {
-    const randomIdInList =
-      Math.floor(Math.random() * sortedUserList.length) + sortedUserList[0].id;
-    return randomIdInList;
+    const randomIndex = Math.floor(Math.random() * userList.length);
+    return userList[randomIndex].id;
   };
 
   const adaptedReviews = reviews.map((review) => ({
     ...review,
-    movieId: getRandomId(),
+    movieId: review.movieId,
     userId: review.userName === null ? getRandomUserId() : userList[0].id,
   }));
   await prisma.review.createMany({
     data: adaptedReviews,
   });
 
-  await prisma.review.createMany({
-    data: mappedReviews,
-  })
   console.log('Dummy data för recensioner är skrivna till databasen!');
 
   await prisma.offer.createMany({

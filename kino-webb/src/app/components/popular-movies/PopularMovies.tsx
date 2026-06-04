@@ -1,23 +1,36 @@
 import Image from "next/image";
 import Link from "next/link"; // 1. Import Next.js Link
 import style from "./PopularMovies.module.scss";
-import { reviews } from "@/Data/reviews";
-import { movies } from "@/Data/movies";
+// import { reviews } from "@/Data/reviews";
+// import { movies } from "@/Data/movies";
+import { prisma } from "@/lib/prisma";
 
-const THIRTY_DAYS = 30 * 24 * 60 * 60 * 1000;
-const now = Date.now();
+const THIRTY_DAYS = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+// const now = Date.now();
 
-export default function PopularMovies() {
-  const recentReviews = reviews.filter((review) => {
-    const reviewTime = new Date(review.createdAt).getTime();
-    return now - reviewTime <= THIRTY_DAYS;
+export default async function PopularMovies() {
+  // const recentReviews = reviews.filter((review) => {
+  //   const reviewTime = new Date(review.createdAt).getTime();
+  //   return now - reviewTime <= THIRTY_DAYS;
+  // });
+
+  const moviesFromDb = await prisma.movie.findMany({
+    include: {
+      reviews: {
+        where: {
+          createdAt: {
+            gte: THIRTY_DAYS,
+          },
+        },
+      },
+    },
   });
 
-  const popularMovies = movies
+  const popularMovies = moviesFromDb
     .map((movie) => {
-      const movieReviews = recentReviews.filter(
-        (review) => review.movieId === movie.id
-      );
+      const movieReviews = movie.reviews; // recentReviews.filter(
+      //   (review) => review.movieId === movie.id
+      // );
 
       const averageRating =
         movieReviews.length > 0
@@ -58,14 +71,16 @@ export default function PopularMovies() {
           >
             <Image
               className={style.popularMoviesImg}
-              src={movie.Poster_Link}
-              alt={movie.Series_Title}
+              src={movie.posterLink}
+              alt={movie.seriesTitle}
               width={200}
               height={300}
+              style={{ height: 'auto', width: '100%' }} // Solves aspect ratio warning
+              priority={true} // Speeds up loading for above-the-fold content
             />
 
             <h3 className={style.popularMoviesTitle}>
-              {movie.Series_Title}
+              {movie.seriesTitle}
             </h3>
 
             <p className={style.popularMoviesRating}>
