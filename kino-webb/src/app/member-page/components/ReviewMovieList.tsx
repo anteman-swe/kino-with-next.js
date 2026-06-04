@@ -5,7 +5,7 @@ import { Field } from "@base-ui/react/field";
 import styles from "./ReviewMovieList.module.scss";
 
 const getMovies = async () => {
-  const response = await fetch('/api/movies');
+  const response = await fetch("/api/movies");
   const result = await response.json();
   return result;
 };
@@ -20,7 +20,6 @@ export default function ReviewMovieList({
   name = "movieId",
 }: ReviewMovieListProps) {
   const id = useId();
-  
 
   return (
     <Field.Root name={name}>
@@ -29,7 +28,7 @@ export default function ReviewMovieList({
       </Field.Label>
       <Combobox.Root
         items={movieList}
-        itemToStringLabel={(item: Movie) => item.Series_Title}
+        itemToStringLabel={(item: Movie) => item.seriesTitle}
         itemToStringValue={(item: Movie) => item.id.toString()}
       >
         <Combobox.InputGroup className={styles.InputGroup}>
@@ -37,7 +36,6 @@ export default function ReviewMovieList({
             id={id}
             className={styles.Input}
             placeholder="t  ex Star Wars - Return of the Jedi"
-            
           />
           <div className={styles.ActionButtons}>
             <Combobox.Clear
@@ -72,7 +70,7 @@ export default function ReviewMovieList({
                     <Combobox.ItemIndicator className={styles.ItemIndicator}>
                       <CheckIcon />
                     </Combobox.ItemIndicator>
-                    <span className={styles.ItemText}>{item.Series_Title}</span>
+                    <span className={styles.ItemText}>{item.seriesTitle}</span>
                   </Combobox.Item>
                 )}
               </Combobox.List>

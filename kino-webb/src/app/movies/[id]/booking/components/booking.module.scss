@@ -1,0 +1,226 @@
+.page {
+  --booking-bg: #{$light-bg};
+  --booking-text: #{$light-text};
+  --booking-section-border: #{$border-color};
+  --booking-option-bg: #ffffff;
+  --booking-option-border: #{$border-color};
+  --booking-option-hover-bg: #{$light-menu};
+  --booking-muted-text: #4b5563;
+  --booking-seat-free: #9b9b9b;
+  --booking-seat-booked: #333333;
+  --booking-seat-booked-text: #888888;
+  --booking-screen: #777777;
+
+  min-height: 100vh;
+  background: var(--booking-bg);
+  color: var(--booking-text);
+  padding: 24px;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+:global([data-theme="dark"]) .page,
+:global(.dark) .page {
+  --booking-bg: #{$dark-bg};
+  --booking-text: #{$dark-text};
+  --booking-section-border: #5b1111;
+  --booking-option-bg: #3a0505;
+  --booking-option-border: #9b3030;
+  --booking-option-hover-bg: #7a0000;
+  --booking-muted-text: #cccccc;
+  --booking-seat-free: #9b9b9b;
+  --booking-seat-booked: #2d2d2d;
+  --booking-seat-booked-text: #888888;
+  --booking-screen: #cfcfcf;
+}
+
+.section {
+  border-top: 1px solid var(--booking-section-border);
+  padding: 24px 0;
+}
+
+.header {
+  display: flex;
+  gap: 20px;
+  padding-bottom: 24px;
+}
+
+.poster {
+  width: 120px;
+  border-radius: 8px;
+}
+
+.options {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.option {
+  min-width: 96px;
+  padding: 12px;
+  border: 1px solid var(--booking-option-border);
+  background: var(--booking-option-bg);
+  color: var(--booking-text);
+  border-radius: 6px;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.option:hover {
+  background: var(--booking-option-hover-bg);
+  border-color: $accent-red;
+  transform: translateY(-2px);
+}
+
+.option:focus-visible {
+  outline: 2px solid $outline;
+  outline-offset: 3px;
+}
+
+.active,
+.active:hover {
+  background: #c40000;
+  border-color: #ff3b3b;
+  color: #ffffff;
+}
+
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 16px;
+  font-size: 12px;
+}
+
+.legend i {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  margin-right: 6px;
+}
+
+.freeSeat {
+  background: var(--booking-seat-free);
+}
+
+.selectedSeat {
+  background: #d50000;
+}
+
+.bookedSeat {
+  background: var(--booking-seat-booked);
+  border: 1px solid #777777;
+}
+
+.screen {
+  height: 8px;
+  max-width: 560px;
+  margin: 0 auto 18px;
+  background: var(--booking-screen);
+  border-radius: 999px;
+}
+
+.auditorium {
+  text-align: center;
+  color: var(--booking-muted-text);
+}
+
+.seatMap {
+  display: grid;
+  gap: 8px;
+  justify-content: center;
+}
+
+.seatRow {
+  display: grid;
+  grid-template-columns: 20px repeat(6, 28px) 32px repeat(6, 28px) 20px;
+  gap: 5px;
+  align-items: center;
+}
+
+.seat:nth-of-type(7) {
+  grid-column-start: 9;
+}
+
+.rowLabel {
+  color: var(--booking-text);
+  font-weight: 700;
+}
+
+.seat {
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 5px;
+  background: var(--booking-seat-free);
+  color: #ffffff;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.seat:hover:not(:disabled) {
+  background: #b80000;
+}
+
+.selected {
+  background: #d50000;
+}
+
+.selected:hover:not(:disabled) {
+  background: #e00000;
+}
+
+.booked {
+  background: var(--booking-seat-booked);
+  color: var(--booking-seat-booked-text);
+  cursor: not-allowed;
+}
+
+.error {
+  color: #ff8a8a;
+}
+
+.success {
+  color: #15803d;
+  margin: 16px 0;
+}
+
+:global([data-theme="dark"]) .success,
+:global(.dark) .success {
+  color: #7ee787;
+}
+
+.summary {
+  border-top: 1px solid var(--booking-section-border);
+  padding-top: 24px;
+}
+
+.bookButton {
+  width: 100%;
+  margin-top: 20px;
+  padding: 14px;
+  border-radius: 999px;
+  border: 1px solid #e52b2b;
+  background: #8b0000;
+  color: #ffffff;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.bookButton:hover:not(:disabled) {
+  background: #b00000;
+  transform: translateY(-1px);
+}
+
+.bookButton:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}

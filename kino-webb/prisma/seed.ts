@@ -26,6 +26,20 @@ async function main() {
 
   console.log("Genererar haschade lösenord...")
   const hashedPassword = await saltAndHashPassword("secret1234");
+  const guestUserPwHash = await saltAndHashPassword(
+    "Gästanvändare-guest@kino.se",
+  );
+
+  // Creating guest user with normal rights but not available password
+  console.log("Skapar vanlig användare...");
+  const guestUser = await prisma.user.create({
+    data: {
+      email: "guest@kino.se",
+      name: "Gästanvändare",
+      passwordHash: guestUserPwHash,
+      role: "USER" as Role,
+    },
+  });
 
   console.log("Skapar vanlig användare...")
   const normalUser = await prisma.user.create({
@@ -49,7 +63,8 @@ async function main() {
     },
   });
 
-  console.log(`2 användare skapade!`);
+  console.log(`3 användare skapade!`);
+  console.log(`- Gästanvändare skapad, namn: ${guestUser.name}`);
   console.log(`- Vanlig användare skapad: ${normalUser.email}`);
   console.log(`- Admin-användare skapad: ${adminUser.email}`);
 
@@ -85,31 +100,25 @@ async function main() {
   }));
 
   await prisma.screening.createMany({
-    data: mappedScreenings,
-  })
-  console.log('Dummy data för visningar är skrivna till databasen!');
+    data: adaptedScreenings,
+  });
+  console.log("Dummy data för visningar är skrivna till databasen!");
 
+  const userList = await prisma.user.findMany({});
+  const sortedUserList = userList.sort((a, b) => a.id - b.id);
+  const getRandomUserId = (): number => {
+    const randomIdInList =
+      Math.floor(Math.random() * sortedUserList.length) + sortedUserList[0].id;
+    return randomIdInList;
+  };
 
-  const bookingsWithEnumStatus = bookings.map(booking => ({
-    ...booking,
-    status: booking.status as BookStatus
-  }))
-  await prisma.booking.createMany({
-    data: bookingsWithEnumStatus,
-  })
-  console.log('Dummy-bokningar skrivna till databasen!');
-
-  const mappedReviews = reviews.map(review => {
-    let userName = "Anonym Användare";
-    if (review.userId === 1) userName = "Guy McDudesson";
-    if (review.userId === 2) userName = "Boss Chefsson";
-
-    return {
-      ...review,
-      userName: userName,
-      verified: true, 
-      createdAt: review.createdAt ? new Date(review.createdAt) : new Date(),
-    };
+  const adaptedReviews = reviews.map((review) => ({
+    ...review,
+    movieId: getRandomId(),
+    userId: review.userName === null ? getRandomUserId() : userList[0].id,
+  }));
+  await prisma.review.createMany({
+    data: adaptedReviews,
   });
 
   await prisma.review.createMany({
@@ -148,7 +157,7 @@ async function main() {
   await prisma.bookingSeat.createMany({
     data: bSeats,
   });
-  console.log('Dummy data för bokade stolar är skrivna till databasen');
+  console.log("Dummy data för bokade stolar är skrivna till databasen");
 
   console.log("Databasen är seedad för testning, KLART!");
 }
