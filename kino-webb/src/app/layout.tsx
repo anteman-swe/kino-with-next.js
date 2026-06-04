@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Roboto, Roboto_Mono } from "next/font/google";
 import { ThemeProvider } from "./components/darkLightTheme/ThemeProvider";
 import "./globals.scss";
 
@@ -8,13 +8,13 @@ import { SessionProvider } from "next-auth/react";
 import HeaderWrapper from "./components/header/HeaderWrapper";
 import Footer from "./components/footer/Footer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const roboto = Roboto({
+  variable: "--font-roboto",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const robotoMono = Roboto_Mono({
+  variable: "--font-roboto-mono",
   subsets: ["latin"],
 });
 
@@ -30,8 +30,8 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable}`}
+      lang="sv"
+      className={`${roboto.variable} ${robotoMono.variable}`}
       suppressHydrationWarning
       style={{ colorScheme: "light" }}
     >
