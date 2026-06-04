@@ -1,41 +1,42 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Header from "./Header";
 import LoginModal from "../login/LoginModal";
 import RegisterModal from "../register/RegisterModal";
 import DarkLightTheme from "../darkLightTheme/DarkLightTheme";
 
-export default function HeaderWrapper() {
+function HeaderWrapperContent() {
   const paramToOpen = useSearchParams();
-  const openLogin = (): void => {setIsLoginOpen(true)};
 
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
 
+  const openLogin = (): void => {
+    setIsLoginOpen(true);
+  };
+
   useEffect(() => {
-    if (paramToOpen.get('openLogin') === 'true') {
+    if (paramToOpen.get("openLogin") === "true") {
       const url = new URL(window.location.href);
-      url.searchParams.delete('openLogin');
-      window.history.replaceState({}, '', url);
+      url.searchParams.delete("openLogin");
+      window.history.replaceState({}, "", url);
       openLogin();
     }
   }, [paramToOpen]);
-  
 
   return (
     <>
       <Header
-        onOpenLogin={() => setIsLoginOpen(true)}
+        onOpenLogin={openLogin}
         onOpenRegister={() => {
           setIsLoginOpen(false);
           setIsRegisterOpen(true);
         }}
       >
-        <DarkLightTheme />  
-      </Header>  
-    
+        <DarkLightTheme />
+      </Header>
 
       {isLoginOpen && (
         <LoginModal
@@ -52,10 +53,18 @@ export default function HeaderWrapper() {
           onClose={() => setIsRegisterOpen(false)}
           onOpenLogin={() => {
             setIsRegisterOpen(false);
-            setIsLoginOpen(true);
+            openLogin();
           }}
         />
       )}
     </>
+  );
+}
+
+export default function HeaderWrapper() {
+  return (
+    <Suspense fallback={null}>
+      <HeaderWrapperContent />
+    </Suspense>
   );
 }
