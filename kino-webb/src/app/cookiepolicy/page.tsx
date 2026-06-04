@@ -19,9 +19,6 @@ export default async function Cookiepolicy() {
 
     return (
       <>
-        <Link href="/" className={styles.homelink}>
-          Tillbaka till startsidan
-        </Link>
         <div
           dangerouslySetInnerHTML={{ __html: policyToPresent }}
           className={styles.cookiepolicy}
