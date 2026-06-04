@@ -67,6 +67,7 @@ export default function ReviewInputSection({ reviewerID }: ReviewInputSectionPro
             if (Object.keys(response.errors).length === 0) {
               setRating(randomRating());
               setFormKey(k => k + 1);
+              // const sentReview = 
             }
             setLoading(false);
             

@@ -28,31 +28,31 @@ export default function Menu() {
 
           <ul className={styles.navList} onClick={() => setIsOpen(false)}>
             <li>
-              <Link href="/">På bio just nu</Link>
+              <Link href="/current-movies">På bio just nu</Link>
             </li>
             <li>
-              <Link href="/">Kommande filmer</Link>
+              <Link href="/coming-movies">Kommande filmer</Link>
             </li>
             <li>
-              <Link href="/">Barnbio</Link>
+              <Link href="/children-cinema">Barnbio</Link>
             </li>
             <li>
-              <Link href="/">Presentkort</Link>
+              <Link href="/gift-cards">Presentkort</Link>
             </li>
             <li>
-              <Link href="/">Café & Bistro</Link>
+              <Link href="/cafe-bistro">Café & Bistro</Link>
             </li>
             <li>
-              <Link href="/">Event</Link>
+              <Link href="/event">Event</Link>
             </li>
             <li>
-              <Link href="/">Kundservice</Link>
+              <Link href="/customer-service">Kundservice</Link>
             </li>
             <li>
               <Link href="/member-page">Mina sidor</Link>
             </li>
             <li>
-              <Link href="/">Företag</Link>
+              <Link href="/foretag">Företag</Link>
             </li>
           </ul>
         </div>
