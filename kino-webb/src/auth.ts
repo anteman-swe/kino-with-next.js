@@ -76,6 +76,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
   },
   session: {
-    strategy: "jwt"
+    strategy: "jwt",
+    maxAge: 2 * 60 * 60, // Setting session lifespan to 2 hours
   },
 });
