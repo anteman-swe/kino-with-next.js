@@ -1,0 +1,21 @@
+.bistroMenu {
+    max-width: 860px;
+    margin: 4rem auto;
+    padding: 0 3rem;
+    font-family: Roboto, Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 1.1rem;
+    border: 1px solid var(--card-border);
+    border-radius: $border-radius;
+    background-color: var(--card-bg);
+    h1, h2, p:nth-child(2){
+        text-align: center;
+    }
+}
+.homelink {
+    margin: 2rem;
+    text-align: center;
+    text-decoration: none;
+    font-family: Roboto, Verdana, Geneva, Tahoma, sans-serif;
+    color: var(--text-main);
+    cursor: pointer;
+}
