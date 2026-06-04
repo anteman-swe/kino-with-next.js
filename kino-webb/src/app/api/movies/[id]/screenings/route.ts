@@ -1,44 +1,36 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/app/lib/prisma";
+import { prisma } from "@/lib/prisma";
 
-type Params = {
-  params: Promise<{ id: string }>;
-};
+import { RouteParams } from "@/types";
 
-export async function GET(
-  request: NextRequest,
-  { params }: Params
-) {
+export async function GET(request: NextRequest, { params }: RouteParams) {
   try {
     const { id } = await params;
-    const movieId = Number(id);
+    const movieId = parseInt(id, 10);
 
-    if (Number.isNaN(movieId)) {
+    if (isNaN(movieId)) {
       return NextResponse.json(
-        { name: "NotANumber", message: "ID must be a valid number", status: 400 },
+        { message: "ID must be a valid number" },
         { status: 400 }
       );
     }
 
-    console.log("movieId:", movieId);
+const screenings = await prisma.screening.findMany({
+  where: {
+    movieId: movieId,
+    startsAt: {
+      gte: new Date().toISOString().slice(0, 19),
+    },
+  },
+  orderBy: {
+    startsAt: "asc",
+  },
+});
 
-const allScreenings = await prisma.screening.findMany();
-console.log("all screenings:", allScreenings);
-
-    const screenings = await prisma.screening.findMany({
-      where: {
-        movieId,
-      },
-    });
-
-    return NextResponse.json({
-      movieId,
-      screenings,
-    });
+    return NextResponse.json(screenings);
   } catch (error) {
-    console.error(error);
     return NextResponse.json(
-      { name: "ServerError", message: "Could not fetch screenings", status: 500 },
+      { message: "Something went wrong", error },
       { status: 500 }
     );
   }
