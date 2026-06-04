@@ -56,7 +56,7 @@ async function main() {
   });
   console.log("Skapar vanlig användare...");
   const normalUser = await prisma.user.create({
-    data: {
+    data: { 
       email: "guy@exempel.se",
       name: "Guy McDudesson",
       passwordHash: hashedPassword,
@@ -100,6 +100,7 @@ async function main() {
   // Mapping screenings with right types
   const mappedScreenings = screenings.map(screening => ({
     ...screening,
+    movieId: getRandomId(),
     startsAt: new Date(screening.startsAt), 
   }));
   await prisma.screening.createMany({
@@ -131,8 +132,7 @@ async function main() {
   await prisma.review.createMany({
     data: adaptedReviews,
   });
-
-  console.log("Dummy data för recensioner är skrivna till databasen!");
+  console.log('Dummy data för recensioner är skrivna till databasen!');
 
   await prisma.offer.createMany({
     data: offers,
