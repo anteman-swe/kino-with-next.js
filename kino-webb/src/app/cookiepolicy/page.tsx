@@ -24,7 +24,7 @@ export default async function Cookiepolicy() {
           className={styles.cookiepolicy}
         ></div>
         <Link href="/" className={styles.homelink}>
-          Tillbaka till startsidan
+          &#10226; Tillbaka till startsidan
         </Link>
       </>
     );

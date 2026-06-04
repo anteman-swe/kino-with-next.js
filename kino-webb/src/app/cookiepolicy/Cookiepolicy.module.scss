@@ -1,7 +1,7 @@
 .cookiepolicy {
     max-width: 800px;
     margin: 4rem auto;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: Roboto, Verdana, Geneva, Tahoma, sans-serif;
     font-size: 1.1rem;
     th, td{
         padding-left: 1rem;
@@ -15,7 +15,8 @@
 .homelink {
     margin: 2rem;
     text-align: center;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-decoration: none;
+    font-family: Roboto, Verdana, Geneva, Tahoma, sans-serif;
     color: var(--text-main);
     cursor: pointer;
 }
