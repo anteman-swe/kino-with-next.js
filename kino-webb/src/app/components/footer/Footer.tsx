@@ -36,7 +36,9 @@ export default function Footer() {
               <Link href="/cookiepolicy">Cookiepolicy</Link>
             </li>
             <li>
-              <a href="#">Integritetspolicy</a>
+              <Link href="/policy" className={styles.footerLink}>
+                Integritetspolicy
+              </Link>
             </li>
             <li>
               <a href="#">Åldersgränser</a>
