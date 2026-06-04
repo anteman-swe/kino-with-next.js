@@ -36,7 +36,7 @@ export default function RegisterModal({ onClose, onOpenLogin }: RegisterModalPro
     validateEmail(email) &&
     password.trim().length >0;
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!isFormValid) return;
 
