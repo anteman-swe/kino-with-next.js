@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import style from "./UpcomingScreenings.module.scss";
 import Image from "next/image";
+import Link from "next/link";
 
 type Movie = {
   id: number;
@@ -33,7 +34,7 @@ useEffect(() => {
 
   const data = await response.json();
   setUpcomingScreenings(data);
-} catch (error) {
+} catch {
   setUpcomingScreenings([]);
 }
   }
