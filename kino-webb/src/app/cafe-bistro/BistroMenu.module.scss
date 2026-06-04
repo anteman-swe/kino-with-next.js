@@ -11,11 +11,16 @@
         text-align: center;
     }
 }
-.homelink {
-    margin: 2rem;
-    text-align: center;
-    text-decoration: none;
-    font-family: Roboto, Verdana, Geneva, Tahoma, sans-serif;
+.linkBack {
     color: var(--text-main);
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+    font-size: 1rem;
+    font-family: Roboto, Verdana, Geneva, Tahoma, sans-serif;
+    margin: 8rem auto;
     cursor: pointer;
+    .linkArrow {
+        font-size: 1.4rem;
+    }
 }

@@ -1,12 +1,13 @@
 .linkBack {
-    color: var(--text-main);
-    text-transform: uppercase;
-    text-decoration: none;
-    text-align: center;
-    font-size: 1rem;
-    margin: 8rem auto;
-    cursor: pointer;
-    .linkArrow {
-        font-size: 1.4rem;
-    }
+  color: var(--text-main);
+  text-transform: uppercase;
+  text-decoration: none;
+  text-align: center;
+  font-size: 1rem;
+  font-family: Roboto, Verdana, Geneva, Tahoma, sans-serif;
+  margin: 8rem auto;
+  cursor: pointer;
+  .linkArrow {
+    font-size: 1.4rem;
+  }
 }

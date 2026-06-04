@@ -23,8 +23,9 @@ export default async function Cookiepolicy() {
           dangerouslySetInnerHTML={{ __html: policyToPresent }}
           className={styles.cookiepolicy}
         ></div>
-        <Link href="/" className={styles.homelink}>
-          &#10226; Tillbaka till startsidan
+        <Link href={"/"} className={styles.linkBack}>
+          <span className={styles.linkArrow}> &#10226; </span> Tillbaka till
+          startsidan
         </Link>
       </>
     );
