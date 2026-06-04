@@ -3,6 +3,8 @@
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import styles from "./Logo.module.scss";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Logo() {
   const { resolvedTheme } = useTheme();
@@ -20,10 +22,17 @@ export default function Logo() {
   const logoSrc = resolvedTheme === "dark" ? "/logo2.png" : "/logo1.png";
 
   return (
-    <img
-      src={logoSrc}  
-      alt="Kino logo"
-      className={styles.logo}
-    />
+    <>
+      <Link href={"/"} className={styles.logoLink}>
+        <Image
+          src={logoSrc}
+          alt="Kino logo"
+          className={styles.logo}
+          width={809}
+          height={168}
+          priority
+        />
+      </Link>
+    </>
   );
 }
