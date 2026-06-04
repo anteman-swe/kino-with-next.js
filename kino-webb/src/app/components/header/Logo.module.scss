@@ -1,19 +1,25 @@
+.logoPlaceholder {
+  width: 280px;
+  height: 55px; 
+}
+.logoLink {
+  display: inline-flex; 
+  justify-content: center;
+  margin: 0 auto;
+  text-decoration: none;
+  line-height: 0;        
+}
+
 .logo {
   width: 280px;
   height: auto;
   object-fit: contain;
-  margin: 0 auto;
   mix-blend-mode: normal;
   filter: none;
-  :global(html:not(.dark) body) img.logo {
+
+  :global(html:not(.dark)) & {
     background-color: transparent;
     mix-blend-mode: multiply;
     filter: contrast(1.1) brightness(1.05);
   }
-
-}
-
-.logoPlaceholder {
-  width: 280px;
-  height: 55px; 
 }

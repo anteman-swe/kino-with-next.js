@@ -36,7 +36,7 @@ async function main() {
       passwordHash: hashedPassword,
       role: "USER" as Role,
     },
-  })
+  });
 
   console.log("Skapar admin-användare...")
   const adminUser = await prisma.user.create({
@@ -47,7 +47,11 @@ async function main() {
       passwordHash: hashedPassword,
       role: "ADMIN" as Role,
     },
-  })
+  });
+
+  console.log(`2 användare skapade!`);
+  console.log(`- Vanlig användare skapad: ${normalUser.email}`);
+  console.log(`- Admin-användare skapad: ${adminUser.email}`);
 
   console.log(`2 användare skapade!`)
   console.log(`- Vanlig användare skapad: ${normalUser.email}`)
@@ -115,17 +119,45 @@ async function main() {
 
   await prisma.offer.createMany({
     data: offers,
-  })
-  console.log('Dummy data för erbjudanden är skrivna till databasen!');
+  });
+  console.log("Dummy data för erbjudanden är skrivna till databasen!");
 
-  console.log('Databasen är seedad för testning, KLART!')
+  // Dummy data för bookings skrivs till DB
+  const bookingsWithEnumStatus = bookings.map((booking) => ({
+    ...booking,
+    userId: getRandomUserId(),
+    status: booking.status as BookStatus,
+  }));
+  await prisma.booking.createMany({
+    data: bookingsWithEnumStatus,
+  });
+  console.log("Dummy-bokningar skrivna till databasen!");
+
+  // Dummy data för upptagna stolar
+  const registeredBookings = await prisma.booking.findMany({});
+
+  const bSeats = registeredBookings.flatMap((booking) => {
+    const seats = booking?.seats ?? [];
+    return seats.map((seat) => ({
+      bookingId: booking.id,
+      screeningId: booking.screeningId,
+      seat: seat,
+    }));
+  });
+
+  await prisma.bookingSeat.createMany({
+    data: bSeats,
+  });
+  console.log('Dummy data för bokade stolar är skrivna till databasen');
+
+  console.log("Databasen är seedad för testning, KLART!");
 }
 
 main()
   .catch((e) => {
-    console.error(e)
-    process.exit(1)
+    console.error(e);
+    process.exit(1);
   })
   .finally(async () => {
-    await prisma.$disconnect()
-  })
+    await prisma.$disconnect();
+  });
