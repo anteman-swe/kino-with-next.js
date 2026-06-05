@@ -21,15 +21,25 @@ type Screening = {
 export default function UpcomingScreenings() {
   const [upcomingScreenings, setUpcomingScreenings] = useState<Screening[]>([]);
 
-  useEffect(() => {
-    async function fetchScreenings() {
-      const response = await fetch("/api/screenings");
-      const data = await response.json();
-      setUpcomingScreenings(data);
-    }
+useEffect(() => {
+  async function fetchScreenings() {
+   try {
+  const response = await fetch("/api/screenings");
 
-    fetchScreenings();
-  }, []);
+  if (!response.ok) {
+    setUpcomingScreenings([]);
+    return;
+  }
+
+  const data = await response.json();
+  setUpcomingScreenings(data);
+} catch (error) {
+  setUpcomingScreenings([]);
+}
+  }
+
+  fetchScreenings();
+}, []);
 
   return (
     <div className={style.upcomingScreenings}>
