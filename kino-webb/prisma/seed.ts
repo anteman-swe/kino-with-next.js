@@ -43,7 +43,6 @@ async function main() {
   console.log("Skapar vanlig användare...");
   const normalUser = await prisma.user.create({
     data: {
-      id: 1, 
       email: "guy@exempel.se",
       name: "Guy McDudesson",
       passwordHash: hashedPassword,
@@ -54,7 +53,6 @@ async function main() {
   console.log("Skapar admin-användare...");
   const adminUser = await prisma.user.create({
     data: {
-      id: 2, 
       email: "admin@exempel.se",
       name: "Boss Chefsson",
       passwordHash: hashedPassword,
@@ -90,12 +88,6 @@ async function main() {
   const mappedScreenings = screenings.map((screening) => ({
     ...screening,
     startsAt: new Date(screening.startsAt),
-  }));
-
-
-  const mappedScreenings = screenings.map(screening => ({
-    ...screening,
-    startsAt: new Date(screening.startsAt), 
   }));
 
   await prisma.screening.createMany({
