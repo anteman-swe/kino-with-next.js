@@ -1,37 +1,36 @@
 // seed.ts
-import { PrismaPg } from '@prisma/adapter-pg'
-import { PrismaClient, Role, BookStatus } from '@/generated/prisma/client';
-import { saltAndHashPassword } from '@/app/utils/password';
+import { PrismaPg } from "@prisma/adapter-pg";
+import { PrismaClient, Role, BookStatus } from "@/generated/prisma/client";
+import { saltAndHashPassword } from "@/app/utils/password";
 
 // importing dummy data
-import { bookings } from '@/Data/bookings';
-import { movies } from '@/Data/movies';
-import { screenings } from '@/Data/screenings';
-import { reviews } from '@/Data/reviews';
-import { offers } from '@/Data/offers';
+import { bookings } from "@/Data/bookings";
+import { movies } from "@/Data/movies";
+import { screenings } from "@/Data/screenings";
+import { reviews } from "@/Data/reviews";
+import { offers } from "@/Data/offers";
 
 const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
-
   console.log("Tömmer databasen...");
-  await prisma.review.deleteMany({});    // Depends on movies and users
-  await prisma.booking.deleteMany({});   // Depends on screenings and users
+  await prisma.review.deleteMany({}); // Depends on movies and users
+  await prisma.booking.deleteMany({}); // Depends on screenings and users
   await prisma.screening.deleteMany({}); // Depends on movies
   await prisma.offer.deleteMany({});
   await prisma.user.deleteMany({});
   await prisma.movie.deleteMany({});
   console.log("Databasen är tömd!");
 
-  console.log("Genererar haschade lösenord...")
+  console.log("Genererar haschade lösenord...");
   const hashedPassword = await saltAndHashPassword("secret1234");
   const guestUserPwHash = await saltAndHashPassword(
     "Gästanvändare-guest@kino.se",
   );
 
   // Creating guest user with normal rights but not available password
-  console.log("Skapar vanlig användare...");
+  console.log("Skapar gäst-användare...");
   const guestUser = await prisma.user.create({
     data: {
       email: "guest@kino.se",
@@ -41,7 +40,7 @@ async function main() {
     },
   });
 
-  console.log("Skapar vanlig användare...")
+  console.log("Skapar vanlig användare...");
   const normalUser = await prisma.user.create({
     data: { 
       email: "guy@exempel.se",
@@ -51,7 +50,7 @@ async function main() {
     },
   });
 
-  console.log("Skapar admin-användare...")
+  console.log("Skapar admin-användare...");
   const adminUser = await prisma.user.create({
     data: {
       email: "admin@exempel.se",
@@ -66,12 +65,7 @@ async function main() {
   console.log(`- Vanlig användare skapad: ${normalUser.email}`);
   console.log(`- Admin-användare skapad: ${adminUser.email}`);
 
-  console.log(`2 användare skapade!`)
-  console.log(`- Vanlig användare skapad: ${normalUser.email}`)
-  console.log(`- Admin-användare skapad: ${adminUser.email}`)
-  
-
-  const mappedMovies = movies.map(movie => ({
+  const mappedMovies = movies.map((movie) => ({
     id: movie.id,
     seriesTitle: movie.Series_Title,
     releasedYear: movie.Released_Year,
@@ -88,8 +82,13 @@ async function main() {
 
   await prisma.movie.createMany({
     data: mappedMovies,
-  })
-  console.log('Dummy data för filmer skrivna till databasen!');
+  });
+  console.log("Dummy data för filmer skrivna till databasen!");
+
+  const mappedScreenings = screenings.map((screening) => ({
+    ...screening,
+    startsAt: new Date(screening.startsAt),
+  }));
 
   const movieList = await prisma.movie.findMany({});
   const sortedMList = movieList.sort((a, b) => a.id - b.id);
@@ -115,6 +114,14 @@ async function main() {
   const getRandomUserId = (): number => {
     const randomIdInList =
       Math.floor(Math.random() * sortedUserList.length) + sortedUserList[0].id;
+    return randomIdInList;
+  };
+
+  const movieList = await prisma.movie.findMany({});
+  const sortedMList = movieList.sort((a, b) => a.id - b.id);
+  const getRandomId = (): number => {
+    const randomIdInList =
+      Math.floor(Math.random() * sortedMList.length) + sortedMList[0].id;
     return randomIdInList;
   };
 

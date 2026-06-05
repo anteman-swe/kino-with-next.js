@@ -1,6 +1,5 @@
 export const screenings = [
   {
-    id: 1,
     movieId: 1,
     auditorium: "Salong 1",
     startsAt: "2026-06-10T20:00:00+02:00",
@@ -11,7 +10,6 @@ export const screenings = [
     totalSeats: 100,
   },
   {
-    id: 2,
     movieId: 2,
     auditorium: "Salong 1",
     startsAt: "2026-06-11T18:30:00+02:00",
@@ -22,7 +20,6 @@ export const screenings = [
     totalSeats: 100,
   },
   {
-    id: 3,
     movieId: 3,
     auditorium: "Salong 1",
     startsAt: "2026-06-12T18:30:00+02:00",
@@ -33,7 +30,6 @@ export const screenings = [
     totalSeats: 100,
   },
   {
-    id: 4,
     movieId: 2,
     auditorium: "Salong 1",
     startsAt: "2026-06-13T18:30:00+02:00",
@@ -44,7 +40,6 @@ export const screenings = [
     totalSeats: 100,
   },
   {
-    id: 5,
     movieId: 5,
     auditorium: "Salong 1",
     startsAt: "2026-06-14T20:30:00+02:00",
@@ -55,7 +50,6 @@ export const screenings = [
     totalSeats: 100,
   },
   {
-    id: 6,
     movieId: 5,
     auditorium: "Salong 1",
     startsAt: "2026-06-15T20:30:00+02:00",
@@ -66,7 +60,6 @@ export const screenings = [
     totalSeats: 100,
   },
   {
-    id: 7,
     movieId: 5,
     auditorium: "Salong 1",
     startsAt: "2026-06-16T19:30:00+02:00",
@@ -77,7 +70,6 @@ export const screenings = [
     totalSeats: 100,
   },
   {
-    id: 8,
     movieId: 5,
     auditorium: "Salong 1",
     startsAt: "2026-06-17T21:30:00+02:00",
@@ -88,7 +80,6 @@ export const screenings = [
     totalSeats: 100,
   },
   {
-    id: 9,
     movieId: 6,
     auditorium: "Salong 1",
     startsAt: "2026-06-18T19:30:00+02:00",
