@@ -51,19 +51,16 @@ export default function UpcomingScreenings() {
           if (!screening.movie) return null;
 
           return (
-            <Link
-              href={`/movies/${screening.movie.id}`}
-              className={style.upcomingScreeningsCard}
-              key={screening.id}
-            >
-              <Image
-                className={style.upcomingScreeningsImg}
-                src={screening.movie.posterLink}
-                alt={screening.movie.seriesTitle}
-                width={200}
-                height={300}
-              />
-
+            <div key={screening.id} className={style.upcomingScreeningsCard}>
+              <Link href={`/movies/${screening.movie.id}`}>
+                <Image
+                  className={style.upcomingScreeningsImg}
+                  src={screening.movie.posterLink}
+                  alt={screening.movie.seriesTitle}
+                  width={200}
+                  height={300}
+                />
+              </Link>
               <h3 className={style.upcomingScreeningsTitle}>
                 {screening.movie.seriesTitle}
               </h3>
@@ -94,13 +91,14 @@ export default function UpcomingScreenings() {
                   {screening.auditorium.toLocaleUpperCase()}
                 </p>
               </div>
+
               <Link
                 href={`/movies/${screening.movieId}/booking?screeningId=${screening.id}`}
                 className={style.bookingLink}
               >
                 Boka
               </Link>
-            </Link>
+            </div>
           );
         })}
       </div>
