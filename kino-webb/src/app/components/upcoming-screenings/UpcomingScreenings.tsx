@@ -1,18 +1,45 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import style from "./UpcomingScreenings.module.scss";
-import { screenings } from "../../../Data/screenings";
-import { movies } from "../../../Data/movies";
 import Image from "next/image";
-import Link from "next/link";
+
+type Movie = {
+  id: number;
+  seriesTitle: string;
+  posterLink: string;
+};
+
+type Screening = {
+  id: number;
+  movieId: number;
+  auditorium: string;
+  startsAt: string;
+  movie?: Movie;
+};
 
 export default function UpcomingScreenings() {
-  const upcomingScreenings = screenings.map((screening) => {
-    const movie = movies.find((movie) => movie.id === screening.movieId);
+  const [upcomingScreenings, setUpcomingScreenings] = useState<Screening[]>([]);
 
-    return {
-      ...screening,
-      movie,
-    };
-  });
+useEffect(() => {
+  async function fetchScreenings() {
+   try {
+  const response = await fetch("/api/screenings");
+
+  if (!response.ok) {
+    setUpcomingScreenings([]);
+    return;
+  }
+
+  const data = await response.json();
+  setUpcomingScreenings(data);
+} catch (error) {
+  setUpcomingScreenings([]);
+}
+  }
+
+  fetchScreenings();
+}, []);
 
   return (
     <div className={style.upcomingScreenings}>
@@ -22,18 +49,18 @@ export default function UpcomingScreenings() {
         {upcomingScreenings.map((screening) => {
           if (!screening.movie) return null;
 
-          return (
-            <div className={style.upcomingScreeningsCard} key={screening.id}>
-              <Image
-                className={style.upcomingScreeningsImg}
-                src={screening.movie.Poster_Link}
-                alt={screening.movie.Series_Title}
-                width={200}
-                height={300}
-              />
+  return (
+    <div className={style.upcomingScreeningsCard} key={screening.id}>
+      <Image
+        className={style.upcomingScreeningsImg}
+        src={screening.movie.posterLink}
+        alt={screening.movie.seriesTitle}
+        width={200}
+        height={300}
+      />
 
               <h3 className={style.upcomingScreeningsTitle}>
-                {screening.movie.Series_Title}
+                {screening.movie.seriesTitle}
               </h3>
 
               <p className={style.upcomingScreeningsTime}>
