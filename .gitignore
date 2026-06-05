@@ -13,3 +13,6 @@ Thumbs.db
 # Environment variables
 .env*
 !.env.example
+
+
+migrations/

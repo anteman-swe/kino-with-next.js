@@ -1,22 +1,31 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
 
-import { RouteParams } from '@/types'
+type RouteParams = {
+  params: Promise<{ id: string }>;
+};
 
+export async function GET(_request: Request, { params }: RouteParams) {
+  const { id } = await params;
+  const screeningId = Number(id);
 
-export async function GET(request: NextRequest, { params }: RouteParams) {
-    try {
-        const { id } = await params;
-        const movieId = parseInt(id, 10);
+  if (Number.isNaN(screeningId)) {
+    return NextResponse.json({ message: "Invalid id" }, { status: 400 });
+  }
 
-        if (isNaN(movieId)) {
-            return NextResponse.json({ 
-                name: "NotANumber",
-                message: "ID must be a valid number",
-                status: 400
-            });
-        }
-        // Kod för att hämta film från databasen
-    } catch {
-        // Kod för att fånga fel, error
-    }
-} 
+  const seats = await prisma.bookingSeat.findMany({
+    where: {
+      screeningId,
+      booking: {
+        status: "CONFIRMED",
+      },
+    },
+    select: {
+      seat: true,
+    },
+  });
+
+  return NextResponse.json({
+    bookedSeats: seats.map((item) => item.seat),
+  });
+}

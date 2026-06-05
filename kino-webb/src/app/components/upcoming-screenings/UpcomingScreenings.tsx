@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import style from "./UpcomingScreenings.module.scss";
+import Image from "next/image";
 
 type Movie = {
   id: number;
@@ -49,13 +50,15 @@ useEffect(() => {
         {upcomingScreenings.map((screening) => {
           if (!screening.movie) return null;
 
-          return (
-            <div className={style.upcomingScreeningsCard} key={screening.id}>
-              <img
-                className={style.upcomingScreeningsImg}
-                src={screening.movie.Poster_Link}
-                alt={screening.movie.Series_Title}
-              />
+  return (
+    <div className={style.upcomingScreeningsCard} key={screening.id}>
+      <Image
+        className={style.upcomingScreeningsImg}
+        src={screening.movie.Poster_Link}
+        alt={screening.movie.Series_Title}
+        width={200}
+        height={300}
+      />
 
               <h3 className={style.upcomingScreeningsTitle}>
                 {screening.movie.Series_Title}

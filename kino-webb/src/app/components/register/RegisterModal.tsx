@@ -128,6 +128,14 @@ export default function RegisterModal({ onClose, onOpenLogin }: RegisterModalPro
             Skapa konto
           </Button>
 
+          <p className={styles.policyText}>
+  Genom att skapa ett konto godkänner du vår{" "}
+  <a href="/policy" className={styles.policyLink}>
+    integritetspolicy
+  </a>.
+</p>
+
+
           {/* SWITCH TO LOGIN */}
           {onOpenLogin && (
             <Button className={styles.loginBtn} type="button" onClick={onOpenLogin}>

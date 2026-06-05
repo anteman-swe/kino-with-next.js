@@ -1,0 +1,20 @@
+.cookiepolicy {
+    margin: 4rem 2rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 1.1rem;
+    th, td{
+        padding-left: 1rem;
+        text-align: left;
+        border-bottom: 1px solid var(--text-main);
+    }
+    td {
+       font-size: 0.9rem; 
+    }
+}
+.homelink {
+    margin: 2rem;
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: var(--text-main);
+    cursor: pointer;
+}
