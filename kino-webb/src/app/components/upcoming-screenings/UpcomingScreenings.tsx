@@ -6,10 +6,9 @@ import Image from "next/image";
 
 type Movie = {
   id: number;
-  Series_Title: string;
-  Poster_Link: string;
+  seriesTitle: string;
+  posterLink: string;
 };
-
 
 type Screening = {
   id: number;
@@ -54,14 +53,14 @@ useEffect(() => {
     <div className={style.upcomingScreeningsCard} key={screening.id}>
       <Image
         className={style.upcomingScreeningsImg}
-        src={screening.movie.Poster_Link}
-        alt={screening.movie.Series_Title}
+        src={screening.movie.posterLink}
+        alt={screening.movie.seriesTitle}
         width={200}
         height={300}
       />
 
               <h3 className={style.upcomingScreeningsTitle}>
-                {screening.movie.Series_Title}
+                {screening.movie.seriesTitle}
               </h3>
 
               <p className={style.upcomingScreeningsTime}>
