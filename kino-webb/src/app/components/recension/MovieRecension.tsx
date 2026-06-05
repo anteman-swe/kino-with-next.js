@@ -29,16 +29,15 @@ export default function MovieRecension({ movieId }: MovieRecensionProps) {
   const [isLoading, setIsLoading] = useState(true);
 
   const [userName, setUserName] = useState("");
-  const [rating, setRating] = useState(5); 
+  const [rating, setRating] = useState(5);
   const [comment, setComment] = useState("");
-
 
   useEffect(() => {
     async function fetchReviews() {
       try {
         setIsLoading(true);
         const res = await fetch(`/api/reviews/${movieId}`);
-        
+
         if (!res.ok) {
           const errorData = await res.json().catch(() => ({}));
           console.error("Server error response details:", errorData);
@@ -46,9 +45,8 @@ export default function MovieRecension({ movieId }: MovieRecensionProps) {
         }
 
         const data = await res.json();
-        
-        setMovieReviews(Array.isArray(data) ? data : []);
 
+        setMovieReviews(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error("Error loading reviews inside catch block:", error);
       } finally {
@@ -115,7 +113,7 @@ export default function MovieRecension({ movieId }: MovieRecensionProps) {
           userName: userName.trim(),
           rating: rating,
           comment: comment.trim(),
-          verified: true, 
+          verified: true,
         }),
       });
 
@@ -131,7 +129,6 @@ export default function MovieRecension({ movieId }: MovieRecensionProps) {
       setUserName("");
       setComment("");
       setRating(5);
-
     } catch (error) {
       console.error("Error saving review:", error);
       alert("Could not save your review right now. Please try again later.");
@@ -140,7 +137,6 @@ export default function MovieRecension({ movieId }: MovieRecensionProps) {
 
   return (
     <div className={style.recensionContainer}>
-
       <div className={style.heroBanner}>
         <div className={style.gradientOverlay} />
         <Image
@@ -245,6 +241,12 @@ export default function MovieRecension({ movieId }: MovieRecensionProps) {
               </span>
             )}
           </div>
+          <Link
+            href={`/movies/${currentMovie.id}/booking`}
+            className={style.bookButton}
+          >
+            Boka biljetter
+          </Link>
         </div>
       </div>
 
@@ -284,11 +286,15 @@ export default function MovieRecension({ movieId }: MovieRecensionProps) {
               </svg>
               User Reviews
             </h3>
-            
+
             {isLoading ? (
-              <p className={style.noReviews}>Loading reviews from database...</p>
+              <p className={style.noReviews}>
+                Loading reviews from database...
+              </p>
             ) : movieReviews.length === 0 ? (
-              <p className={style.noReviews}>No reviews written yet. Be the first to write one!</p>
+              <p className={style.noReviews}>
+                No reviews written yet. Be the first to write one!
+              </p>
             ) : (
               <div className={style.reviewsList}>
                 {movieReviews.map((review) => (
@@ -393,9 +399,25 @@ export default function MovieRecension({ movieId }: MovieRecensionProps) {
           <div className={style.ratingCard}>
             <h3 className={style.cardTitle}>Kino Rating</h3>
             <div className={style.scoreBox}>
-              <svg className={style.starIcon} width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg
+                className={style.starIcon}
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+              </svg>
               <span className={style.ratingNum}>
-                {isLoading ? "..." : averageRating > 0 ? averageRating.toFixed(1) : "-"}
+                {isLoading
+                  ? "..."
+                  : averageRating > 0
+                    ? averageRating.toFixed(1)
+                    : "-"}
               </span>
               <span className={style.ratingMax}>/ 5</span>
             </div>
