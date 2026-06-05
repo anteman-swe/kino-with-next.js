@@ -73,6 +73,13 @@ useEffect(() => {
               <p className={style.upcomingScreeningsRoom}>
                 {screening.auditorium}
               </p>
+
+              <Link
+                href={`/movies/${screening.movieId}/booking?screeningId=${screening.id}`}
+                className={style.bookingLink}
+              >
+                Boka
+              </Link>
             </div>
           );
         })}
@@ -80,6 +87,3 @@ useEffect(() => {
     </div>
   );
 }
-
-
-

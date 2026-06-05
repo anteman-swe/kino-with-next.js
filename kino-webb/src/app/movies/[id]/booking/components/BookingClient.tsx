@@ -25,9 +25,13 @@ type Movie = {
 
 type BookingClientProps = {
   movie: Movie;
+  initialScreeningId?: number | null;
 };
 
-export function BookingClient({ movie }: BookingClientProps) {
+export function BookingClient({
+  movie,
+  initialScreeningId,
+}: BookingClientProps) {
   const { data: session } = useSession();
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedScreeningId, setSelectedScreeningId] = useState<number | null>(
@@ -61,12 +65,31 @@ export function BookingClient({ movie }: BookingClientProps) {
   );
 
   useEffect(() => {
-    if (!selectedDate && dates.length > 0) {
-      const firstDate = dates[0];
-      setSelectedDate(firstDate);
-      setSelectedScreeningId(screeningsByDate[firstDate][0]?.id ?? null);
+    if (selectedDate || dates.length === 0) {
+      return;
     }
-  }, [dates, selectedDate, screeningsByDate]);
+
+    const initialScreening = movie.screenings.find(
+      (screening) => screening.id === initialScreeningId,
+    );
+
+    if (initialScreening) {
+      const initialDate = initialScreening.startsAt.slice(0, 10);
+      setSelectedDate(initialDate);
+      setSelectedScreeningId(initialScreening.id);
+      return;
+    }
+
+    const firstDate = dates[0];
+    setSelectedDate(firstDate);
+    setSelectedScreeningId(screeningsByDate[firstDate][0]?.id ?? null);
+  }, [
+    dates,
+    selectedDate,
+    screeningsByDate,
+    movie.screenings,
+    initialScreeningId,
+  ]);
 
   useEffect(() => {
     async function loadBookedSeats() {

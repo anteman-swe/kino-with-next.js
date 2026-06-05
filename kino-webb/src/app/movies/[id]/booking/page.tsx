@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
+import { useParams, useSearchParams } from "next/navigation";
 import { BookingClient } from "./components/BookingClient";
 
 type Screening = {
@@ -18,11 +18,15 @@ type Movie = {
   screenings: Screening[];
 };
 
-export default function BookingPage() {
+function BookingPageContent() {
   const params = useParams<{ id: string }>();
+  const searchParams = useSearchParams();
+
   const [movie, setMovie] = useState<Movie | null>(null);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+
+  const initialScreeningId = Number(searchParams.get("screeningId"));
 
   useEffect(() => {
     async function loadMovie() {
@@ -58,5 +62,20 @@ export default function BookingPage() {
     return <p>Filmen kunde inte hittas.</p>;
   }
 
-  return <BookingClient movie={movie} />;
+  return (
+    <BookingClient
+      movie={movie}
+      initialScreeningId={
+        Number.isNaN(initialScreeningId) ? null : initialScreeningId
+      }
+    />
+  );
+}
+
+export default function BookingPage() {
+  return (
+    <Suspense fallback={<p>Laddar bokning...</p>}>
+      <BookingPageContent />
+    </Suspense>
+  );
 }
