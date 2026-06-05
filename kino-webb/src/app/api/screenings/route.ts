@@ -19,13 +19,22 @@ export async function GET() {
       },
     });
 
-    const screeningsWithMovies = screenings.map((screening) => ({
-      ...screening,
-      movie: movies.find((movie) => movie.id === screening.movieId),
-    }));
+   const screeningsWithMovies = screenings.map((screening) => {
+  const movie = movies.find((movie) => movie.id === screening.movieId);
+
+  return {
+    ...screening,
+    movie: movie
+      ? {
+          id: movie.id,
+          seriesTitle: movie.Series_Title,
+          posterLink: movie.Poster_Link,
+        }
+      : null,
+  };
+});
  
    
-
     return NextResponse.json(screeningsWithMovies);
   } catch (error) {
     console.error(error);
