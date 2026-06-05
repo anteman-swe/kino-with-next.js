@@ -25,7 +25,16 @@ export async function POST(req: Request) {
       },
     });
 
-    return NextResponse.json(user, { status: 201 });
+    return NextResponse.json(
+  {
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    role: user.role,
+  },
+  { status: 201 }
+);
+
   } catch (error) {
     return NextResponse.json(
       { message: "Something went wrong", error },
