@@ -36,11 +36,35 @@ export default function RegisterModal({ onClose, onOpenLogin }: RegisterModalPro
     validateEmail(email) &&
     password.trim().length >0;
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+ async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!isFormValid) return;
 
-    router.push("/member-page");
+    try {
+      const response = await fetch("/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+        }),
+      });
+
+      if (!response.ok) {
+        console.error("Registration failed");
+        return;
+      }
+
+      // Registreringen lyckades
+      onClose();
+      router.push("/member-page");
+
+    } catch (error) {
+      console.error("Error during registration:", error);
+    }
   }
 
   return (
