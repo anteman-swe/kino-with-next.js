@@ -11,14 +11,13 @@ async function getOffers() {
     const response = await fetch("/api/offers");
     const result = await response.json();
     return result as fetchOffer[];
-  } catch (err) {
-    console.error(err);
+  } catch {;
     return null;
   }
 }
 
 const theOffers = await getOffers();
-
+console.log('Offers:', theOffers);
 const convertedOffers = theOffers?.map((element) => ({
     ...element,
     createdAt: new Date(element.createdAt),
