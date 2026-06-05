@@ -15,13 +15,28 @@ const prisma = new PrismaClient({ adapter });
 
 async function main() {
   console.log("Tömmer databasen...");
-  await prisma.review.deleteMany({}); // Depends on movies and users
-  await prisma.booking.deleteMany({}); // Depends on screenings and users
-  await prisma.screening.deleteMany({}); // Depends on movies
-  await prisma.offer.deleteMany({});
-  await prisma.user.deleteMany({});
-  await prisma.movie.deleteMany({});
-  console.log("Databasen är tömd!");
+  await prisma.$executeRawUnsafe(
+    `TRUNCATE TABLE "Review" RESTART IDENTITY CASCADE;`, // Depends on movies and users
+  );
+  await prisma.$executeRawUnsafe(
+    `TRUNCATE TABLE "Booking" RESTART IDENTITY CASCADE;`, // Depends on screenings and users
+  );
+  await prisma.$executeRawUnsafe(
+    `TRUNCATE TABLE "BookingSeat" RESTART IDENTITY CASCADE;`,
+  );
+  await prisma.$executeRawUnsafe(
+    `TRUNCATE TABLE "Screening" RESTART IDENTITY CASCADE;`, // Depends on movies
+  );
+  await prisma.$executeRawUnsafe(
+    `TRUNCATE TABLE "Movie" RESTART IDENTITY CASCADE;`,
+  );
+  await prisma.$executeRawUnsafe(
+    `TRUNCATE TABLE "User" RESTART IDENTITY CASCADE;`,
+  );
+  await prisma.$executeRawUnsafe(
+    `TRUNCATE TABLE "Offer" RESTART IDENTITY CASCADE;`,
+  );
+  console.log("Databasen är rensad och nollställd! Börjar seeda...");
 
   console.log("Genererar haschade lösenord...");
   const hashedPassword = await saltAndHashPassword("secret1234");
@@ -39,34 +54,30 @@ async function main() {
       role: "USER" as Role,
     },
   });
-
   console.log("Skapar vanlig användare...");
   const normalUser = await prisma.user.create({
     data: {
-      id: 1, 
       email: "guy@exempel.se",
       name: "Guy McDudesson",
       passwordHash: hashedPassword,
       role: "USER" as Role,
     },
   });
-
   console.log("Skapar admin-användare...");
   const adminUser = await prisma.user.create({
     data: {
-      id: 2, 
       email: "admin@exempel.se",
       name: "Boss Chefsson",
       passwordHash: hashedPassword,
       role: "ADMIN" as Role,
     },
   });
-
   console.log(`3 användare skapade!`);
   console.log(`- Gästanvändare skapad, namn: ${guestUser.name}`);
   console.log(`- Vanlig användare skapad: ${normalUser.email}`);
   console.log(`- Admin-användare skapad: ${adminUser.email}`);
 
+  // Remapping data for Movies
   const mappedMovies = movies.map((movie) => ({
     id: movie.id,
     seriesTitle: movie.Series_Title,
@@ -81,23 +92,16 @@ async function main() {
     posterLink: movie.Poster_Link,
     trailer: movie.Trailer,
   }));
-
   await prisma.movie.createMany({
     data: mappedMovies,
   });
   console.log("Dummy data för filmer skrivna till databasen!");
 
-  const mappedScreenings = screenings.map((screening) => ({
-    ...screening,
-    startsAt: new Date(screening.startsAt),
-  }));
-
-
+  // Mapping screenings with right types
   const mappedScreenings = screenings.map(screening => ({
     ...screening,
     startsAt: new Date(screening.startsAt), 
   }));
-
   await prisma.screening.createMany({
     data: mappedScreenings,
   });
