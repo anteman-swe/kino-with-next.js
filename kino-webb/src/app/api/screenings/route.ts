@@ -23,12 +23,16 @@ export async function GET() {
       ...screening,
       movie: movies.find((movie) => movie.id === screening.movieId),
     }));
+ 
+   
 
     return NextResponse.json(screeningsWithMovies);
   } catch (error) {
-    return NextResponse.json(
-      { message: "Something went wrong", error },
-      { status: 500 }
-    );
+    console.error(error);
+
+return NextResponse.json(
+  { message: "Database unavailable" },
+  { status: 500 }
+);
   }
 }
