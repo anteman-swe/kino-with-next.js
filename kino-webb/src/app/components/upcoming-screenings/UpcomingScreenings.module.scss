@@ -16,25 +16,34 @@
 }
 
 .upcomingScreeningsTitle,
+.upcomingScreeningsDay,
 .upcomingScreeningsTime,
 .upcomingScreeningsRoom {
   color: var(--text-main);
 }
 
- .upcomingScreeningsCard {
+.upcomingScreeningsCard {
+  color: var(--text-main);
   width: 15rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    gap: $gap-sm;
-    text-align: center;
-    padding: 0.8rem;
-    text-decoration: none;
-    background-color: var(--card-bg);
-    border-radius: $border-radius;
-    border: 1px solid var(--card-border);
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: $gap-sm;
+  text-align: center;
+  padding: 0.8rem;
+  text-decoration: none;
+  background-color: var(--card-bg);
+  border-radius: $border-radius;
+  border: 1px solid var(--card-border);
+}
+
+.infoContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
 
 .upcomingScreeningsImg {
   width: 100%;
@@ -45,7 +54,7 @@
 }
 
 .upcomingScreeningsTitle {
-  margin:0;
+  margin: 0;
   font-size: 1.2rem;
   line-height: 1.2;
 
@@ -56,14 +65,27 @@
   overflow: hidden;
 }
 
-  .upcomingScreeningsTime {
-    font-size: 0.8rem;
-  }
+.upcomingScreeningsDay {
+  font-size: 1rem;
+  line-height: 1.1rem;
+}
 
   .upcomingScreeningsRoom {
     font-size: 0.75rem;
     opacity: 0.8;
   }
+  .upcomingScreeningsDate {
+  font-size: 0.8rem;
+  line-height: 1rem;
+  margin-bottom: 0.6rem;
+}
+
+.upcomingScreeningsDay,
+.upcomingScreeningsTime {
+  font-size: 1rem;
+  line-height: 1.1rem;
+  margin-bottom: 0.5rem;
+}
 
   .bookingLink {
   display: inline-flex;
@@ -82,3 +104,4 @@
 .bookingLink:hover {
   background: #b00000;
 }
+
