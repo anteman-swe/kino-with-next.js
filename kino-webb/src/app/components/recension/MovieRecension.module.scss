@@ -365,6 +365,25 @@
     .reviewCountText { font-size: 0.85rem; color: #{$text-muted}; font-weight: 500; margin: 0; }
   }
 
+  .bookButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  background: #8b0000;
+  color: #ffffff;
+  font-weight: 700;
+  text-decoration: none;
+  border: 1px solid #e52b2b;
+  cursor: pointer;
+}
+
+.bookButton:hover {
+  background: #b00000;
+}
+
   .posterCard {
     padding: 0.55rem;
     overflow: hidden;
