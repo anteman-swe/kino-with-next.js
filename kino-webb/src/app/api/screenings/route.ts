@@ -11,37 +11,42 @@ export async function GET() {
 
     const movieIds = screenings.map((screening) => screening.movieId);
 
-    const movies = await prisma.movie.findMany({
-      where: {
-        id: {
-          in: movieIds,
-        },
-      },
+   const movies = await prisma.movie.findMany({
+  where: {
+    id: {
+      in: movieIds,
+    },
+  },
+  select: {
+    id: true,
+    seriesTitle: true,
+    posterLink: true,
+  },
+});
+
+    const screeningsWithMovies = screenings.map((screening) => {
+      const movie = movies.find((movie) => movie.id === screening.movieId);
+
+      return {
+        ...screening,
+        movie: movie
+          ? {
+            id: movie.id,
+            seriesTitle: movie.seriesTitle,
+            posterLink: movie.posterLink,
+          }
+          : null,
+      };
     });
 
-   const screeningsWithMovies = screenings.map((screening) => {
-  const movie = movies.find((movie) => movie.id === screening.movieId);
 
-  return {
-    ...screening,
-    movie: movie
-      ? {
-          id: movie.id,
-          seriesTitle: movie.Series_Title,
-          posterLink: movie.Poster_Link,
-        }
-      : null,
-  };
-});
- 
-   
     return NextResponse.json(screeningsWithMovies);
   } catch (error) {
     console.error(error);
 
-return NextResponse.json(
-  { message: "Database unavailable" },
-  { status: 500 }
-);
+    return NextResponse.json(
+      { message: "Database unavailable" },
+      { status: 500 }
+    );
   }
 }
