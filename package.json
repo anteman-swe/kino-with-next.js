@@ -2,7 +2,8 @@
     "scripts": {
         "dev": "pnpm --prefix kino-webb dev",
         "db:migrate": "pnpm --prefix kino-webb db:migrate",
-        "db:seed": "pnpm --prefix kino-webb db:seed"
+        "db:seed": "pnpm --prefix kino-webb db:seed",
+        "start": "cd kino-webb && pnpm start"
     },
     "dependencies": {
         "@types/bcrypt": "^6.0.0",
