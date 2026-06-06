@@ -19,7 +19,8 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: path.resolve(__dirname),
     // root: '/',
-  }
+  },
+  output: 'standalone',
 };
 
 export default nextConfig;
