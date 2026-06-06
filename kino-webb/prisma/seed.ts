@@ -97,6 +97,14 @@ async function main() {
   });
   console.log("Dummy data för filmer skrivna till databasen!");
 
+  const movieList = await prisma.movie.findMany({});
+  const sortedMList = movieList.sort((a, b) => a.id - b.id);
+  const getRandomId = (): number => {
+    const randomIdInList =
+      Math.floor(Math.random() * sortedMList.length) + sortedMList[0].id;
+    return randomIdInList;
+  };
+  
   // Mapping screenings with right types
   const mappedScreenings = screenings.map(screening => ({
     ...screening,
@@ -116,13 +124,6 @@ async function main() {
     return randomIdInList;
   };
 
-  const movieList = await prisma.movie.findMany({});
-  const sortedMList = movieList.sort((a, b) => a.id - b.id);
-  const getRandomId = (): number => {
-    const randomIdInList =
-      Math.floor(Math.random() * sortedMList.length) + sortedMList[0].id;
-    return randomIdInList;
-  };
 
   const adaptedReviews = reviews.map((review) => ({
     ...review,
