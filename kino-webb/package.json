@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "prod:start": "next start",
+    "start": "docker compose up -d && sleep 1 && pnpm db:migrate && sleep 1 && pnpm db:seed && sleep 2 && pnpm --prefix kino-webb start",
     "lint": "eslint",
     "db:migrate": "prisma migrate dev --name init",
     "db:reset": "prisma migrate reset",
