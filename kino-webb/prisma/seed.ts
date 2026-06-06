@@ -77,6 +77,14 @@ async function main() {
   console.log(`- Vanlig användare skapad: ${normalUser.email}`);
   console.log(`- Admin-användare skapad: ${adminUser.email}`);
 
+  const userList = await prisma.user.findMany({});
+  const sortedUserList = userList.sort((a, b) => a.id - b.id);
+  const getRandomUserId = (): number => {
+    const randomIdInList =
+      Math.floor(Math.random() * sortedUserList.length) + sortedUserList[0].id;
+    return randomIdInList;
+  };
+
   // Remapping data for Movies
   const mappedMovies = movies.map((movie) => ({
     id: movie.id,
@@ -97,6 +105,14 @@ async function main() {
   });
   console.log("Dummy data för filmer skrivna till databasen!");
 
+  const movieList = await prisma.movie.findMany({});
+  const sortedMList = movieList.sort((a, b) => a.id - b.id);
+  const getRandomId = (): number => {
+    const randomIdInList =
+      Math.floor(Math.random() * sortedMList.length) + sortedMList[0].id;
+    return randomIdInList;
+  };
+  
   // Mapping screenings with right types
   const mappedScreenings = screenings.map(screening => ({
     ...screening,
@@ -107,22 +123,6 @@ async function main() {
     data: mappedScreenings,
   });
   console.log("Dummy data för visningar är skrivna till databasen!");
-
-  const userList = await prisma.user.findMany({});
-  const sortedUserList = userList.sort((a, b) => a.id - b.id);
-  const getRandomUserId = (): number => {
-    const randomIdInList =
-      Math.floor(Math.random() * sortedUserList.length) + sortedUserList[0].id;
-    return randomIdInList;
-  };
-
-  const movieList = await prisma.movie.findMany({});
-  const sortedMList = movieList.sort((a, b) => a.id - b.id);
-  const getRandomId = (): number => {
-    const randomIdInList =
-      Math.floor(Math.random() * sortedMList.length) + sortedMList[0].id;
-    return randomIdInList;
-  };
 
   const adaptedReviews = reviews.map((review) => ({
     ...review,
