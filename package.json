@@ -1,14 +1,15 @@
 {
-    "scripts": {
-        "dev": "pnpm --prefix kino-webb dev",
-        "db:migrate": "pnpm --prefix kino-webb db:migrate",
-        "db:seed": "pnpm --prefix kino-webb db:seed",
-        "start": "cd kino-webb && pnpm start",
-        "prod:setup": "cd kino-webb && pnpm prod:setup"
-    },
-    "dependencies": {
-        "@types/bcrypt": "^6.0.0",
-        "bcrypt-ts": "^8.0.1",
-        "bcryptjs": "^3.0.3"
-    }
+  "scripts": {
+    "build": "cd kino-webb && pnpm build",
+    "start": "cd kino-webb && node .next/standalone/server.js",
+    "dev": "pnpm --prefix kino-webb dev",
+    "db:migrate": "pnpm --prefix kino-webb db:migrate",
+    "db:seed": "pnpm --prefix kino-webb db:seed",
+    "prod:setup": "cd kino-webb && pnpm prod:setup"
+  },
+  "dependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "bcrypt-ts": "^8.0.1",
+    "bcryptjs": "^3.0.3"
+  }
 }
