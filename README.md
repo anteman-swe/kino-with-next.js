@@ -51,9 +51,9 @@ pnpm start
 6. #### If you want to try a variant with 2 containers, 1 for web-server and 1 for DB:
 In directory kino-webb:
 ```bash
-docker compose -f compose.two-cont.yaml up -d
+docker compose -f compose.twocont.yaml up -d
 # or
-podman-compose -f compose.two-cont.yaml up -d
+podman-compose -f compose.twocont.yaml up -d
 ```
 7. #### Or if you want to test a production server with testable dummy-data in the DB. To get help via command line, run:
 
