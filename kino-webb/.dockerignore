@@ -7,3 +7,5 @@ node_modules
 out
 .git
 README.md
+cleanDB.ts
+seed.ts

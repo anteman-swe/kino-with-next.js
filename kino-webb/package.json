@@ -5,12 +5,14 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "prod:start": "next start",
-    "start": "docker compose up -d && sleep 1 && pnpm db:migrate && sleep 1 && pnpm db:seed && sleep 2 && pnpm --prefix kino-webb start",
+    "start": "next start",
+    "prod:setup": "./startproj.sh",
+    "prod:migrate": "prisma migrate deploy",
     "lint": "eslint",
     "db:migrate": "prisma migrate dev --name init",
     "db:reset": "prisma migrate reset",
-    "db:seed": "echo 'Seedar databasen...' && PRISMA_CLIENT_ENGINE_TYPE=library node --env-file=.env.local --import tsx prisma/seed.ts",
+    "db:clean": "echo -e'Kör funktion för att tömma databasen' && PRISMA_CLIENT_ENGINE_TYPE=library node --env-file=.env.local --import tsx prisma/cleanDB.ts",
+    "db:seed": "echo -e'Kör funktion för att seeda databasen...' && PRISMA_CLIENT_ENGINE_TYPE=library node --env-file=.env.local --import tsx prisma/seed.ts",
     "postinstall": "echo 'Genererar ny prisma-klient...' && prisma generate"
   },
   "dependencies": {
