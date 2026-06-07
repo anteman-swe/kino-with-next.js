@@ -45,31 +45,31 @@ if [[ -z "$response" || "$response" =~ ^y ]]; then
             echo -e "${RED}\nNågot gick snett under tömmningen.${NC}"
             exit 1
         fi
+        read -p "Vill du prova seeda dummy-data till databasen med TypeScript-funktionen? (Y/n): " response
+
+        response=$(echo "$response" | tr '[:upper:]' '[:lower:]')
+
+        if [[ -z "$response" || "$response" =~ ^y ]]; then
+            echo -e "${GREEN}\nStartar seedning av databasen...${NC}"
+
+            npm run db:seed
+            
+            if [ $? -eq 0 ]; then
+                echo -e "${GREEN}\nDatabasen har seedats framgångsrikt med dummy-data!${NC}"
+            else
+                echo -e "${RED}\nNågot gick snett under seedningen.${NC}"
+                exit 1
+            fi
+        else
+            echo -e "${YELLOW}\nHoppar över seedning. Går vidare...${NC}"
+        fi
     else
         echo -e "${YELLOW}\nHoppar över tömmning. Går vidare...${NC}"
     fi
 
-    read -p "\nVill du prova seeda dummy-data till databasen med TypeScript-funktionen? (Y/n): " response
-
-    response=$(echo "$response" | tr '[:upper:]' '[:lower:]')
-
-    if [[ -z "$response" || "$response" =~ ^y ]]; then
-        echo -e "${GREEN}\nStartar seedning av databasen...${NC}"
-
-        npm run db:seed
-        
-        if [ $? -eq 0 ]; then
-            echo -e "${GREEN}\nDatabasen har seedats framgångsrikt med dummy-data!${NC}"
-        else
-            echo -e "${RED}\nNågot gick snett under seedningen.${NC}"
-            exit 1
-        fi
-else
-    echo -e "${YELLOW}\nHoppar över seedning. Går vidare...${NC}"
-fi
 if [ $? -eq 0 ]; then
-        echo -e "${GREEN}\nDet containeriserade projektet har startats framgångsrikt!\n\n${NC}"
-        echo -e "${YELLOW}\nNu går det att öppna sin webbläsare till http://localhost:3000\n\n${NC}"
+        echo -e "${GREEN}\nDet verkar som att det containeriserade projektet har startats framgångsrikt!\n\n${NC}"
+        echo -e "${YELLOW}\nNu går det att öppna webbläsaren till http://localhost:3000\n\n${NC}"
     else
         echo -e "${RED}\nNågot gick snett under försöket att starta containers.${NC}"
         exit 1
