@@ -3,7 +3,6 @@ const dynamic = 'force-dynamic';
 
 import styles from "./page.module.scss";
 import MovieList from "./components/MovieList/MovieList";
-// import { movies } from "../Data/movies";
 import { events } from "../Data/event";
 import UpcomingScreenings from "./components/upcoming-screenings/UpcomingScreenings";
 import MovieCarousel from "./components/movieCarousel/MovieCarousel";
