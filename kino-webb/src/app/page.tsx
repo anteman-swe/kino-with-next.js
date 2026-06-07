@@ -1,5 +1,5 @@
 "use client";
-const dynamic = 'force-dynamic';
+export const dynamic = 'force-dynamic';
 
 import styles from "./page.module.scss";
 import MovieList from "./components/MovieList/MovieList";
