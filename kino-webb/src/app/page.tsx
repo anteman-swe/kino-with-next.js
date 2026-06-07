@@ -1,8 +1,8 @@
 "use client";
+const dynamic = 'force-dynamic';
 
 import styles from "./page.module.scss";
 import MovieList from "./components/MovieList/MovieList";
-// import { movies } from "../Data/movies";
 import { events } from "../Data/event";
 import UpcomingScreenings from "./components/upcoming-screenings/UpcomingScreenings";
 import MovieCarousel from "./components/movieCarousel/MovieCarousel";
@@ -10,6 +10,7 @@ import BistroSection from "./components/bistro/bistroSection/BistroSection";
 import PopularMovies from "./components/popular-movies/PopularMovies";
 import EventList from "./components/event/eventList";
 import { Movie } from "@/generated/prisma/client";
+import { useState, useEffect } from "react";
 
 const fetchMovies = async (): Promise<Movie[]> => {
   const retrievedMovies = await fetch('/api/movies');
@@ -31,23 +32,37 @@ const fetchMovies = async (): Promise<Movie[]> => {
       }]
     }
     return [];
-  } else {
-    const result = await retrievedMovies.json();
-    return result;
+  } else { 
+    const moviesToSort: Movie[] = await retrievedMovies.json();
+    const moviesSorted: Movie[] = [...moviesToSort].sort(
+      (a, b) => b.releasedYear - a.releasedYear);
+      return moviesSorted.slice(0, 10);
   }
 }
-const moviesToSort: Movie[] = await fetchMovies();
-console.log('MTS:', moviesToSort);
-const moviesSorted: Movie[] = moviesToSort.sort((a, b) => (b.releasedYear - a.releasedYear));
-let movies = moviesSorted;
-if (moviesToSort.length > 10) {
-  // Sort out 10 latest movies
-  movies = moviesSorted.splice(10);
-}
-
-// const movies =  await fetchMovies();
 
 export default function Home() {
+  const [movies, setMovies] = useState<Movie[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    let mounted = true;
+    fetchMovies().then((movieData) => {
+      if (mounted) {
+        setMovies(movieData);
+        setLoading(false);
+      }
+    }).catch((error) => {
+      console.error('Fetching Movies from DB, something went wrong...', error);
+      if (mounted) setLoading(false);
+    });
+    return () => {
+      mounted = false;
+    }
+  }, []);
+  
+  if (loading) {
+    return <p>Hämtar filmer från databasen... Vänta lite...</p>
+  }
   
   return (
     <>

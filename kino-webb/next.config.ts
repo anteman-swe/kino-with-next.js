@@ -19,7 +19,7 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: path.resolve(__dirname),
     // root: '/',
-  }
+  },
 };
 
 export default nextConfig;
