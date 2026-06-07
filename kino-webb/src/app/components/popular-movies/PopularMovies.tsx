@@ -23,7 +23,8 @@ export default function PopularMovies() {
     fetch("/api/popular")
       .then((res) => {
         if (!res.ok) {
-          throw new Error(`Server responded with status: ${res.status}`);
+          console.error(`Server responded with status: ${res.status}`);
+          setPopularMovies([]);
         }
         return res.json();
       })

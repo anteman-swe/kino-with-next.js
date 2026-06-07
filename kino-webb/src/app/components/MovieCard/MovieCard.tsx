@@ -2,21 +2,9 @@
 
 import { useState } from "react";
 import styles from "./MovieCard.module.scss";
+import { Movie } from "@/generated/prisma/client";
+import Image from "next/image";
 
-export type Movie = {
-  id: number;
-  Series_Title: string;
-  Released_Year: number;
-  Genre: string;
-  IMDB_Rating: number;
-  Director: string;
-  Stars: string[];
-  Runtime: string;
-  Certificate: string;
-  Overview: string;
-  Poster_Link: string;
-  Trailer: string;
-};
 
 type MovieCardProps = {
   movie: Movie;
@@ -27,23 +15,25 @@ export default function MovieCard({ movie }: MovieCardProps) {
 
   return (
     <article className={styles.card}>
-      <img
+      <Image
         className={styles.poster}
-        src={movie.Poster_Link}
-        alt={`${movie.Series_Title} poster`}
+        src={movie.posterLink}
+        alt={`${movie.seriesTitle} poster`}
+        width={200}
+        height={300}
       />
 
-      <h3 className={styles.title}>{movie.Series_Title}</h3>
+      <h3 className={styles.title}>{movie.seriesTitle}</h3>
 
       <p className={styles.meta}>
-        {movie.Released_Year} | {movie.Runtime} | IMDb {movie.IMDB_Rating}
+        {movie.releasedYear} | {movie.runtime} | IMDb {movie.imdbRating}
       </p>
 
       <div className={styles.actions}>
-        {movie.Trailer && (
+        {movie.trailer && (
           <a
             className={styles.button}
-            href={movie.Trailer}
+            href={movie.trailer}
             target="_blank"
             rel="noreferrer"
           >
@@ -62,18 +52,18 @@ export default function MovieCard({ movie }: MovieCardProps) {
 
       {showDetails && (
         <div className={styles.details}>
-          <p>{movie.Overview || "Ingen beskrivning tillgänglig."}</p>
+          <p>{movie.overview || "Ingen beskrivning tillgänglig."}</p>
 
           <p>
-            <strong>Genre:</strong> {movie.Genre}
+            <strong>Genre:</strong> {movie.genre}
           </p>
 
           <p>
-            <strong>Regissör:</strong> {movie.Director}
+            <strong>Regissör:</strong> {movie.director}
           </p>
 
           <p>
-            <strong>Skådespelare:</strong> {movie.Stars.join(", ")}
+            <strong>Skådespelare:</strong> {movie.stars.join(", ")}
           </p>
         </div>
       )}

@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import "./MovieCarousel.scss";
 
 export interface Movie {
-  Certificate: string | number | null | undefined;
-  Poster_Link: string;
-  Series_Title: string;
-  Released_Year: string | number;
+  certificate: string | number | null | undefined;
+  posterLink: string;
+  seriesTitle: string;
+  releasedYear: string | number;
 }
 
 interface AgeCategory {
@@ -19,7 +19,7 @@ interface MovieCarouselProps {
   movies: Movie[];
 }
 
-const getAgeCategory = (certificate: Movie["Certificate"]): AgeCategory => {
+const getAgeCategory = (certificate: Movie["certificate"]): AgeCategory => {
   if (!certificate) return { category: null, class: null };
   const cert = certificate.toString().toUpperCase();
   if (cert === "A" || cert === "R") {
@@ -70,19 +70,19 @@ export default function MovieCarousel({ movies }: MovieCarouselProps) {
     <div className="carousel_container">
       <div id="heroInner">
         {carouselMovies.map((movie, index) => {
-          const { category, class: categoryClass } = getAgeCategory(movie.Certificate);
+          const { category, class: categoryClass } = getAgeCategory(movie.certificate);
           const isActive = index === currentSlide;
 
           return (
             <div
-              key={`${movie.Series_Title}-${index}`}
+              key={`${movie.seriesTitle}-${index}`}
               className={`carousel_slide ${isActive ? "active" : ""}`}
-              style={{ backgroundImage: `url('${movie.Poster_Link}')` }}
+              style={{ backgroundImage: `url('${movie.posterLink}')` }}
             >
               <div className="slide_content">
-                <h1 className="film_title">{movie.Series_Title}</h1>
+                <h1 className="film_title">{movie.seriesTitle}</h1>
                 <div className="festival_dates">
-                  <h2>Released: {movie.Released_Year}</h2>
+                  <h2>Released: {movie.releasedYear}</h2>
                   {category && (
                     <h3>
                       <span className={`certificate-badge ${categoryClass}`}>{category}</span>
