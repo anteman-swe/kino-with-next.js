@@ -18,7 +18,7 @@ if [[ -z "$response" || "$response" =~ ^y ]]; then
 
     echo -e "${YELLOW}Hämtar och startar containern med PostgreSQL databasen...\n${NC}"
 
-    docker compose up -d
+    docker compose -f compose.twocont.yaml up -d
 
     echo -e "${YELLOW}Containern har startats, väntar några sekunder så att databasen hinner startas...${NC}"
 
