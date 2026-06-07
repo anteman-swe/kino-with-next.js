@@ -1,7 +1,7 @@
 {
   "scripts": {
     "build": "cd kino-webb && pnpm build",
-    "start": "cd kino-webb && node .next/standalone/server.js",
+    "start": "cd kino-webb && pnpm start",
     "dev": "pnpm --prefix kino-webb dev",
     "db:migrate": "pnpm --prefix kino-webb db:migrate",
     "db:seed": "pnpm --prefix kino-webb db:seed",
