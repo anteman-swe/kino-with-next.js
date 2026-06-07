@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "prod:setup": "./startproj.sh",
+    "cont:setup": "./startproj.sh",
     "prod:migrate": "prisma migrate deploy",
     "lint": "eslint",
     "db:migrate": "prisma migrate dev --name init",

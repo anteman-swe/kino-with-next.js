@@ -16,7 +16,7 @@ response=$(echo "$response" | tr '[:upper:]' '[:lower:]')
 if [[ -z "$response" || "$response" =~ ^y ]]; then
     echo -e "${GREEN}Startar skriptet...${NC}"
 
-    echo -e "${YELLOW}Hämtar och startar containern med PostgreSQL databasen...${NC}"
+    echo -e "${YELLOW}Hämtar och startar containern med PostgreSQL databasen...\n${NC}"
 
     docker compose up -d
 
@@ -35,44 +35,45 @@ if [[ -z "$response" || "$response" =~ ^y ]]; then
     response=$(echo "$response" | tr '[:upper:]' '[:lower:]')
 
     if [[ -z "$response" || "$response" =~ ^y ]]; then
-        echo -e "${GREEN}Startar återställning av databasen...${NC}"
+        echo -e "${GREEN}\nStartar återställning av databasen...${NC}"
 
         npm run db:clean
     
         if [ $? -eq 0 ]; then
-            echo -e "${GREEN}Databasen har framgångsrikt tömts och nollställts!${NC}"
+            echo -e "${GREEN}\nDatabasen har framgångsrikt tömts och nollställts!${NC}"
         else
-            echo -e "${RED}Något gick snett under tömmningen.${NC}"
+            echo -e "${RED}\nNågot gick snett under tömmningen.${NC}"
             exit 1
         fi
     else
-        echo -e "${YELLOW}Hoppar över tömmning. Går vidare...${NC}"
+        echo -e "${YELLOW}\nHoppar över tömmning. Går vidare...${NC}"
     fi
 
-    read -p "Vill du prova seeda dummy-data till databasen med TypeScript-funktionen? (Y/n): " response
+    read -p "\nVill du prova seeda dummy-data till databasen med TypeScript-funktionen? (Y/n): " response
 
     response=$(echo "$response" | tr '[:upper:]' '[:lower:]')
 
     if [[ -z "$response" || "$response" =~ ^y ]]; then
-        echo -e "${GREEN}Startar seedning av databasen...${NC}"
+        echo -e "${GREEN}\nStartar seedning av databasen...${NC}"
 
         npm run db:seed
         
         if [ $? -eq 0 ]; then
-            echo -e "${GREEN}Databasen har seedats framgångsrikt!${NC}"
+            echo -e "${GREEN}\nDatabasen har seedats framgångsrikt med dummy-data!${NC}"
         else
-            echo -e "${RED}Något gick snett under seedningen.${NC}"
+            echo -e "${RED}\nNågot gick snett under seedningen.${NC}"
             exit 1
         fi
 else
-    echo -e "${YELLOW}Hoppar över seedning. Går vidare...${NC}"
+    echo -e "${YELLOW}\nHoppar över seedning. Går vidare...${NC}"
 fi
 if [ $? -eq 0 ]; then
-        echo -e "${GREEN}Det containeriserade projektet har startats framgångsrikt!\n\n${NC}"
+        echo -e "${GREEN}\nDet containeriserade projektet har startats framgångsrikt!\n\n${NC}"
+        echo -e "${YELLOW}\nNu går det att öppna sin webbläsare till http://localhost:3000\n\n${NC}"
     else
-        echo -e "${RED}Något gick snett under försöket att starta containers.${NC}"
+        echo -e "${RED}\nNågot gick snett under försöket att starta containers.${NC}"
         exit 1
     fi
 else
-    echo -e "${YELLOW}Hoppade över allt...${NC}"
+    echo -e "${YELLOW}\nHoppade över allt...${NC}"
 fi
