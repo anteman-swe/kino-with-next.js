@@ -8,10 +8,10 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'm.media-amazon.com',
-        port: '',
-        pathname: '*/**',
+        protocol: "https",
+        hostname: "m.media-amazon.com",
+        port: "",
+        pathname: "*/**",
       },
     ],
   },
@@ -20,7 +20,7 @@ const nextConfig: NextConfig = {
     root: path.resolve(__dirname),
     // root: '/',
   },
-  output: 'standalone',
+  ...(process.env.NEXT_STANDALONE === "true" && { output: "standalone" }),
 };
 
 export default nextConfig;
