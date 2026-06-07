@@ -1,7 +1,15 @@
 .cookiepolicy {
-    margin: 4rem 2rem;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    max-width: 860px;
+    padding: 0 3rem 3rem;
+    margin: 2rem auto;
+    font-family: Roboto, Verdana, Geneva, Tahoma, sans-serif;
     font-size: 1.1rem;
+    border: 1px solid var(--card-border);
+    border-radius: $border-radius;
+    background-color: var(--card-bg);
+    h2 {
+        text-align: center;
+    }
     th, td{
         padding-left: 1rem;
         text-align: left;
@@ -11,10 +19,16 @@
        font-size: 0.9rem; 
     }
 }
-.homelink {
-    margin: 2rem;
-    text-align: center;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+.linkBack {
     color: var(--text-main);
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+    font-size: 1rem;
+    font-family: Roboto, Verdana, Geneva, Tahoma, sans-serif;
+    margin: 5rem auto 8rem;
     cursor: pointer;
+    .linkArrow {
+        font-size: 1.4rem;
+    }
 }

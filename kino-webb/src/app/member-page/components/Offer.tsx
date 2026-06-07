@@ -16,10 +16,10 @@ export interface OfferProps {
 export default function Offer({ offerImageType, offerHeadline, offerText, offerPrice, offerImageUrl, validTo }: OfferProps) {
     const choiceImage = useMemo(() => {
         if(offerImageUrl === '') {
-            return (offerImageType === Otype.MOVIE ? '/member/movieimg.png' : 
-                    offerImageType === Otype.FOOD ? '/member/foodimg.png' : 
-                    offerImageType === Otype.SNACKS ? '/member/snacksimg.png' :
-                    offerImageType === Otype.COMBO ? '/member/comboimg.png' :
+            return (offerImageType === Otype.MOVIE ? '/movieimg.png' :
+                    offerImageType === Otype.FOOD ? '/foodimg.png' : 
+                    offerImageType === Otype.SNACKS ? '/snacksimg.png' :
+                    offerImageType === Otype.COMBO ? '/comboimg.png' :
                     '/member/defaultimg.png') // Default choice if no other
         } else return offerImageUrl;
     },[offerImageType, offerImageUrl]);

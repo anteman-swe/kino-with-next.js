@@ -11,7 +11,8 @@ export async function GET() {
         console.error('Error getting multiple movies from db:', err);
         return NextResponse.json({
             name: "dbError",
-            message: "Could not get any movies from DB",
+            message: "Could not get any movies from DB"
+        }, {
             status: 500
         });
     }
