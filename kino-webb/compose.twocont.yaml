@@ -1,6 +1,6 @@
 services:
   kino-db:
-    image: docker.io/library/postgres:16-alpine
+    image: docker.io/library/postgres:15
     container_name: kino_postgres
     restart: always
     environment:
@@ -36,6 +36,7 @@ services:
 
 volumes:
   kino_db_data:
+  
 
 networks:
   kino-network:
