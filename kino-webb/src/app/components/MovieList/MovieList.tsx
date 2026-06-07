@@ -1,4 +1,5 @@
-import MovieCard, { type Movie } from "../MovieCard/MovieCard";
+import MovieCard from "../MovieCard/MovieCard";
+import { Movie } from "@/generated/prisma/client";
 import styles from "./MovieList.module.scss";
 
 type MovieListProps = {
