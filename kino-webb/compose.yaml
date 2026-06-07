@@ -20,7 +20,7 @@ services:
     restart: always
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Containerfile
     ports:
       - "3000:3000"
 
