@@ -1,25 +1,54 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# Getting Started
+### Setting up this Next.js project with a containerized PostgreSQL database
+Follow these steps to set up the development environment:
+1. #### Start the database container (using Docker or Podman):
+```bash
+docker compose up -d
+# or
+podman-compose up -d
+```
+2. #### Navigate to the web directory and run migrations:
+```bash
+cd kino-webb
 
-First, run the development server:
+npm run db:migrate
+# or
+pnpm db:migrate
+```
+3. #### Refresh the Prisma Client:
+```bash
+npm run prisma generate
+# or
+pnpm prisma generate
+```
+4. #### Seed the PostgreSQL database with dummy data:
+
+```bash
+npx prisma db seed
+# or
+pnpm prisma db seed
+```
+5. #### Run the development server:
 
 ```bash
 npm run dev
 # or
-yarn dev
-# or
 pnpm dev
-# or
-bun dev
 ```
-
+### Database
+- This project uses Prisma ORM to make queries to the PostgreSQL database.
+- The PostgreSQL database is running (if you follow the instructions above...) in a Docker/Podman container and is communicating on port :5432  
+---
+# More about Next.js
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+
+As its main font this project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
