@@ -24,7 +24,7 @@ if [[ -z "$response" || "$response" =~ ^y ]]; then
 
     echo -e "${YELLOW}Förbereder databasen...${NC}" 
 
-    sleep 1
+    sleep 2
 
     npx prisma migrate deploy
 
