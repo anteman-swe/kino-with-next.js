@@ -11,8 +11,8 @@
     "lint": "eslint",
     "db:migrate": "prisma migrate dev --name init",
     "db:reset": "prisma migrate reset",
-    "db:clean": "echo -e'Kör funktion för att tömma databasen' && PRISMA_CLIENT_ENGINE_TYPE=library node --env-file=.env.local --import tsx prisma/cleanDB.ts",
-    "db:seed": "echo -e'Kör funktion för att seeda databasen...' && PRISMA_CLIENT_ENGINE_TYPE=library node --env-file=.env.local --import tsx prisma/seed.ts",
+    "db:clean": "echo 'Kör funktion för att tömma databasen' && PRISMA_CLIENT_ENGINE_TYPE=library node --env-file=.env.local --import tsx prisma/cleanDB.ts",
+    "db:seed": "echo 'Kör funktion för att seeda databasen...' && PRISMA_CLIENT_ENGINE_TYPE=library node --env-file=.env.local --import tsx prisma/seed.ts",
     "postinstall": "echo 'Genererar ny prisma-klient...' && prisma generate"
   },
   "dependencies": {
