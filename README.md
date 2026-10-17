@@ -1,5 +1,5 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
+[![Architecture diagram of anteman-swe/kino-with-next.js](https://gitdiagram.com/anteman-swe/kino-with-next.js/diagram.png)](https://gitdiagram.com/anteman-swe/kino-with-next.js?utm_source=readme&utm_medium=picture)
 # Getting Started
 ### Setting up this Next.js project with a containerized PostgreSQL database
 Follow these steps to set up the development environment:
