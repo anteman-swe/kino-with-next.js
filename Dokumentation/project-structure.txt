@@ -1,0 +1,198 @@
+Directory structure:
+└── anteman-swe-kino-with-next.js/
+    ├── README.md
+    ├── compose.yaml
+    ├── package.json
+    ├── pnpm-lock.yaml
+    ├── Dokumentation/
+    │   ├── cookie-policy-enkel.md
+    │   ├── diagram.mermaid
+    │   ├── Integritetspolicy.md
+    │   └── openapi.md
+    └── kino-webb/
+        ├── compose.twocont.yaml
+        ├── Containerfile
+        ├── eslint.config.mjs
+        ├── next-auth.d.ts
+        ├── next.config.ts
+        ├── package.json
+        ├── pnpm-workspace.yaml
+        ├── prisma.config.ts
+        ├── startproj.sh
+        ├── tsconfig.json
+        ├── .dockerignore
+        ├── .env.example
+        ├── prisma/
+        │   ├── cleanDB.ts
+        │   ├── schema.prisma
+        │   └── seed.ts
+        ├── public/
+        │   ├── kino-cookie-policy.md
+        │   └── bistro/
+        │       └── bistro-menu.md
+        └── src/
+            ├── auth.ts
+            ├── proxy.ts
+            ├── types.ts
+            ├── app/
+            │   ├── globals.scss
+            │   ├── layout.tsx
+            │   ├── not-found.module.scss
+            │   ├── not-found.tsx
+            │   ├── page.module.scss
+            │   ├── page.tsx
+            │   ├── admin/
+            │   │   ├── page.module.scss
+            │   │   └── page.tsx
+            │   ├── api/
+            │   │   ├── auth/
+            │   │   │   └── [...nextauth]/
+            │   │   │       └── route.ts
+            │   │   ├── bookings/
+            │   │   │   ├── route.ts
+            │   │   │   └── [id]/
+            │   │   │       └── route.ts
+            │   │   ├── movies/
+            │   │   │   ├── route.ts
+            │   │   │   └── [id]/
+            │   │   │       ├── route.ts
+            │   │   │       ├── booking/
+            │   │   │       │   └── route.ts
+            │   │   │       ├── reviews/
+            │   │   │       │   └── route.ts
+            │   │   │       └── screenings/
+            │   │   │           └── route.ts
+            │   │   ├── offers/
+            │   │   │   ├── route.ts
+            │   │   │   └── [id]/
+            │   │   │       └── route.ts
+            │   │   ├── popular/
+            │   │   │   └── route.ts
+            │   │   ├── register/
+            │   │   │   └── route.ts
+            │   │   ├── reviews/
+            │   │   │   ├── route.ts
+            │   │   │   └── [id]/
+            │   │   │       └── route.ts
+            │   │   └── screenings/
+            │   │       ├── route.ts
+            │   │       └── [id]/
+            │   │           ├── route.ts
+            │   │           └── seats/
+            │   │               └── route.ts
+            │   ├── cafe-bistro/
+            │   │   ├── BistroMenu.module.scss
+            │   │   └── page.tsx
+            │   ├── components/
+            │   │   ├── start module.scss
+            │   │   ├── bistro/
+            │   │   │   ├── bistroBanner/
+            │   │   │   │   ├── BistroBanner.module.scss
+            │   │   │   │   └── BistroBanner.tsx
+            │   │   │   ├── bistroOffers/
+            │   │   │   │   ├── BistroOffers.module.scss
+            │   │   │   │   └── BistroOffers.tsx
+            │   │   │   └── bistroSection/
+            │   │   │       ├── BistroSection.module.scss
+            │   │   │       └── BistroSection.tsx
+            │   │   ├── darkLightTheme/
+            │   │   │   ├── DarkLightTheme.module.scss
+            │   │   │   ├── DarkLightTheme.scss
+            │   │   │   ├── DarkLightTheme.tsx
+            │   │   │   └── ThemeProvider.tsx
+            │   │   ├── event/
+            │   │   │   ├── event.module.scss
+            │   │   │   ├── event.tsx
+            │   │   │   └── eventList.tsx
+            │   │   ├── footer/
+            │   │   │   ├── Footer.module.scss
+            │   │   │   └── Footer.tsx
+            │   │   ├── header/
+            │   │   │   ├── Header.module.scss
+            │   │   │   ├── Header.tsx
+            │   │   │   ├── HeaderWrapper.tsx
+            │   │   │   ├── Logo.module.scss
+            │   │   │   └── Logo.tsx
+            │   │   ├── login/
+            │   │   │   ├── LoginModal.module.scss
+            │   │   │   └── LoginModal.tsx
+            │   │   ├── menu/
+            │   │   │   ├── menu.module.scss
+            │   │   │   └── menu.tsx
+            │   │   ├── MovieCard/
+            │   │   │   ├── MovieCard.module.scss
+            │   │   │   └── MovieCard.tsx
+            │   │   ├── movieCarousel/
+            │   │   │   ├── MovieCarousel.scss
+            │   │   │   └── MovieCarousel.tsx
+            │   │   ├── MovieList/
+            │   │   │   ├── MovieList.module.scss
+            │   │   │   └── MovieList.tsx
+            │   │   ├── popular-movies/
+            │   │   │   ├── PopularMovies.module.scss
+            │   │   │   └── PopularMovies.tsx
+            │   │   ├── recension/
+            │   │   │   ├── MovieRecension.module.scss
+            │   │   │   └── MovieRecension.tsx
+            │   │   ├── register/
+            │   │   │   ├── RegisterModal.module.scss
+            │   │   │   └── RegisterModal.tsx
+            │   │   └── upcoming-screenings/
+            │   │       ├── UpcomingScreenings.module.scss
+            │   │       └── UpcomingScreenings.tsx
+            │   ├── cookiepolicy/
+            │   │   ├── Cookiepolicy.module.scss
+            │   │   └── page.tsx
+            │   ├── current-movies/
+            │   │   ├── page.tsx
+            │   │   └── Subpages.module.scss
+            │   ├── lib/
+            │   │   └── prisma.ts
+            │   ├── member-page/
+            │   │   ├── page.module.scss
+            │   │   ├── page.tsx
+            │   │   └── components/
+            │   │       ├── Offer.module.scss
+            │   │       ├── Offer.tsx
+            │   │       ├── OfferSection.module.scss
+            │   │       ├── OfferSection.tsx
+            │   │       ├── ReviewInputSection.module.scss
+            │   │       ├── ReviewInputSection.tsx
+            │   │       ├── ReviewMovieList.module.scss
+            │   │       ├── ReviewMovieList.tsx
+            │   │       ├── ReviewTextarea.module.scss
+            │   │       ├── ReviewTextarea.tsx
+            │   │       ├── StarRating.module.scss
+            │   │       └── StarRating.tsx
+            │   ├── movies/
+            │   │   └── [id]/
+            │   │       ├── page.tsx
+            │   │       └── booking/
+            │   │           ├── page.tsx
+            │   │           └── components/
+            │   │               ├── booking.module.scss
+            │   │               ├── BookingClient.tsx
+            │   │               ├── BookingHeader.tsx
+            │   │               ├── BookingSummary.tsx
+            │   │               ├── DateSelector.tsx
+            │   │               ├── SeatMap.tsx
+            │   │               └── TimeSelector.tsx
+            │   ├── policy/
+            │   │   └── page.tsx
+            │   └── utils/
+            │       ├── db.ts
+            │       └── password.ts
+            ├── Data/
+            │   ├── bookings.ts
+            │   ├── event.ts
+            │   ├── movies.ts
+            │   ├── offers.ts
+            │   ├── reviews.ts
+            │   ├── screenings.ts
+            │   └── users.ts
+            ├── lib/
+            │   ├── prisma.ts
+            │   └── zod.ts
+            └── styles/
+                ├── _mixins.scss
+                └── _variables.scss
